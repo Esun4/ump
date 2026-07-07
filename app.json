@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Ump",
+    "slug": "ump",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f4f5f7",
+      "dark": {
+        "image": "./assets/splash-icon.png",
+        "backgroundColor": "#111418"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.esun4.ump",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.esun4.ump",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#1e3a8a",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
