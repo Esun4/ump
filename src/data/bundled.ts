@@ -3,6 +3,8 @@ import { OBR_QUESTIONS } from './obr';
 import { LL_QUESTIONS } from './littleLeague';
 import { MECH60_QUESTIONS } from './mechanics60';
 import { MECH_BIG_QUESTIONS } from './mechanicsBig';
+import { INTERLOCK60_QUESTIONS } from './interlock60';
+import { INTERLOCK_BIG_QUESTIONS } from './interlockBig';
 
 // The banks compiled into the app. They ship with every build and serve as
 // the last-resort fallback when the remote bank has never been fetched.
@@ -11,6 +13,8 @@ const banks: Record<RulesetId, Question[]> = {
   ll: LL_QUESTIONS,
   mech60: MECH60_QUESTIONS,
   mechBig: MECH_BIG_QUESTIONS,
+  interlock60: INTERLOCK60_QUESTIONS,
+  interlockBig: INTERLOCK_BIG_QUESTIONS,
 };
 
 export function getBundledBank(ruleset: RulesetId): Question[] {

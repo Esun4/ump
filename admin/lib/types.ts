@@ -2,7 +2,13 @@
 // Duplicated on purpose: the two apps ship separately, and the database
 // check constraints in supabase/schema.sql are the real source of truth.
 
-export type RulesetId = 'obr' | 'll' | 'mech60' | 'mechBig';
+export type RulesetId =
+  | 'obr'
+  | 'll'
+  | 'mech60'
+  | 'mechBig'
+  | 'interlock60'
+  | 'interlockBig';
 export type Tier =
   | 'district'
   | 'provincial'
@@ -12,13 +18,22 @@ export type Tier =
   | 'big';
 export type QuestionStatus = 'draft' | 'published';
 
-export const RULESET_IDS: RulesetId[] = ['obr', 'll', 'mech60', 'mechBig'];
+export const RULESET_IDS: RulesetId[] = [
+  'obr',
+  'll',
+  'mech60',
+  'mechBig',
+  'interlock60',
+  'interlockBig',
+];
 
 export const RULESET_LABELS: Record<RulesetId, string> = {
   obr: 'Baseball Canada / OBR',
   ll: 'Little League',
   mech60: '4-Ump Mechanics · 60 ft',
   mechBig: '4-Ump Mechanics · 50/70+',
+  interlock60: 'District Interlock · Minor/Major (60 ft)',
+  interlockBig: 'District Interlock · Junior/Senior (90 ft)',
 };
 
 // Which tiers are valid for each ruleset — the create/edit form enforces
@@ -28,6 +43,8 @@ export const RULESET_TIERS: Record<RulesetId, Tier[]> = {
   ll: ['majors', 'intermediate'],
   mech60: ['sixty'],
   mechBig: ['big'],
+  interlock60: ['sixty'],
+  interlockBig: ['big'],
 };
 
 export const TIER_LABELS: Record<Tier, string> = {

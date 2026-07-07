@@ -1,4 +1,10 @@
-export type RulesetId = 'obr' | 'll' | 'mech60' | 'mechBig';
+export type RulesetId =
+  | 'obr'
+  | 'll'
+  | 'mech60'
+  | 'mechBig'
+  | 'interlock60'
+  | 'interlockBig';
 
 export type Tier =
   | 'district'
@@ -51,6 +57,25 @@ export const RULESETS: Record<RulesetId, RulesetInfo> = {
     shortLabel: '4-Ump 50/70+',
     tierLabels: { big: '50/70 & 90-ft' },
   },
+  interlock60: {
+    id: 'interlock60',
+    label: 'District Interlock · Minor/Major (60 ft)',
+    shortLabel: 'Interlock 60 ft',
+    tierLabels: { sixty: 'Minor/Major' },
+  },
+  interlockBig: {
+    id: 'interlockBig',
+    label: 'District Interlock · Junior/Senior (90 ft)',
+    shortLabel: 'Interlock 90 ft',
+    tierLabels: { big: 'Junior/Senior' },
+  },
 };
 
-export const RULESET_IDS: RulesetId[] = ['obr', 'll', 'mech60', 'mechBig'];
+export const RULESET_IDS: RulesetId[] = [
+  'obr',
+  'll',
+  'mech60',
+  'mechBig',
+  'interlock60',
+  'interlockBig',
+];
