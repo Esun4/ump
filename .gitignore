@@ -37,6 +37,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Next.js (admin/)
+.next/
+next-env.d.ts
+
 # generated native folders
 /ios
 /android
