@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, useColorScheme } from 'react-native';
+import React, { useEffect } from 'react';
+import { AppState, Text, useColorScheme } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import {
   DarkTheme,
@@ -9,6 +9,7 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RootStackParamList, TabParamList } from './src/navigation';
+import { refreshBanks } from './src/data';
 import { RulesetProvider } from './src/state/RulesetContext';
 import { darkTheme, lightTheme } from './src/theme';
 import HomeScreen from './src/screens/HomeScreen';
@@ -45,6 +46,15 @@ function Tabs() {
 }
 
 export default function App() {
+  // Banks refresh when the app returns to the foreground; refreshBanks
+  // debounces itself and never rejects, so quick app switches are free.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') void refreshBanks();
+    });
+    return () => sub.remove();
+  }, []);
+
   const dark = useColorScheme() === 'dark';
   const app = dark ? darkTheme : lightTheme;
   const base = dark ? DarkTheme : DefaultTheme;
