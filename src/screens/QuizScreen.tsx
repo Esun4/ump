@@ -40,10 +40,9 @@ export default function QuizScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     let cancelled = false;
-    loadProgress(ruleset).then((progress) => {
+    Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
       if (cancelled) return;
       progressRef.current = progress;
-      const bank = getBank(ruleset);
       const session =
         mode === 'practice'
           ? buildPractice(bank)

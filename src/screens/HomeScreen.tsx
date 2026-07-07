@@ -20,9 +20,9 @@ export default function HomeScreen({ navigation }: Props) {
   useFocusEffect(
     useCallback(() => {
       let cancelled = false;
-      loadProgress(ruleset).then((progress) => {
+      Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
         if (cancelled) return;
-        setCounts(sessionCounts(getBank(ruleset), progress, todayKey()));
+        setCounts(sessionCounts(bank, progress, todayKey()));
       });
       return () => {
         cancelled = true;

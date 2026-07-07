@@ -16,9 +16,9 @@ export default function StatsScreen() {
   useFocusEffect(
     useCallback(() => {
       let cancelled = false;
-      loadProgress(ruleset).then((progress) => {
+      Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
         if (cancelled) return;
-        setTopics(statsByTopic(getBank(ruleset), progress));
+        setTopics(statsByTopic(bank, progress));
       });
       return () => {
         cancelled = true;

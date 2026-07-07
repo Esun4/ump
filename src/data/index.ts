@@ -1,16 +1,30 @@
 import { Question, RulesetId } from '../types';
-import { OBR_QUESTIONS } from './obr';
-import { LL_QUESTIONS } from './littleLeague';
-import { MECH60_QUESTIONS } from './mechanics60';
-import { MECH_BIG_QUESTIONS } from './mechanicsBig';
+import { getBundledBank } from './bundled';
+import { fetchRemoteBank, remoteEnabled } from './remote';
+import { loadCachedBank, saveCachedBank } from './cache';
 
-const banks: Record<RulesetId, Question[]> = {
-  obr: OBR_QUESTIONS,
-  ll: LL_QUESTIONS,
-  mech60: MECH60_QUESTIONS,
-  mechBig: MECH_BIG_QUESTIONS,
-};
+// One resolution per ruleset per app session: screens can all await getBank
+// without racing duplicate fetches, and a session sees a consistent bank.
+const memo: Partial<Record<RulesetId, Promise<Question[]>>> = {};
 
-export function getBank(ruleset: RulesetId): Question[] {
-  return banks[ruleset];
+async function loadBank(ruleset: RulesetId): Promise<Question[]> {
+  if (remoteEnabled) {
+    try {
+      const bank = await fetchRemoteBank(ruleset);
+      void saveCachedBank(ruleset, bank);
+      return bank;
+    } catch {
+      const cached = await loadCachedBank(ruleset);
+      if (cached) return cached;
+    }
+  }
+  return getBundledBank(ruleset);
+}
+
+// Preference order: live Supabase bank → last successfully fetched copy →
+// the banks compiled into the app. Never rejects.
+export function getBank(ruleset: RulesetId): Promise<Question[]> {
+  const pending = memo[ruleset] ?? loadBank(ruleset);
+  memo[ruleset] = pending;
+  return pending;
 }

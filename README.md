@@ -17,8 +17,10 @@ Both mechanics banks are verified against the 2026 Little League Umpire's
 Manual mechanics sections and are separate decks with separate progress, so
 the 60-ft system can be learned on its own before moving up.
 
-Expo (React Native + TypeScript strict), fully offline: progress lives in
-AsyncStorage on the device. No accounts, no backend.
+Expo (React Native + TypeScript strict), offline-first: progress lives in
+AsyncStorage on the device, no accounts. Question banks can optionally be
+served from Supabase (see below); without it the app runs entirely on the
+banks compiled into the bundle.
 
 ## Run
 
@@ -41,13 +43,38 @@ simulator/emulator installed.
   effect on progress.
 - **Stats** show first-attempt accuracy by topic for the active ruleset.
 
+## Remote questions (Supabase, optional)
+
+With Supabase configured, the app loads each bank in this order: live fetch →
+last successfully fetched copy (AsyncStorage) → bundled bank. A fetch failure
+or dead zone at the ballpark never breaks the app. Question ids are permanent,
+so SRS progress survives switching between bundled and remote banks.
+
+One-time setup:
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. In the SQL editor, run `supabase/schema.sql`, then `supabase/seed.sql`.
+   The schema enables row-level security so the anon key can only read rows
+   with `status = 'published'`; drafts stay invisible to the app.
+3. Copy `.env.example` to `.env` and fill in the project URL and anon key
+   from Project Settings → API, then restart `expo start`.
+
+To publish new or edited questions, insert/update rows in the `questions`
+table (snake_case columns; `options` is a JSON array, `correct_index` is
+0-based) and set `status = 'published'`. The app picks up changes on next
+launch. Rules for content: ids are permanent — edits keep the id, deletions
+just remove the row. `supabase/seed.sql` is regenerated from the bundled
+banks with `npm run generate-seed` and is safe to re-run (upserts by id).
+
 ## Adding questions
 
-Question banks are plain typed data: `src/data/obr.ts`,
+Bundled question banks are plain typed data: `src/data/obr.ts`,
 `src/data/littleLeague.ts`, `src/data/mechanics60.ts`, and
 `src/data/mechanicsBig.ts`. Add entries conforming to `Question` in
-`src/types.ts`; topics and stats update automatically. Answer options are
-shuffled at display time, so option order in the data carries no meaning.
+`src/types.ts`; topics and stats update automatically. If you use Supabase,
+re-run `npm run generate-seed` and apply the new `supabase/seed.sql` so the
+remote bank includes the additions. Answer options are shuffled at display
+time, so option order in the data carries no meaning.
 
 Never copy text from any rulebook — scenarios must be original wording, citing
 rule areas by topic name only.
