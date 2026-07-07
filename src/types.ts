@@ -1,6 +1,12 @@
-export type RulesetId = 'obr' | 'll';
+export type RulesetId = 'obr' | 'll' | 'mech';
 
-export type Tier = 'district' | 'provincial' | 'majors' | 'intermediate';
+export type Tier =
+  | 'district'
+  | 'provincial'
+  | 'majors'
+  | 'intermediate'
+  | 'sixty'
+  | 'big';
 
 export interface Question {
   id: string;
@@ -33,6 +39,12 @@ export const RULESETS: Record<RulesetId, RulesetInfo> = {
     shortLabel: 'Little League',
     tierLabels: { majors: 'Majors', intermediate: 'Intermediate+' },
   },
+  mech: {
+    id: 'mech',
+    label: '4-Umpire Mechanics',
+    shortLabel: '4-Ump Crew',
+    tierLabels: { sixty: '60-ft Diamond', big: '50/70 & 90-ft' },
+  },
 };
 
-export const RULESET_IDS: RulesetId[] = ['obr', 'll'];
+export const RULESET_IDS: RulesetId[] = ['obr', 'll', 'mech'];

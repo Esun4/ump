@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { RulesetId } from '../types';
+import { RULESET_IDS, RulesetId } from '../types';
 import { ProgressMap } from './engine';
 
 const SCHEMA_VERSION = 1;
@@ -31,7 +31,7 @@ export async function resetProgress(ruleset: RulesetId): Promise<void> {
 export async function loadActiveRuleset(): Promise<RulesetId> {
   try {
     const raw = await AsyncStorage.getItem(activeRulesetKey);
-    return raw === 'll' ? 'll' : 'obr';
+    return RULESET_IDS.includes(raw as RulesetId) ? (raw as RulesetId) : 'obr';
   } catch {
     return 'obr';
   }

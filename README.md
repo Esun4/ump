@@ -1,11 +1,16 @@
 # Ump
 
 Scenario-based rules quiz app for amateur baseball umpires, with spaced
-repetition. Two independent question banks:
+repetition. Three independent question banks:
 
 - **Baseball Canada / OBR** — 60 questions, district / provincial tiers
 - **Little League** — 60 questions, Majors / Intermediate+ tiers, rulings
   verified against the 2026 Little League Umpire's Manual
+- **4-Umpire Mechanics** — 100 questions on crew rotations, fly-ball
+  coverage, fair/foul, positioning, and tag-ups in the 4-umpire system,
+  split between the 60-ft diamond (Full / Fill / U2 Fill rotations) and the
+  50/70 & 90-ft diamonds (Full / Reverse / U2 Drift / PU Trail), verified
+  against the 2026 Little League Umpire's Manual mechanics sections
 
 Expo (React Native + TypeScript strict), fully offline: progress lives in
 AsyncStorage on the device. No accounts, no backend.
@@ -33,9 +38,11 @@ simulator/emulator installed.
 
 ## Adding questions
 
-Question banks are plain typed data: `src/data/obr.ts` and
-`src/data/littleLeague.ts`. Add entries conforming to `Question` in
-`src/types.ts`; topics and stats update automatically.
+Question banks are plain typed data: `src/data/obr.ts`,
+`src/data/littleLeague.ts`, and `src/data/mechanics.ts`. Add entries
+conforming to `Question` in `src/types.ts`; topics and stats update
+automatically. Answer options are shuffled at display time, so option order
+in the data carries no meaning.
 
 Never copy text from any rulebook — scenarios must be original wording, citing
 rule areas by topic name only.

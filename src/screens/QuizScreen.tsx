@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
@@ -12,6 +12,7 @@ import {
   buildPractice,
   buildSession,
   ProgressMap,
+  shuffle,
   todayKey,
 } from '../srs/engine';
 
@@ -57,6 +58,13 @@ export default function QuizScreen({ route, navigation }: Props) {
   }, [ruleset, mode]);
 
   const question = queue && queue.length > 0 ? queue[0] : null;
+  // Options display in a random order per showing so the answer's position
+  // in the data never becomes the tell. Indices map back to the bank order.
+  const optionOrder = useMemo(
+    () => (question ? shuffle(question.options.map((_, i) => i)) : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [question?.id],
+  );
   const tierLabel = question
     ? RULESETS[question.ruleset].tierLabels[question.tier] ?? question.tier
     : '';
@@ -141,9 +149,10 @@ export default function QuizScreen({ route, navigation }: Props) {
         {question.scenario}
       </Text>
 
-      {question.options.map((option, i) => {
-        const isCorrect = i === question.correctIndex;
-        const isSelected = i === selected;
+      {optionOrder.map((optionIndex) => {
+        const option = question.options[optionIndex];
+        const isCorrect = optionIndex === question.correctIndex;
+        const isSelected = optionIndex === selected;
         let bg = theme.card;
         let border = theme.border;
         let color = theme.text;
@@ -158,9 +167,9 @@ export default function QuizScreen({ route, navigation }: Props) {
         }
         return (
           <Pressable
-            key={i}
+            key={optionIndex}
             disabled={answered}
-            onPress={() => onAnswer(i)}
+            onPress={() => onAnswer(optionIndex)}
             style={[styles.option, { backgroundColor: bg, borderColor: border }]}
           >
             <Text style={[styles.optionText, { color }]}>{option}</Text>
