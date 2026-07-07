@@ -1,4 +1,4 @@
-export type RulesetId = 'obr' | 'll' | 'mech';
+export type RulesetId = 'obr' | 'll' | 'mech60' | 'mechBig';
 
 export type Tier =
   | 'district'
@@ -39,12 +39,18 @@ export const RULESETS: Record<RulesetId, RulesetInfo> = {
     shortLabel: 'Little League',
     tierLabels: { majors: 'Majors', intermediate: 'Intermediate+' },
   },
-  mech: {
-    id: 'mech',
-    label: '4-Umpire Mechanics',
-    shortLabel: '4-Ump Crew',
-    tierLabels: { sixty: '60-ft Diamond', big: '50/70 & 90-ft' },
+  mech60: {
+    id: 'mech60',
+    label: '4-Umpire Mechanics · 60-ft Diamond',
+    shortLabel: '4-Ump 60 ft',
+    tierLabels: { sixty: '60-ft Diamond' },
+  },
+  mechBig: {
+    id: 'mechBig',
+    label: '4-Umpire Mechanics · 50/70 & 90-ft',
+    shortLabel: '4-Ump 50/70+',
+    tierLabels: { big: '50/70 & 90-ft' },
   },
 };
 
-export const RULESET_IDS: RulesetId[] = ['obr', 'll', 'mech'];
+export const RULESET_IDS: RulesetId[] = ['obr', 'll', 'mech60', 'mechBig'];

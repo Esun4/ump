@@ -1,16 +1,21 @@
 # Ump
 
 Scenario-based rules quiz app for amateur baseball umpires, with spaced
-repetition. Three independent question banks:
+repetition. Four independent question banks:
 
 - **Baseball Canada / OBR** — 60 questions, district / provincial tiers
 - **Little League** — 60 questions, Majors / Intermediate+ tiers, rulings
   verified against the 2026 Little League Umpire's Manual
-- **4-Umpire Mechanics** — 100 questions on crew rotations, fly-ball
-  coverage, fair/foul, positioning, and tag-ups in the 4-umpire system,
-  split between the 60-ft diamond (Full / Fill / U2 Fill rotations) and the
-  50/70 & 90-ft diamonds (Full / Reverse / U2 Drift / PU Trail), verified
-  against the 2026 Little League Umpire's Manual mechanics sections
+- **4-Umpire Mechanics · 60-ft Diamond** — 51 questions on crew rotations
+  (Full / Fill / U2 Fill), fly-ball coverage, fair/foul, positioning, and
+  tag-ups at the Minor/Major level
+- **4-Umpire Mechanics · 50/70 & 90-ft** — 49 questions on the big-diamond
+  system (Full / Reverse / U2 Drift / PU Trail), the inside-vs-outside U2
+  coverage split, infield coverage, and tag-ups
+
+Both mechanics banks are verified against the 2026 Little League Umpire's
+Manual mechanics sections and are separate decks with separate progress, so
+the 60-ft system can be learned on its own before moving up.
 
 Expo (React Native + TypeScript strict), fully offline: progress lives in
 AsyncStorage on the device. No accounts, no backend.
@@ -39,10 +44,10 @@ simulator/emulator installed.
 ## Adding questions
 
 Question banks are plain typed data: `src/data/obr.ts`,
-`src/data/littleLeague.ts`, and `src/data/mechanics.ts`. Add entries
-conforming to `Question` in `src/types.ts`; topics and stats update
-automatically. Answer options are shuffled at display time, so option order
-in the data carries no meaning.
+`src/data/littleLeague.ts`, `src/data/mechanics60.ts`, and
+`src/data/mechanicsBig.ts`. Add entries conforming to `Question` in
+`src/types.ts`; topics and stats update automatically. Answer options are
+shuffled at display time, so option order in the data carries no meaning.
 
 Never copy text from any rulebook — scenarios must be original wording, citing
 rule areas by topic name only.

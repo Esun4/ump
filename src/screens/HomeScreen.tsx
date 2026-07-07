@@ -111,13 +111,14 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 16, marginTop: 4, marginBottom: 28 },
   toggle: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     borderWidth: 1,
     borderRadius: 12,
     padding: 4,
     marginBottom: 20,
   },
   toggleOption: {
-    flex: 1,
+    flexBasis: '50%',
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
