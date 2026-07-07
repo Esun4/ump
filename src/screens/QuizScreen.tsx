@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
 import { useTheme } from '../theme';
 import { useRuleset } from '../state/RulesetContext';
 import { Question, RULESETS } from '../types';
 import { getBank } from '../data';
+import { reportsEnabled, submitReport } from '../data/reports';
 import { loadProgress, saveProgress } from '../srs/storage';
 import {
   applyFirstAnswer,
@@ -31,6 +32,9 @@ export default function QuizScreen({ route, navigation }: Props) {
   // requeue retries and must not touch scheduling or stats.
   const answeredOnce = useRef(new Set<string>());
   const progressRef = useRef<ProgressMap>({});
+  // Ids reported this session, so the link flips to a receipt and a question
+  // can't be reported twice in one sitting (requeues included).
+  const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     navigation.setOptions({
@@ -86,6 +90,43 @@ export default function QuizScreen({ route, navigation }: Props) {
         void saveProgress(ruleset, progressRef.current);
       }
     }
+  };
+
+  const sendReport = (questionId: string, reason: string) => {
+    // Mark immediately so the link can't be tapped twice while in flight.
+    setReportedIds((ids) => new Set(ids).add(questionId));
+    void submitReport(questionId, reason).then((ok) => {
+      if (ok) return;
+      setReportedIds((ids) => {
+        const next = new Set(ids);
+        next.delete(questionId);
+        return next;
+      });
+      Alert.alert(
+        'Report not sent',
+        'Could not reach the server. You can try again from this question.',
+      );
+    });
+  };
+
+  const onReport = () => {
+    if (!question) return;
+    const id = question.id;
+    Alert.alert('Report this question', 'What seems wrong with it?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Answer is wrong',
+        onPress: () => sendReport(id, 'Answer is wrong'),
+      },
+      {
+        text: 'Confusing wording',
+        onPress: () => sendReport(id, 'Confusing wording'),
+      },
+      {
+        text: 'Typo or formatting',
+        onPress: () => sendReport(id, 'Typo or formatting'),
+      },
+    ]);
   };
 
   const onNext = () => {
@@ -202,6 +243,18 @@ export default function QuizScreen({ route, navigation }: Props) {
               This one will come back before the session ends.
             </Text>
           )}
+          {reportsEnabled &&
+            (reportedIds.has(question.id) ? (
+              <Text style={[styles.reportLink, { color: theme.subtleText }]}>
+                Reported — thanks
+              </Text>
+            ) : (
+              <Pressable onPress={onReport} hitSlop={8}>
+                <Text style={[styles.reportLink, { color: theme.subtleText }]}>
+                  Report this question
+                </Text>
+              </Pressable>
+            ))}
         </View>
       )}
 
@@ -246,6 +299,12 @@ const styles = StyleSheet.create({
   feedbackTitle: { fontSize: 16, fontWeight: '800', marginBottom: 6 },
   explanation: { fontSize: 15, lineHeight: 22 },
   requeueNote: { fontSize: 13, marginTop: 10 },
+  reportLink: {
+    fontSize: 13,
+    fontWeight: '600',
+    marginTop: 12,
+    textDecorationLine: 'underline',
+  },
   nextButton: {
     marginTop: 16,
     paddingVertical: 14,
