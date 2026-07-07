@@ -8,7 +8,8 @@ export type RulesetId =
   | 'mech60'
   | 'mechBig'
   | 'interlock60'
-  | 'interlockBig';
+  | 'interlockBig'
+  | 'signals';
 export type Tier =
   | 'district'
   | 'provincial'
@@ -25,6 +26,7 @@ export const RULESET_IDS: RulesetId[] = [
   'mechBig',
   'interlock60',
   'interlockBig',
+  'signals',
 ];
 
 export const RULESET_LABELS: Record<RulesetId, string> = {
@@ -34,6 +36,7 @@ export const RULESET_LABELS: Record<RulesetId, string> = {
   mechBig: '4-Ump Mechanics · 50/70+',
   interlock60: 'District Interlock · Minor/Major (60 ft)',
   interlockBig: 'District Interlock · Junior/Senior (90 ft)',
+  signals: 'Crew Signals & Communication',
 };
 
 // Which tiers are valid for each ruleset — the create/edit form enforces
@@ -45,6 +48,7 @@ export const RULESET_TIERS: Record<RulesetId, Tier[]> = {
   mechBig: ['big'],
   interlock60: ['sixty'],
   interlockBig: ['big'],
+  signals: ['sixty'],
 };
 
 export const TIER_LABELS: Record<Tier, string> = {

@@ -5,6 +5,7 @@ import { MECH60_QUESTIONS } from './mechanics60';
 import { MECH_BIG_QUESTIONS } from './mechanicsBig';
 import { INTERLOCK60_QUESTIONS } from './interlock60';
 import { INTERLOCK_BIG_QUESTIONS } from './interlockBig';
+import { SIGNALS_QUESTIONS } from './signals';
 
 // The banks compiled into the app. They ship with every build and serve as
 // the last-resort fallback when the remote bank has never been fetched.
@@ -15,6 +16,7 @@ const banks: Record<RulesetId, Question[]> = {
   mechBig: MECH_BIG_QUESTIONS,
   interlock60: INTERLOCK60_QUESTIONS,
   interlockBig: INTERLOCK_BIG_QUESTIONS,
+  signals: SIGNALS_QUESTIONS,
 };
 
 export function getBundledBank(ruleset: RulesetId): Question[] {

@@ -4,7 +4,8 @@ export type RulesetId =
   | 'mech60'
   | 'mechBig'
   | 'interlock60'
-  | 'interlockBig';
+  | 'interlockBig'
+  | 'signals';
 
 export type Tier =
   | 'district'
@@ -69,6 +70,12 @@ export const RULESETS: Record<RulesetId, RulesetInfo> = {
     shortLabel: 'Interlock 90 ft',
     tierLabels: { big: 'Junior/Senior' },
   },
+  signals: {
+    id: 'signals',
+    label: 'Crew Signals & Communication',
+    shortLabel: 'Crew Signals',
+    tierLabels: { sixty: 'All Crews' },
+  },
 };
 
 export const RULESET_IDS: RulesetId[] = [
@@ -78,4 +85,5 @@ export const RULESET_IDS: RulesetId[] = [
   'mechBig',
   'interlock60',
   'interlockBig',
+  'signals',
 ];
