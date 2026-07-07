@@ -16,6 +16,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import QuizScreen from './src/screens/QuizScreen';
 import StatsScreen from './src/screens/StatsScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import TopicsScreen from './src/screens/TopicsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -80,6 +81,11 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="Quiz" component={QuizScreen} />
+          <Stack.Screen
+            name="Topics"
+            component={TopicsScreen}
+            options={{ title: 'Practice a topic' }}
+          />
         </Stack.Navigator>
         <StatusBar style="auto" />
       </NavigationContainer>

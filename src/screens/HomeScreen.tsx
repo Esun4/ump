@@ -100,6 +100,15 @@ export default function HomeScreen({ navigation }: Props) {
             Practice never affects your schedule or stats.
           </Text>
         )}
+        <Pressable
+          onPress={() => navigation.navigate('Topics')}
+          hitSlop={8}
+          style={({ pressed }) => [{ opacity: pressed ? 0.6 : 1 }]}
+        >
+          <Text style={[styles.topicLink, { color: theme.subtleText }]}>
+            Practice a topic
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -140,4 +149,10 @@ const styles = StyleSheet.create({
   },
   startLabel: { fontSize: 17, fontWeight: '700' },
   practiceNote: { fontSize: 13, marginTop: 12, textAlign: 'center' },
+  topicLink: {
+    fontSize: 15,
+    fontWeight: '600',
+    marginTop: 16,
+    textDecorationLine: 'underline',
+  },
 });

@@ -20,7 +20,7 @@ import {
 type Props = NativeStackScreenProps<RootStackParamList, 'Quiz'>;
 
 export default function QuizScreen({ route, navigation }: Props) {
-  const { mode } = route.params;
+  const { mode, topic } = route.params;
   const theme = useTheme();
   const { ruleset } = useRuleset();
 
@@ -38,18 +38,20 @@ export default function QuizScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     navigation.setOptions({
-      title: mode === 'practice' ? 'Practice' : 'Quiz',
+      title: mode === 'practice' ? topic ?? 'Practice' : 'Quiz',
     });
-  }, [navigation, mode]);
+  }, [navigation, mode, topic]);
 
   useEffect(() => {
     let cancelled = false;
     Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
       if (cancelled) return;
       progressRef.current = progress;
+      // A topic filter only ever narrows practice runs — SRS sessions always
+      // schedule across the whole bank.
       const session =
         mode === 'practice'
-          ? buildPractice(bank)
+          ? buildPractice(topic ? bank.filter((q) => q.topic === topic) : bank)
           : buildSession(bank, progress, todayKey());
       setQueue(session);
       setTotal(session.length);
@@ -57,8 +59,8 @@ export default function QuizScreen({ route, navigation }: Props) {
     return () => {
       cancelled = true;
     };
-    // A quiz is built once for the ruleset/mode it was opened with.
-  }, [ruleset, mode]);
+    // A quiz is built once for the ruleset/mode/topic it was opened with.
+  }, [ruleset, mode, topic]);
 
   const question = queue && queue.length > 0 ? queue[0] : null;
   // Options display in a random order per showing so the answer's position

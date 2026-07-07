@@ -87,6 +87,26 @@ export function buildPractice(
   return shuffle(questions, rng).slice(0, PRACTICE_SIZE);
 }
 
+export interface TopicCount {
+  topic: string;
+  count: number;
+}
+
+/**
+ * Topics of a bank with question counts, in the order topics first appear.
+ * Derived from the questions, never hardcoded — new topics added on the
+ * server show up automatically.
+ */
+export function listTopics(questions: Question[]): TopicCount[] {
+  const byTopic = new Map<string, TopicCount>();
+  for (const q of questions) {
+    const entry = byTopic.get(q.topic);
+    if (entry) entry.count++;
+    else byTopic.set(q.topic, { topic: q.topic, count: 1 });
+  }
+  return [...byTopic.values()];
+}
+
 /**
  * Applies the first answer a question receives in a session. Same-session
  * requeue retries must NOT be passed through here — they never affect
