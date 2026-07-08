@@ -48,7 +48,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R1. A right-hander in the set position lifts his free leg, and it swings past the back edge of the pitching rubber before he spins and throws to first for a pickoff attempt.',
     options: [
       'Legal pickoff — the runner is out if tagged',
-      'Balk — once the leg breaks the plane of the rubber he is committed to pitch',
+      'Balk — the leg broke the plane of the rubber',
       'Legal only if the throw beats the runner',
       'No call — the leg position is irrelevant from the set',
     ],
@@ -133,9 +133,9 @@ export const OBR_QUESTIONS: Question[] = [
       'Bases empty. The pitcher delivers before the batter has both feet set and his eyes on the pitcher.',
     options: [
       'Ball on the batter — quick pitch with nobody on',
-      'Balk',
+      'Balk — quick pitches are always balks',
       'Strike if it is in the zone',
-      'No call — bases are empty',
+      'No call — the restriction needs runners on base',
     ],
     correctIndex: 0,
     explanation:
@@ -288,7 +288,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R1 stealing on the pitch. The batter swings and misses for strike three, then shifts his feet and blocks the catcher’s throwing lane to second. The throw is never made.',
     options: [
       'Only the batter is out — strike three',
-      'The batter is out on strikes and R1 is also out for the interference',
+      'Both out — the batter on strikes, R1 on interference',
       'R1 returns to first, batter out',
       'No call — the batter may stand anywhere in the box',
     ],
@@ -305,9 +305,9 @@ export const OBR_QUESTIONS: Question[] = [
       'Deep fly down the line. A spectator reaches clearly over the outfield fence into the field of play and deflects the ball just as the right fielder camps under it at the warning track.',
     options: [
       'Home run — the ball left the playing field',
-      'Dead ball — the batter is declared out for spectator interference',
-      'Do-over pitch',
-      'Ground-rule double automatically',
+      'Spectator interference — the batter is out',
+      'Do-over — replay the pitch with no penalty',
+      'Ground-rule double, automatic on fence plays',
     ],
     correctIndex: 1,
     explanation:
@@ -339,7 +339,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R1 stealing. The plate umpire is clipped by the catcher’s arm as the catcher throws, the throw arrives late, and R1 slides in safely.',
     options: [
       'R1 returns to first — umpire interference',
-      'The play stands — R1 is safe',
+      'The play stands and R1 keeps second base',
       'R1 is automatically out',
       'The pitch is replayed',
     ],
@@ -375,7 +375,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Base hit to right. Rounding first, the batter-runner has to swerve around the first baseman, who is standing in the path watching the outfield with no ball coming. The runner stops at first.',
     options: [
       'Dead ball — award second base automatically',
-      'Delayed dead ball — award second only if the umpire judges the hindrance cost him the base',
+      'Delayed dead ball — award bases only as needed',
       'No call — the runner chose to stop',
       'Warn the fielder; no award possible',
     ],
@@ -391,9 +391,9 @@ export const OBR_QUESTIONS: Question[] = [
     scenario:
       'Slow roller to the third baseman, who charges and is about to glove the ball when R2, advancing, runs into him.',
     options: [
-      'Obstruction — R2 is awarded third',
+      'Obstruction on the third baseman — R2 is awarded third',
       'Nothing — a train wreck, play on',
-      'The fielder had right of way; R2 risks an interference call, not obstruction',
+      'The fielder had right of way — interference on R2',
       'Both players are penalized',
     ],
     correctIndex: 2,
@@ -408,10 +408,10 @@ export const OBR_QUESTIONS: Question[] = [
     scenario:
       'R1 rounds second on a ball in the gap. The shortstop, nowhere near the ball, drops to a knee and mimics taking a throw and applying a tag, and R1 slides.',
     options: [
-      'Legal deke',
-      'Obstruction — the fake tag hindered the runner',
+      'Legal deke — no contact, no call',
+      'Obstruction — a fake tag hinders the runner',
       'Interference on the shortstop',
-      'No call unless contact occurs',
+      'No call unless contact actually occurs',
     ],
     correctIndex: 1,
     explanation:
@@ -443,7 +443,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Swinging bunt. As the batter-runner breaks from the box, the catcher chasing the ball shoves him off stride before fielding it, then throws him out at first by half a step.',
     options: [
       'Out stands — the contact was before the throw',
-      'Obstruction before reaching first — dead ball, batter-runner awarded first',
+      'Obstruction — dead ball, batter-runner awarded first',
       'Offsetting: interference and obstruction cancel',
       'Do-over pitch',
     ],
@@ -460,7 +460,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Hit into the corner, no play on the runner. R2 is bumped by the shortstop while rounding second; the umpire signals delayed obstruction and judges it cost him third base at most. R2 keeps running and is thrown out by five metres trying to score.',
     options: [
       'Safe — obstruction protects him all the way home',
-      'Out stands — he advanced beyond his protection at his own risk',
+      'Out stands — he ran past his protection at his own risk',
       'Out is nullified and he returns to third',
       'Dead ball when the obstruction occurred',
     ],
@@ -477,7 +477,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Pickoff at first. The first baseman straddles the bag in the runner’s dive path before the throw arrives; R1, diving back, is blocked from the base and tagged.',
     options: [
       'Out — good baseball play',
-      'Obstruction — a fielder cannot block the base before he has the ball',
+      'Obstruction — he blocked the base without the ball',
       'No call — the runner left the base voluntarily',
       'Balk on the pitcher',
     ],
@@ -496,7 +496,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R1, one out. Ground ball to the first baseman, who steps on first and then throws to second, where the shortstop stretches and touches the bag well before R1 arrives — but applies no tag.',
     options: [
       'Double play — inning-style force at second',
-      'R1 is safe — the force was removed when the batter was put out first',
+      'R1 is safe — the force was removed; a tag is required',
       'R1 is out if the throw beat him by more than a step',
       'Dead ball — runners return',
     ],
@@ -514,7 +514,7 @@ export const OBR_QUESTIONS: Question[] = [
     options: [
       'Out — force play at second',
       'Safe — R2 was never forced, so he must be tagged',
-      'Out if the fielder beat him to the bag',
+      'Out if the fielder clearly beat him to the bag',
       'Safe only if he overslides',
     ],
     correctIndex: 1,
@@ -530,7 +530,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Bases loaded, two out. Ground ball to third; the third baseman steps on the bag for the force on R2 just after R3 crosses the plate.',
     options: [
       'Run counts — R3 scored before the out',
-      'Run does not count — no run can score when the third out is a force',
+      'No run — the third out was a force',
       'Run counts if the play at third was close',
       'Umpire’s judgment on the timing',
     ],
@@ -547,7 +547,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R3, two out. The batter hits a slow chopper and is thrown out at first, an eyelash after R3 touches home plate.',
     options: [
       'Run counts — he crossed before the out',
-      'Run does not count — the batter-runner was out before reaching first',
+      'No run — the batter-runner never reached first',
       'Run counts because it was not a force at first',
       'Protest situation',
     ],
@@ -564,7 +564,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Rundown between third and home. The catcher, ball in his bare hand, dives and touches the runner with only his empty glove.',
     options: [
       'Out — any touch with glove or hand counts',
-      'Safe — the tag must be made with the ball or the glove holding the ball',
+      'Safe — an empty glove records no tag',
       'Out if the runner was off the baseline',
       'Safe only if the runner avoids the sweep',
     ],
@@ -582,7 +582,7 @@ export const OBR_QUESTIONS: Question[] = [
     options: [
       'Out — the ball touched the base first',
       'Out — the glove still counts as part of the fielder',
-      'Safe — a detached glove holding the ball is not secure possession by the fielder',
+      'Safe — a detached glove is not secure possession',
       'Dead ball — lodged ball, everyone advances one base',
     ],
     correctIndex: 2,
@@ -598,7 +598,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Bases loaded, two out. R1 beats the force at second, touching the bag, but his momentum slides him past it. He is tagged while off the base — after R3 had already crossed the plate.',
     options: [
       'No run — third out on a force at second',
-      'Run scores — the force was satisfied when he touched the bag, so it became a time play',
+      'Run scores — touching the bag extinguished the force',
       'No run — an overslide is treated as never reaching the base',
       'Run scores only if the defence does not appeal',
     ],
@@ -615,7 +615,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R2 and R3, two out. Single to left. R3 scores easily; R2 is tagged out sliding into third just after R3 touched the plate.',
     options: [
       'No run — the inning ended on the out',
-      'Run counts — the third out was a tag play made after the run crossed',
+      'Run counts — a tag play is a time play',
       'No run — R2’s out is treated like a force',
       'Run counts only with fewer than two outs',
     ],
@@ -631,8 +631,8 @@ export const OBR_QUESTIONS: Question[] = [
     scenario:
       'Play at the plate. The catcher fields the throw up the line, and the runner, with a clear lane to slide to the plate, lowers his shoulder and runs him over, jarring the ball loose.',
     options: [
-      'Safe — the ball came out',
-      'Out — a runner who deviates to initiate avoidable contact violates the collision rule, and the ball is dead',
+      'Safe — the catcher never held the ball through the tag',
+      'Out — he violated the collision rule; the ball is dead',
       'Safe, but the runner is ejected',
       'Do-over — both players were at fault',
     ],
@@ -702,7 +702,7 @@ export const OBR_QUESTIONS: Question[] = [
       'A sinking fly ball lands untouched three feet beyond first base, in foul ground, then spins across the line into fair territory.',
     options: [
       'Fair — it ended up fair',
-      'Foul — past the base, the call is made where the ball first lands',
+      'Foul — the call is where it first landed',
       'Fair if a fielder could have caught it',
       'Depends where it stops rolling',
     ],
@@ -719,7 +719,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R1 and R2, nobody out. High pop-up to the shortstop; the umpire declares “infield fly, batter’s out.” The ball drops untouched at the shortstop’s feet, and R2 sprints to third and beats the late throw.',
     options: [
       'R2 must return — runners cannot advance on an infield fly',
-      'Batter is out; R2’s advance stands since he advanced at his own risk on a live ball',
+      'Batter is out; R2’s advance at his own risk stands',
       'Batter is not out because the ball was dropped',
       'Dead ball — both runners return',
     ],
@@ -735,9 +735,9 @@ export const OBR_QUESTIONS: Question[] = [
     scenario:
       'R1, nobody out, no infield fly situation. The second baseman lets an easy soft line drive hit his glove and deliberately drops it, then starts a 6-4-3-style double play.',
     options: [
-      'Legal — heads-up play',
-      'Dead ball — the batter is out for the intentional drop and R1 returns to first',
-      'Only the force at second stands',
+      'Legal — a heads-up veteran play',
+      'Dead ball — batter out, R1 returns to first',
+      'Only the force out at second base stands',
       'Umpire cannot judge intent',
     ],
     correctIndex: 1,
@@ -840,7 +840,7 @@ export const OBR_QUESTIONS: Question[] = [
       'R2, one out. Deep fly to centre, caught. R2 tags and makes third easily, but the defence believes he left early. The pitcher steps off and throws to the shortstop, who touches second base and states the claim clearly.',
     options: [
       'Nothing — you cannot appeal a tag-up',
-      'If the umpire judges R2 left before the catch, he is out on appeal',
+      'Out on appeal if the umpire judges he left early',
       'R2 simply returns to second',
       'The appeal had to be made before R2 reached third',
     ],
@@ -857,7 +857,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Two out, R3. The batter singles and R3 scores, but the batter-runner misses first and the defence appeals at first before the next pitch.',
     options: [
       'Run scores — it crossed before the appeal',
-      'Run is nullified — the appeal out is the batter-runner failing to reach first',
+      'No run — the batter-runner never reached first base',
       'Run scores because an appeal is not a play',
       'Defence must choose the out or the run',
     ],
@@ -874,7 +874,7 @@ export const OBR_QUESTIONS: Question[] = [
       'One out, R1 and R3. On a caught line drive, R1 is doubled off first for the third out — while R3, who left early, crosses the plate before that throw arrives. The defence then also appeals R3’s early departure at third.',
     options: [
       'Run counts — the inning was already over',
-      'The "fourth-out" appeal is upheld and the run is taken off the board',
+      'The fourth-out appeal stands and the run comes off',
       'You cannot appeal after the third out',
       'Run counts because R3 crossed before the third out',
     ],
@@ -891,7 +891,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Inning-ending catch; R2 had left second well before the ball was caught. The whole infield jogs across the foul line toward the dugout, then the third baseman runs back out and asks for an appeal at second.',
     options: [
       'Valid — no pitch has intervened',
-      'Too late — the right to appeal ended when the infield left fair territory',
+      'Too late — the infield left fair territory',
       'Valid if made before the other team bats',
       'The umpire may allow it at his discretion',
     ],
@@ -908,7 +908,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Two strikes. The batter checks his swing and the plate umpire calls the pitch a ball. The catcher immediately asks the plate umpire to check with the base umpire.',
     options: [
       'The plate umpire may refuse the request',
-      'The plate umpire must ask the base umpire, whose ruling then stands',
+      'He must ask the base umpire, whose ruling stands',
       'Checked swings cannot be appealed with two strikes',
       'Only the manager may request the appeal',
     ],
@@ -944,7 +944,7 @@ export const OBR_QUESTIONS: Question[] = [
       'A pinch hitter bats in the sixth and is then replaced in the seventh. In the ninth, the manager tries to send the same player back in to play second base.',
     options: [
       'Legal — position players may re-enter once',
-      'Illegal — a substitute who has been removed may not return in the same game',
+      'Illegal — a removed player may not return',
       'Legal only in extra innings',
       'Legal if the opposing manager consents',
     ],
@@ -960,8 +960,8 @@ export const OBR_QUESTIONS: Question[] = [
     scenario:
       'A new left fielder trots out without anyone informing the plate umpire. He catches a fly ball two pitches later, and the offence protests the catch was made by an illegal player.',
     options: [
-      'The catch is nullified',
-      'The substitute became legal the moment play resumed with him in the game — the catch stands',
+      'The catch is nullified — an illegal player made it',
+      'The catch stands — the substitute was already legal',
       'The substitute is ejected',
       'The offence chooses whether the play stands',
     ],
@@ -978,7 +978,7 @@ export const OBR_QUESTIONS: Question[] = [
       'The number-five hitter bats in the number-four spot by mistake and doubles. Before a pitch is thrown to the next batter, the defensive manager points out the mistake to the plate umpire.',
     options: [
       'The double stands and the order just continues',
-      'The proper batter (the four hitter) is declared out and the double is wiped out',
+      'The four hitter is out and the double is wiped out',
       'The improper batter (the five hitter) is declared out',
       'Both batters are out',
     ],
@@ -995,7 +995,7 @@ export const OBR_QUESTIONS: Question[] = [
       'Same mix-up: the five hitter bats out of turn and doubles — but this time the defence says nothing until after a pitch is thrown to the following batter.',
     options: [
       'The proper batter is out once the defence finally appeals',
-      'Too late — the improper batter is legalized, his double stands, and the order continues from his spot',
+      'Too late — the double stands and the order continues from his spot',
       'The double is cancelled but no one is out',
       'The game reverts to the correct spot with no other consequence',
     ],
@@ -1029,7 +1029,7 @@ export const OBR_QUESTIONS: Question[] = [
       'A reliever is brought in, completes his warm-up pitches, and the manager immediately signals for another pitcher before the batter steps in.',
     options: [
       'Fine — pitching changes are unlimited',
-      'Not allowed — the reliever must pitch to at least one batter until that batter is put out or reaches base',
+      'Not allowed — he must face at least one batter to completion',
       'Allowed if the reliever claims injury only after examination by the umpire',
       'Allowed, but the team forfeits a mound visit',
     ],

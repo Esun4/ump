@@ -18,7 +18,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'Runners on first and second, one out. Before the next pitch the plate umpire makes eye contact with you at third and gives the crew’s infield-fly signal. What is he telling you, and what should you do?',
     options: [
       'He’s calling time — kill the play and reset',
-      'The infield fly is possible on this pitch — return the signal so he knows the whole crew is armed',
+      'Infield fly is possible on this pitch — return the signal',
       'He wants you to rotate home if the ball goes to the outfield',
       'He’s reminding you the batter has two strikes',
     ],
@@ -36,7 +36,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
     options: [
       'Echo the signal — better safe than sorry',
       'Ignore it and hope he figures it out',
-      'Get his attention and wash it off before the pitch — infield fly can’t be in effect with only first occupied',
+      'Get his attention and wash it off before the pitch',
       'Call time and hold a crew conference on the mound',
     ],
     correctIndex: 2,
@@ -52,7 +52,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'The count on the batter runs to 3-2 with a runner on first. Under the 2026 points of emphasis, what is every umpire on the crew expected to do before the next pitch?',
     options: [
       'Nothing — the count is the plate umpire’s job alone',
-      'Signal the 3-2 count to raise crew awareness of an impending action pitch',
+      'Signal the 3-2 count to the rest of the crew',
       'Rotate one position clockwise in anticipation of the steal',
       'Verbally announce “full count” loud enough for both dugouts',
     ],
@@ -68,8 +68,8 @@ export const SIGNALS_QUESTIONS: Question[] = [
     scenario:
       'Working the bases, you lose track of the count between pitches. You catch your plate partner’s eye and tap the top of your head. What are you asking, and how should he answer?',
     options: [
-      'You’re asking for the count — he answers discreetly with fingers, balls on the left hand and strikes on the right, before the next pitch',
-      'You’re telling him you have the infield fly',
+      'You’re asking for the count — he answers quietly with fingers',
+      'You’re telling him you have the infield fly on this pitch',
       'You’re asking to swap positions at the end of the inning',
       'You’re signalling that you need time for equipment',
     ],
@@ -86,7 +86,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'In a 4-umpire crew, U3 figures everyone already knows their responsibilities and never returns the plate umpire’s pre-pitch signals. What does the manual actually require?',
     options: [
       'Signals are optional once the crew has worked together before',
-      'Pre-pitch signals are initiated by the plate umpire but must be given by ALL umpires, pointing to their responsibility for the situation',
+      'Every umpire gives them, pointing to his responsibility',
       'Only the plate umpire signals; base umpires just nod',
       'Signals are only required with runners in scoring position',
     ],
@@ -105,7 +105,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'Four umpires, nobody on base. U2 reads a fly ball in his area and goes out for the catch/no-catch. Which rotation is the crew in, and where does the plate umpire go?',
     options: [
       'Fill rotation — the plate umpire stays home',
-      'Full rotation — the plate umpire rotates to third; U1 takes first and then home after communicating his release',
+      'Full rotation — the plate umpire rotates to third',
       'U2 Fill — U3 covers both second and third',
       'No rotation — the three remaining umpires hold their bases',
     ],
@@ -123,7 +123,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
     options: [
       'The plate umpire, rotating up the line',
       'U1, sprinting across the diamond',
-      'U2, filling from the restricted area to cover second AND third',
+      'U2, filling in from the restricted area',
       'U3 makes it from the outfield',
     ],
     correctIndex: 2,
@@ -139,7 +139,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'U1 breaks to the outfield on a sinking liner toward the right-field line. Bases empty. What rotation does his departure trigger, and who covers first base?',
     options: [
       'Full rotation — the plate umpire takes first',
-      'U2 Fill — U2 works first and second from the restricted area, regardless of where the runners are',
+      'U2 Fill — U2 works first and second from the restricted area',
       'Fill rotation — U3 crosses to first',
       'No coverage change; first base stays open until U1 returns',
     ],
@@ -156,7 +156,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'A fly ball splits left-center. You (U3) and U2 both take two hard steps out before you see each other going. Who takes the ball, and how is that resolved mid-play?',
     options: [
       'Whoever called it first keeps it',
-      'Defer to U2 — he’s the quarterback on outfield fly balls; use the non-verbal stop hand, then recover and rotate',
+      'Defer to U2 — he’s the quarterback on outfield fly balls',
       'Both go out; the infield can survive with two umpires',
       'Defer to the senior umpire on the crew',
     ],
@@ -172,9 +172,9 @@ export const SIGNALS_QUESTIONS: Question[] = [
     scenario:
       'Runner on second only, deep fly to center. U2 goes out for the catch. R2 is tagging. Who watches R2’s retouch at second base?',
     options: [
-      'Nobody — retouches are the outfield umpire’s job',
+      'Nobody — retouches belong to the umpire who went out on the ball',
       'U1, since he’s the closest remaining umpire',
-      'U3 — when an umpire leaves, the retouch advances to the umpire at the base ahead of the runner',
+      'U3 — the retouch advances to the base ahead of the runner',
       'The plate umpire watches all retouches from home',
     ],
     correctIndex: 2,
@@ -190,7 +190,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'Two-umpire crew, runner on first. On a clean single R1 rounds second, and from behind you the plate umpire calls “I’ve got third!” As the base umpire, what does that tell you to do?',
     options: [
       'Sprint to third — he’s asking you to take it',
-      'Stay with the batter-runner — the plate umpire is taking the lead runner into third, so don’t chase that play',
+      'Stay with the batter-runner — don’t chase the play at third',
       'Cover home plate while he’s gone',
       'Nothing — it’s a courtesy call with no coverage meaning',
     ],
@@ -226,7 +226,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'Runner on third. The plate umpire gives U3 the crew’s “pinch” signal before the pitch. What situation is he flagging?',
     options: [
       'He wants U3 to pinch in toward the mound for a bunt',
-      'R3 may block his view of fair/foul between home and third — if pinched, fair/foul passes to U3',
+      'If R3 screens his fair/foul look, the call passes to U3',
       'The batter is squeezing — watch for interference',
       'U3 should take the tag-up at third',
     ],
@@ -243,9 +243,9 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'U1 abandons the right-field line to go out on a fly ball. Moments later a different runner’s hit hooks toward that same line. U1 is still in the outfield. Who owns fair/foul on the line now?',
     options: [
       'U1 hustles back to the line — it’s still his',
-      'The plate umpire — once U1 or U3 abandons the line, PU assumes the entire line, and the departed umpire never comes back to make a fair/foul decision',
+      'The plate umpire — the line is his once U1 abandons it',
       'U2 slides over to take the line',
-      'Whichever umpire has the best look in the moment',
+      'Whichever umpire ends up with the best look in the moment',
     ],
     correctIndex: 1,
     explanation:
@@ -261,7 +261,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
     options: [
       '“Infield fly, the batter is out!” — the drift doesn’t matter',
       'Nothing until the ball lands',
-      '“Infield fly, if fair!” — pointing up, so the ruling covers both outcomes',
+      '“Infield fly, if fair!” with the arm pointing up',
       '“Foul ball!” to protect the runners',
     ],
     correctIndex: 2,
@@ -279,8 +279,8 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'The catcher asks the plate umpire to check a swing, and PU steps out and points to you at first: “Did he go?” You saw the batter hold up. How do you answer?',
     options: [
       'Shrug — it was really the plate umpire’s look',
-      'A clear verbal “No, he didn’t go!” with the safe signal — and your answer IS the call',
-      'Quietly tell PU your opinion and let him decide',
+      'A clear verbal “No, he didn’t go!” with the safe signal',
+      'Quietly tell PU your opinion and let him make the final decision',
       'Signal strike so the crew looks unified',
     ],
     correctIndex: 1,
@@ -296,7 +296,7 @@ export const SIGNALS_QUESTIONS: Question[] = [
       'U1 calls the batter-runner out on a close play where the first baseman may have pulled his foot. The manager politely asks him to get help. Who decides whether to consult, and how should the conference run?',
     options: [
       'The plate umpire overrules from home — he outranks the bases',
-      'U1 decides and, if consulting, initiates it himself: shortly after the call, the ENTIRE crew, away from players and managers',
+      'U1 decides, and initiates it himself with the entire crew',
       'The manager’s request makes a conference mandatory',
       'Only the two nearest umpires huddle so the game keeps moving',
     ],
@@ -312,8 +312,8 @@ export const SIGNALS_QUESTIONS: Question[] = [
     scenario:
       'From third you clearly saw the ball nick the batter’s hand on a pitch the plate umpire ruled a foul ball. Nobody has asked you anything. What’s the right way to get that information into the game?',
     options: [
-      'Jog in immediately and announce what you saw',
-      'Give the crew’s pre-arranged “I have information” signal and let the calling umpire decide whether to come get it',
+      'Call time, jog in immediately, and announce what you saw',
+      'Post the crew’s “I have information” signal and wait',
       'Say nothing ever — it’s not your call',
       'Tell the batter’s coach so he can appeal',
     ],

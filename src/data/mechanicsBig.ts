@@ -24,7 +24,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Any diamond. Two strikes on the batter. He offers at a low pitch and the ball skips past the catcher. Nobody on the defense asks for help on the swing. What does the plate umpire do?',
     options: [
       'Wait — check the swing only if the defense appeals',
-      'Check the swing with the base umpire immediately, without being asked: two-strike half-swings are an automatic check',
+      'Check the swing immediately, without being asked',
       'Call the batter out on his own read',
       'Declare no pitch and reset',
     ],
@@ -41,7 +41,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Any diamond, 2026 season. When the plate umpire himself checks a swing, what new mechanic may he use so the crew cannot mistake it for anything else?',
     options: [
       'Pointing at the batter with his indicator',
-      'Both hands out with open palms — an unmistakable two-handed checking signal',
+      'Both hands out with open palms',
       'Removing his mask and holding it overhead',
       'A closed fist pumped twice',
     ],
@@ -76,7 +76,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Any diamond. In wedge theory, what exactly is “the wedge” the umpire is trying to put his eyes into?',
     options: [
       'The triangle between the base, the mound, and the umpire',
-      'The area between the fielder’s base-side hip and the incoming runner’s base-side hip, where the tag attempt happens',
+      'The space between the fielder’s and runner’s base-side hips',
       'The cutout of dirt around the base',
       'The gap between the umpire and the nearest coach',
     ],
@@ -93,7 +93,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Any diamond. The saying in wedge theory is that “the base will not take us to the play.” What actually takes the umpire to the play?',
     options: [
       'The runner’s path alone',
-      'The three variables of a play — ball, fielder, and runner — moving together; the base is only a reference point',
+      'The three variables — ball, fielder, and runner',
       'The throw’s trajectory',
       'A pre-determined spot chosen before the pitch',
     ],
@@ -110,7 +110,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Any diamond, wedge theory. What is “the window,” and how does the umpire get into it?',
     options: [
       'The gap between the bases, reached at full sprint',
-      'The space between the runner and the fielder at the point of the tag attempt, reached with final controlled “quiet steps” — staying patient and never defaulting to one side too soon',
+      'The runner-fielder gap at the tag — quiet steps in',
       'The umpire’s field of vision when standing still',
       'The opening in the fence used for photographers',
     ],
@@ -128,9 +128,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond (50/70 or 90-ft), nobody on base. U1 goes out on a fly ball toward the right-field line. Which rotation covers the vacancy at first?',
     options: [
       'U2 Drift — U2 covers first and second',
-      'PU Trail: the plate umpire trails the batter-runner and owns his touch and any play at first, releasing home as the BR touches second',
+      'PU Trail — the plate umpire trails the BR to first',
       'Full rotation with U3 covering first',
-      'No coverage is needed at first with nobody on',
+      'No coverage is needed at first base with nobody on',
     ],
     correctIndex: 1,
     explanation:
@@ -144,8 +144,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on first only. U1 goes out on a fly ball. Does the plate umpire trail the batter-runner like he would with nobody on?',
     options: [
-      'Yes — PU Trail applies anytime U1 leaves',
-      'No — with any runner on base it becomes the U2 Drift: PU stays at PoP, and U2 drifts to the right side to take everything at first and second',
+      'Yes — PU Trail applies anytime U1 leaves the infield',
+      'No — with a runner on it becomes the U2 Drift',
       'No — U3 sprints across to cover first',
       'Yes, but only until the ball lands',
     ],
@@ -161,9 +161,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, nobody on. U2 goes out from his outside position on a gap fly ball. Which rotation follows?',
     options: [
-      'Reverse rotation',
-      'Full rotation: PU moves toward third, U3 covers second, and U1 stays at Po1 until the batter-runner reaches second, then releases to the plate',
-      'U2 Drift',
+      'Reverse rotation, sliding U1 inside',
+      'Full rotation — PU toward third, U3 to second',
+      'U2 Drift, as whenever U2 leaves',
       'No rotation — U2 has no coverage to replace',
     ],
     correctIndex: 1,
@@ -178,8 +178,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on first, U3 goes out on a fly ball down the left-field line. In the Full rotation, when exactly does U1 leave first base for the plate, and what does he say?',
     options: [
-      'Immediately at the crack of the bat, silently',
-      'When the lead runner reaches second base, releasing in foul territory to PoP while telling U2, “I’m going home”',
+      'Immediately at the crack of the bat, without saying a word',
+      'When the lead runner reaches second — “I’m going home”',
       'Only when the plate umpire waves him in',
       'He never releases with a runner on first',
     ],
@@ -195,10 +195,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on second only. U3 goes out on a drive to left-center. What is U1’s assignment in the Reverse rotation?',
     options: [
-      'Hold Po1 and never move',
-      'Pivot into the infield between first and second, take the batter-runner’s touch of first, and slide with the BR — he owns the BR at both first and second',
+      'Hold Po1 and never move off the line',
+      'Pivot inside — the BR at first and second is his',
       'Rotate behind the plate umpire to third',
-      'Take the runner at third once R2 advances',
+      'Take the runner at third base once R2 advances there',
     ],
     correctIndex: 1,
     explanation:
@@ -212,8 +212,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on second only, U3 out on the fly ball. R2 tags and takes off for third on the catch. Who has the play at third, and how did he get there?',
     options: [
-      'PU, rotating up the line',
-      'U2 — he dropped toward the mound between second and third, took R2’s tag-up, slid with R2, and stays at third once R2 commits',
+      'PU, rotating up the third-base line from home',
+      'U2 — he slid with R2 all the way to third',
       'U3, doubling back from the outfield',
       'U1, cutting across the mound',
     ],
@@ -229,10 +229,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on third only. U2 — positioned outside with R3 only — goes out on a fly ball. Who covers the batter-runner at first and second?',
     options: [
-      'U1 pivots into the infield and takes the BR at both first and second',
-      'PU trails the batter-runner',
+      'U1 pivots inside for the BR at first and second',
+      'PU trails the batter-runner up the line',
       'U3 crosses the diamond to first',
-      'Nobody — the BR is on his own until third',
+      'Nobody — the BR is on his own until he reaches third',
     ],
     correctIndex: 0,
     explanation:
@@ -246,7 +246,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on third only, fewer than two outs. U3 goes out on a deep fly to left. R3 retreats to tag. Who lines up the tag-up at third, and who ends up covering third base itself?',
     options: [
-      'PU lines up R3’s tag-up and then returns aggressively to PoP; U2 uses the working area to move toward third and covers R3 back into third and the BR at third',
+      'PU lines up the tag-up and returns to PoP; U2 covers third',
       'U1 takes both the tag-up and the base',
       'PU stays at third for the whole play; nobody covers home',
       'U2 lines up the tag-up from center field',
@@ -264,9 +264,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runners on first and second, one out. U3 goes out on a deep fly ball that is caught, and R2 tags. Which rotation does the crew use — and why is it special?',
     options: [
       'Reverse rotation, like every other RiSP situation',
-      'Full rotation: with fewer than two outs and the ball caught, PU reads R2 tagging and moves to third, letting U2 take R2’s tag-up and stay in the infield',
-      'U2 Drift',
-      'PU Trail',
+      'Full rotation — the caught-ball, tag-up special case',
+      'U2 Drift, since runners are on',
+      'PU Trail, to keep home covered',
     ],
     correctIndex: 1,
     explanation:
@@ -281,9 +281,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runners on first and second, two outs. U3 goes out on a fly ball that drops in the gap. Which rotation applies now?',
     options: [
       'Full rotation — R1+R2 is always Full when U3 leaves',
-      'Reverse rotation: with two outs (or the ball not caught) U1 pivots with the BR for first and second, and U2 slides with R1 toward third',
-      'U2 Drift',
-      'No rotation with two outs',
+      'Reverse rotation — with two outs nobody tags',
+      'U2 Drift, mirroring the U1 cases',
+      'No rotation is used with two outs',
     ],
     correctIndex: 1,
     explanation:
@@ -297,7 +297,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, bases loaded. U1 goes out on a fly ball pushing F9 toward the line. Map the coverage behind him.',
     options: [
-      'PU stays at PoP for the plate; U2 drifts into the infield between first and second for everything at those bases, including R1’s and R2’s retouches; U3 holds Po3 with R3’s retouch',
+      'PU stays home; U2 drifts for first and second; U3 holds Po3',
       'PU trails the batter-runner; U3 covers home',
       'U2 goes out with U1 to bracket the catch; U3 covers three bases',
       'The crew collapses to a 2-umpire system',
@@ -314,10 +314,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, bases loaded, one out. U3 goes out on a drive to the left-center gap. In the Reverse rotation, U2 “slides with R1.” What does U2’s full plate of responsibilities look like?',
     options: [
-      'Just the force at second',
-      'R2’s retouch, R3 back into third, R2 back into second, R1 into second, and the plays at third on R2, R1, or the batter-runner as they arrive',
-      'Only plays at third base',
-      'The batter-runner at first and second',
+      'Just the force play at second base',
+      'R2’s tag-up plus second and third as runners arrive',
+      'Only the plays at third base',
+      'The batter-runner at both first base and second base',
     ],
     correctIndex: 1,
     explanation:
@@ -332,9 +332,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on first. A fly ball hangs toward right-center. A newer umpire wonders why U2 never seems to go out for catch/no-catch in this situation. What is the reason?',
     options: [
       'U2 is lazy positioning himself',
-      'With R1 (and most runners-on situations) U2 is inside the diamond in the B position, so he has no outfield fly-ball responsibility at all — U1 and U3 split the outfield',
+      'U2 is inside with R1, so he has no outfield responsibility',
       'U2 is saving energy for the rundowns',
-      'U2 must always stay within 10 feet of second base',
+      'U2 must always stay within about 10 feet of the second-base bag',
     ],
     correctIndex: 1,
     explanation:
@@ -348,8 +348,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, Reverse rotation (runner on second, U3 out). The batter-runner tries to stretch his hit and is thrown out sliding into second. Who made that call?',
     options: [
-      'U2, from the third-base side',
-      'U1 — in the Reverse rotation he slides with the batter-runner and owns him at both first and second',
+      'U2, sliding back in from the third-base side of the infield',
+      'U1 — the batter-runner is his at first and second',
       'PU, ranging up from home',
       'U3, who returned from the outfield',
     ],
@@ -366,9 +366,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runners on second and third. U3 goes out. R3 tags on the caught fly ball. Who is responsible for lining up R3’s retouch at third?',
     options: [
       'U2, sliding toward third',
-      'The plate umpire — he clears the catcher, lines up R3’s tag-up, then returns aggressively to PoP',
+      'The plate umpire — he clears the catcher and lines it up',
       'U1 from the working area',
-      'Nobody — the retouch is U3’s even from the outfield',
+      'Nobody — the retouch is still U3’s even from the outfield',
     ],
     correctIndex: 1,
     explanation:
@@ -383,8 +383,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond crew comparing notes with a 60-ft crew. On the 60-ft diamond, U1 going out always produces the “U2 Fill.” What is the equivalent set of answers on the big diamond?',
     options: [
       'Identical — U2 Fill in all cases',
-      'Nobody covers for U1 on the big diamond',
-      'With nobody on it is PU Trail; with any runner on base it is the U2 Drift',
+      'Nobody covers for U1 when he goes out on the big diamond',
+      'PU Trail with nobody on; U2 Drift with runners on',
       'U3 always crosses to cover first',
     ],
     correctIndex: 2,
@@ -400,10 +400,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, nobody on. F8 sprints straight back on a deep drive to dead center. Whose catch/no-catch is it?',
     options: [
-      'U1',
-      'U2 — with nobody on he is outside and owns F7 to F9, including fielders going straight in or straight back',
-      'U3',
-      'PU from behind the plate',
+      'U1, from behind first base',
+      'U2 — he owns F7 through F9 from outside',
+      'U3, from behind third base',
+      'PU, tracking it from behind the plate',
     ],
     correctIndex: 1,
     explanation:
@@ -418,9 +418,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on first. The same deep drive sends F8 straight back toward the center-field fence. Whose ball is it now?',
     options: [
       'U2, same as with nobody on',
-      'U1 — with U2 inside, U1’s area expands to cover F8 straight in and back, all the way to the right-field line',
+      'U1 — his area expands once U2 moves inside',
       'PU sprints out for it',
-      'U3 automatically, since U2 is inside',
+      'U3 automatically, since U2 is inside the diamond',
     ],
     correctIndex: 1,
     explanation:
@@ -434,8 +434,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runners on first and second. A drive into the left-center gap takes F8 hard toward the left-field line, with F7 converging. Which umpire goes out?',
     options: [
-      'U2 from inside the diamond',
-      'U3 — F8 moving toward the third-base line, or F7 moving in any direction, is his when U2 is inside',
+      'U2, breaking out from his spot inside the diamond',
+      'U3 — F8 toward the line and all of F7 are his',
       'U1 — he owns all of F8',
       'PU, since the fielders are converging',
     ],
@@ -452,7 +452,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on second. On a fly ball to right-center, both U1 and U3 break out at the same time. Who keeps it?',
     options: [
       'U3, because he started closer to the ball',
-      'U1 — with runners in scoring position the crew defers to U1 so the remaining umpires stay ahead of the runners; U3 recovers and rotates',
+      'U1 — the crew defers to him with RiSP',
       'U2 sorts it out from the infield',
       'Whoever yells louder',
     ],
@@ -468,8 +468,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, nobody on. U1 and U2 both take two hard steps toward a fly ball in right-center. Who backs off?',
     options: [
-      'U2 backs off — U1 outranks him',
-      'U1 backs off — with nobody on, the crew defers to U2 and U1 recovers into the rotation',
+      'U2 backs off — U1 outranks him on shared balls',
+      'U1 backs off — nobody on defers to U2',
       'Both continue out together',
       'PU picks one by pointing',
     ],
@@ -486,7 +486,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on third only. How is outfield fly-ball coverage divided among the base umpires?',
     options: [
       'Like all other runners-on situations: U1 and U3 split everything',
-      'Like nobody on: U2 is outside, so U1 has F9 to the line, U2 has F7 through F9 straight in/back, and U3 has F7 to the line',
+      'Like nobody on — U2 is outside and takes his usual area',
       'PU takes all fly balls with R3',
       'Nobody goes out with a runner on third',
     ],
@@ -503,9 +503,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond. Which three kinds of fly balls are the “3 Fs” that an umpire absolutely must go out on when they are in his area?',
     options: [
       'Fastballs, fouls, and fences',
-      'Balls that threaten fair/foul, balls that threaten the fence or boundary, and balls with fielders converging',
+      'Fair/foul, fence, and fielders converging',
       'Fly balls, flares, and force plays',
-      'Any ball hit past the first fielder',
+      'Any ball hit past the first fielder to chase it',
     ],
     correctIndex: 1,
     explanation:
@@ -519,10 +519,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runners on first and third. A can-of-corn fly ball settles toward F9, who barely moves. Nobody goes out. Who has the catch/no-catch if something goes wrong?',
     options: [
-      'U2 from the B position',
-      'The plate umpire — if no one goes out on a ball to the outfield, PU rules on catch/no-catch',
-      'U1 retroactively',
-      'The call is forfeited',
+      'U2, watching the play from the B position inside',
+      'The plate umpire — nobody went out, so it is his',
+      'U1, taking it retroactively',
+      'The call is forfeited to crew consensus',
     ],
     correctIndex: 1,
     explanation:
@@ -537,9 +537,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond. An umpire commits and goes out on a fly ball near the fence. The ball drops, and chaos erupts on the bases behind him. What does he do?',
     options: [
       'Sprint back in to help with the bases',
-      'Stay out — he ruled on the catch and the boundary; his partners cover the bases, and he only re-enters to assist a rundown when the play allows',
+      'Stay out — his partners absorb the base coverage',
       'Follow the batter-runner around the bases',
-      'Take over the lead runner wherever he goes',
+      'Take over the lead runner wherever he ends up going',
     ],
     correctIndex: 1,
     explanation:
@@ -555,7 +555,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on first. Where does U2 set up before the pitch?',
     options: [
       'Outside the diamond behind second, like the 60-ft system',
-      'Inside the diamond in the “B only” position: heels or toes on the grass/dirt line between first and second, on the tangent line from the apex of home plate through the mound cutout, square to the third-base foul line',
+      'Inside the diamond in the “B only” position',
       'Directly behind the mound',
       'In shallow center field',
     ],
@@ -571,10 +571,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, nobody on. Where does U2 work, and what limits his spot?',
     options: [
-      'Inside in the B position',
-      'Outside the diamond — no more than 1–2 steps into the outfield grass or heels on the infield arc, either side of second, never in the batter’s direct line of sight (no straight-away center), square to the plate',
-      'Anywhere in center field he likes',
-      'Standing on second base',
+      'Inside the diamond in the B position',
+      'Outside — near the grass line behind second',
+      'Anywhere in shallow center field he likes',
+      'Standing directly on top of second base',
     ],
     correctIndex: 1,
     explanation:
@@ -589,9 +589,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on third only. Inside or outside for U2?',
     options: [
       'Inside — any runner means inside',
-      'Outside, exactly as with nobody on: R3 only is the one runners-on situation where U2 stays outside',
+      'Outside — R3 only works like nobody on',
       'His choice with no constraints',
-      'Behind third base to help with R3',
+      'Behind third base to help out with the runner',
     ],
     correctIndex: 1,
     explanation:
@@ -605,8 +605,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond. F3 is holding a runner on first and then, on the next batter, plays way back behind the bag. What must U1 do between those pitches?',
     options: [
-      'Stay in the exact same spot for consistency',
-      'Move up or back with F3, always staying behind the first-base bag while keeping a 2–3 step halo around F3 and a view of his shoe tops',
+      'Stay in the exact same spot every pitch for consistency',
+      'Move up or back with F3, staying behind the bag',
       'Move inside the diamond to compensate',
       'Switch places with U2',
     ],
@@ -623,9 +623,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runner on first, pickoff-happy pitcher. May U1 angle himself for the pickoff throw before the pitch?',
     options: [
       'No — square to the plate at all times',
-      'Yes — U1 may initially set an angle for the pickoff at first, but must be square to the plate by the time the pitch is delivered, shortening up to use the wedge on a throw over',
-      'Yes, and he may stay angled through the pitch',
-      'Only with two outs',
+      'Yes — but he must be square to the plate by delivery',
+      'Yes, and he may stay angled all the way through the pitch',
+      'Only with two outs and a runner going',
     ],
     correctIndex: 1,
     explanation:
@@ -639,8 +639,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, nobody on. A routine ground ball goes to F6. What does the plate umpire do while the throw goes across?',
     options: [
-      'Hold the plate area no matter what',
-      'Clear the catcher to the left and trail the batter-runner up the line, observing the play at first and offering U1 information if asked, then return to PoP',
+      'Hold the plate area no matter what develops',
+      'Clear the catcher and trail the batter-runner',
       'Rotate toward third for the next play',
       'Follow the ball to shortstop',
     ],
@@ -656,10 +656,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on first, ground ball in the hole to F6 with a force coming to second. As the 2026 point of emphasis directs, how does U2 work this from the deep “B only” spot?',
     options: [
-      'Sprint to the bag and straddle it',
-      'Step up to stay chest to ball and step toward the throw for the angle, get set — never moving at the moment of the force — with eyes to the base, then drift with eyes down on runner and fielder',
+      'Sprint straight to the bag and straddle it',
+      'Step up, step toward the throw, and be set at the force',
       'Back out of the infield for a wide view',
-      'Freeze in place and lean',
+      'Freeze in his deep starting spot and lean into the play',
     ],
     correctIndex: 1,
     explanation:
@@ -675,9 +675,9 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, runners on first and second (U2 inside). A routine humpback pop-up settles over the middle infield. Who has catch/no-catch?',
     options: [
       'PU, as on the 60-ft diamond',
-      'U2 — when he is positioned inside, all routine infield catch/no-catch belongs to him',
+      'U2 — inside, routine infield catch/no-catch is his',
       'U1 and U3 split it at second base',
-      'The nearest fielder’s umpire by open glove',
+      'The nearest fielder’s umpire by the open glove theory',
     ],
     correctIndex: 1,
     explanation:
@@ -692,7 +692,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond. A soft liner forces F4 to dive to his right, gloving the ball inches off the grass. Nobody on base. Who rules catch or trap?',
     options: [
       'U1 — F4 belongs to him in every direction',
-      'U2 — a ball hit directly at F4 or F6, F4 diving right, or F6 diving left is U2’s',
+      'U2 — F4 diving right belongs to him',
       'PU — every infield liner is his',
       'U3 — the ball is moving toward his side',
     ],
@@ -708,10 +708,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond. F5 charges hard on a swinging bunt and short-hops-or-catches it on the infield grass near the mound-side. Who has the catch/no-catch?',
     options: [
-      'U3, since it is F5',
-      'The plate umpire — any ball to the pitcher or to an infielder charging in on the infield grass is his',
-      'U2, closest to the grass',
-      'U1, on the throw side',
+      'U3, since F5 is his fielder',
+      'The plate umpire — chargers are his',
+      'U2, working closest to the grass',
+      'U1, set up on the throw side',
     ],
     correctIndex: 1,
     explanation:
@@ -725,10 +725,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond. A low screamer takes F6 ranging to his right, backhand, glove opening toward third base. Who rules on the short-hop?',
     options: [
-      'U2 — F6 is always his',
-      'U3 — a ball taking F5 or F6 to his right belongs to U3, matching the open glove',
-      'U1 across the diamond',
-      'PU by default',
+      'U2 — F6 belongs to him in every direction',
+      'U3 — F6 moving right matches his open glove',
+      'U1, looking across the diamond',
+      'PU by default on infield liners',
     ],
     correctIndex: 1,
     explanation:
@@ -743,7 +743,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond. Why must U1, U2, and U3 be able to see the shoe tops of the fielder in front of them from their starting positions?',
     options: [
       'To judge the fielder’s foot speed',
-      'So they can rule catch versus trap on a sinking line drive played below the fielder’s waist — the open-glove calls that belong to them',
+      'To rule catch versus trap on sinking line drives',
       'To check the fielder’s footwear for metal cleats',
       'It is a tradition with no practical purpose',
     ],
@@ -759,7 +759,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runner on third breaking on contact. A slow roller hugs the third-base line between home and third, and R3’s dash home screens the plate umpire. Who bails the crew out on fair/foul, and what is the situation called?',
     options: [
-      'U3 takes the call — the “pinch,” pre-signaled whenever R3 is aboard',
+      'U3 takes the call — the “pinch”',
       'U2 from the middle — the “squeeze”',
       'U1 from across the field — the “cross”',
       'The call is suspended until the runner passes',
@@ -778,7 +778,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond crews state their tag-up philosophy differently than 60-ft crews. What is the big-diamond rule for retouch responsibility when the crew rotates?',
     options: [
       'Retouches always go to the plate umpire',
-      'Retouch responsibility never reverts to an umpire behind the runner — coverage stays in front',
+      'Retouches never revert to an umpire behind the runner',
       'Each umpire keeps his original base’s retouch from wherever he is',
       'Retouches are shared calls requiring two umpires',
     ],
@@ -794,8 +794,8 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, runners on first and second, routine single to right — no umpire goes out. Who watches R2’s retouch-or-advance and R1’s retouch on this routine base hit?',
     options: [
-      'U1 has R1’s retouch and the BR’s touch of first; U2 has R2 and everything at second; U3 waits at Po3',
-      'PU takes all retouches from the plate',
+      'Nobody rotates — each umpire keeps his own base',
+      'PU takes all of the retouches from the plate area',
       'U3 has both retouches from third',
       'Retouches do not apply on base hits',
     ],
@@ -811,7 +811,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, Full rotation (nobody on, U2 out, ball in the gap). The batter-runner motors around the bases. Who has his touch at each base?',
     options: [
-      'U1 at first and then home after releasing; U3 at second; PU at third',
+      'U1 at first and home; U3 at second; PU at third',
       'PU at first; U1 at second; U3 at third and home',
       'U3 everywhere until the ball comes in',
       'U1 at first, second, and third',
@@ -828,10 +828,10 @@ export const MECH_BIG_QUESTIONS: Question[] = [
     scenario:
       'Big diamond, Reverse rotation touch map. U3 went out with runners in scoring position. Who owns the touches at second and third as the runners advance?',
     options: [
-      'U1 owns everything in the middle',
-      'U2 — sliding with the lead runner, he has the lead runners at second and the trail coverage at third; U1 has the batter-runner at first and second; PU has home',
-      'PU covers second and third at once',
-      'U3 keeps them from the outfield',
+      'U1 owns everything in the middle infield',
+      'U2 — sliding, he has the lead runners at second and third',
+      'PU ranges all the way out to cover both second and third at once',
+      'U3 keeps both touches from the outfield',
     ],
     correctIndex: 1,
     explanation:
@@ -846,7 +846,7 @@ export const MECH_BIG_QUESTIONS: Question[] = [
       'Big diamond, U2 Drift in progress (U1 went out with a runner on first). The batter-runner rounds first wide while R1 holds at second. Two bases, one umpire. How does U2 handle owning both first and second at once?',
     options: [
       'Pick the base closest to the ball and ignore the other',
-      'Work with depth in the working area, stay chest to ball, and let the ball take him to the play — never overcommitting to one base until responsibilities become singular',
+      'Work with depth, chest to ball, and let the ball take him',
       'Straddle a midpoint and never move',
       'Call for help from U3',
     ],

@@ -19,7 +19,7 @@ export const LL_QUESTIONS: Question[] = [
     options: [
       'Stolen base — he beat the throw',
       'R1 is out for leaving early',
-      'No out, but R1 is returned to first — he left before the ball reached the batter',
+      'No out, but R1 is returned to first',
       'Delayed dead ball — offence’s choice',
     ],
     correctIndex: 2,
@@ -52,7 +52,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. After a wild play ends, the catcher is still retrieving his mask near the backstop when R2 suddenly trots toward third. The pitcher has the ball near the mound but is not on the pitcher’s plate.',
     options: [
       'R2 must return — the play was over',
-      'Legal — runners are free to advance until the pitcher is set to deliver and the catcher is ready',
+      'Legal — the pitcher and catcher are not yet in position',
       'Dead ball — runners may never advance between pitches',
       'R2 is out for leaving early',
     ],
@@ -69,7 +69,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. The batter-runner rounds first hard on a clean single and hesitates fifteen feet toward second. The pitcher gets the ball back and quickly steps onto the pitcher’s plate, claiming the runner must now return.',
     options: [
       'Correct — engaging the plate freezes all runners',
-      'The runner may still advance or return — a pitcher cannot trap a legitimately off-base runner by stepping on the plate',
+      'The runner may still advance or return at his own risk',
       'The runner is out if he does not return immediately',
       'No pitch is declared',
     ],
@@ -86,7 +86,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. The umpires notice that on every pitch, all runners break the instant the pitcher’s arm starts forward, and the third-base coach can be heard telling them to go on first movement.',
     options: [
       'Nothing can be done beyond returning the runners',
-      'The manager may be warned and then ejected for deliberately instructing players to violate the rule',
+      'The manager may be warned and then ejected',
       'Each runner is automatically out after the second violation',
       'The game is forfeited',
     ],
@@ -103,7 +103,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. The pitcher toes the plate ready to go. The catcher is in position facing him, mask on, but standing upright rather than crouched. The pitcher begins his delivery.',
     options: [
       'No pitch — the catcher must be in a squat',
-      'Legal — a catcher is “ready” with mask on and facing the pitcher; no squat is required',
+      'Legal — mask on and facing the pitcher is “ready”',
       'Quick pitch — ball on the batter',
       'Time out is automatic until the catcher crouches',
     ],
@@ -139,7 +139,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. R2 tries to score on a single and dives headfirst across home plate just under the tag.',
     options: [
       'Safe — great slide',
-      'Out — a runner who slides headfirst while advancing is out in Majors and below',
+      'Out — no headfirst slides while advancing',
       'Safe, but the team is warned',
       'The run counts only if the tag was late',
     ],
@@ -156,7 +156,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. On a pickoff throw to first, R1 dives back headfirst and gets his hand on the bag before the tag.',
     options: [
       'Out — headfirst slides are illegal in Majors',
-      'Safe — the headfirst restriction only applies while advancing, not returning',
+      'Safe — the restriction only applies while advancing',
       'Out, and the manager is warned',
       'Safe only if the throw pulled the fielder off the bag',
     ],
@@ -173,7 +173,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. The catcher, ball in hand, stands on the plate waiting. R3 comes home standing up at full speed and crashes into him without any attempt to slide or veer off.',
     options: [
       'Safe if he touched the plate first',
-      'Out — a runner must attempt to slide or avoid a fielder who has the ball and is waiting to tag',
+      'Out — he must attempt to slide or avoid the fielder',
       'Obstruction on the catcher for blocking the plate',
       'Both players are ejected automatically',
     ],
@@ -190,7 +190,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. Caught in no-man’s-land, R1 sprints in a wide arc through the outfield grass to get around the second baseman, who is chasing him with the ball. No batted ball is nearby.',
     options: [
       'Legal — a runner can run anywhere',
-      'Out if he runs more than three feet from his basepath to avoid the tag',
+      'Out if he leaves his basepath by more than three feet',
       'Out only if he is touched',
       'The basepath is always a straight line between the bases',
     ],
@@ -207,7 +207,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. Ball four. The batter-runner jogs to first, rounds it a step past the bag out of habit, and is immediately tagged by the alert first baseman before returning.',
     options: [
       'Out — the overrun protection does not apply on a walk',
-      'Safe — a batter-runner may overrun first on a walk and return immediately without liability',
+      'Safe — the overrun protection applies on a walk too',
       'Out unless he turned toward foul territory',
       'Dead ball — he must stay on the bag on a walk',
     ],
@@ -224,7 +224,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. R1 slides hard into second on a steal, beats the tag — and his slide knocks the entire bag loose from its anchor, leaving him lying beside the dislodged base.',
     options: [
       'Out when tagged while not touching the base',
-      'Safe — once he reached the base safely, no play can be made on him at the dislodged bag',
+      'Safe — no play can be made on him at the dislodged bag',
       'He must chase the bag and hold on to it',
       'Dead ball — he is awarded third for the faulty equipment',
     ],
@@ -241,7 +241,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, R1 and R3, one out. R1 is tagged on a close play at second, believes he is out even though the umpire signalled safe, and jogs off across the infield toward his dugout. He is well onto the foul territory grass when the defence notices.',
     options: [
       'He can return to second any time before being tagged',
-      'He is out for abandoning the bases, and the ball stays live for R3',
+      'Out for abandonment — the ball stays live for R3',
       'Dead ball — he returns to second with a warning',
       'He is out, and the ball is dead immediately',
     ],
@@ -257,10 +257,10 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game. R1 is struck by the shortstop’s wild throw while running the bases; later in the same game, R2 collides with the third baseman who is bent over fielding a slow roller.',
     options: [
-      'Both are automatic outs',
-      'Neither can ever be penalized',
-      'The thrown ball is nothing (runner has right of way); the batted-ball contact risks interference (fielder has right of way)',
-      'Both are obstruction on the fielders',
+      'Both are automatic outs the moment contact occurs',
+      'Neither can be penalized — contact alone is never a violation by itself',
+      'Nothing on the thrown ball; possible interference on the batted ball',
+      'Both are obstruction calls against the fielders',
     ],
     correctIndex: 2,
     explanation:
@@ -294,7 +294,7 @@ export const LL_QUESTIONS: Question[] = [
       'Senior League game. Wanting to appeal a missed base, the pitcher stands on the pitcher’s plate with the ball, then backs off it with his free foot first before throwing to second.',
     options: [
       'Legal — how he steps off is irrelevant',
-      'Improper — disengaging for an appeal must be with the pivot foot first',
+      'Improper — he must step off with the pivot foot first',
       'Legal only if the umpire first calls time',
       'An appeal may never start from the pitcher’s plate',
     ],
@@ -311,7 +311,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. Before appealing a missed second base, the shortstop fakes a throw to third to freeze R3, never releasing the ball, then the defence completes the appeal at second.',
     options: [
       'The appeal is lost — the fake was a play',
-      'The appeal stands — a feint without releasing the ball is not a play or attempted play',
+      'The appeal stands — a feint is not a play',
       'Both the fake and the appeal are illegal',
       'R3 is awarded home for the deke',
     ],
@@ -328,7 +328,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, R2. Deep fly caught in centre. R2, standing a stride behind second base, times the catch and takes off for third from that rolling start without ever re-touching the bag. The defence throws to second and the fielder stands on the base with the ball.',
     options: [
       'Safe — he was close enough to the bag',
-      'Out — a runner may not take a flying start; touching the base with the ball is an unmistakable appeal, no words needed',
+      'Out on appeal — a runner may not take a flying start',
       'The defence must verbally announce the appeal first',
       'R2 just returns to second',
     ],
@@ -345,7 +345,7 @@ export const LL_QUESTIONS: Question[] = [
       'Intermediate game. The batter-runner beats the play at first but his foot misses the bag entirely as he crosses it. A second later the first baseman, holding the ball, is still standing on the base.',
     options: [
       'Automatic out — he never touched first',
-      'He is considered to have touched the base once he passed it; only a proper, unmistakable appeal can retire him',
+      'Treated as having touched it — only a proper appeal retires him',
       'He must go back and touch before the fielder does anything',
       'Dead ball — umpire sorts it out',
     ],
@@ -362,7 +362,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, two out. R2 and R3 both race home on a hit; R3 misses the plate and R2, right behind him, touches it. R3 starts back toward the plate as the catcher takes the throw. The defence appeals R3’s miss.',
     options: [
       'R3 may still scramble back and touch the plate',
-      'R3 is out — once the following runner touched the plate, R3 can no longer return; as the third out, neither run scores',
+      'R3 is out on appeal, and neither run scores',
       'Only R3’s run is removed; R2’s counts',
       'Both runs count — the plate was touched by someone',
     ],
@@ -378,8 +378,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Junior League game. R1 rounds second on a fly ball he thought would drop, and on his way back to first to tag up he cuts across the infield, missing second. The ball is dropped after all, so he re-touches first and runs again, this time stepping on second on his way to third.',
     options: [
-      'Out on appeal — he missed second on the way back',
-      'The later touch of second while advancing corrects the earlier miss — no appeal will succeed',
+      'Out on appeal — he missed second on the way back to first',
+      'No appeal succeeds — his last time by second was legal',
       'He must touch second twice to correct the miss',
       'Dead ball — return him to first',
     ],
@@ -396,7 +396,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. The third out of the inning is recorded, and the defence then realizes R3 left third before a caught fly on that same play and scored. All the infielders are still in fair territory. The manager wants the run cancelled.',
     options: [
       'Too late — the inning is over',
-      'The pitcher takes the plate, the umpire calls “Play,” and the defence may execute the appeal for an advantageous fourth out',
+      'The ball is made live and the defence may still appeal',
       'Appeals are impossible once a third out exists',
       'The umpire cancels the run without any appeal needed',
     ],
@@ -415,7 +415,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors regular-season game, traditional batting order. A substitute enters at second base, plays three defensive outs, sits for an inning, then plays three more outs.',
     options: [
       'He has met mandatory play — six outs total',
-      'He has not — a substitute’s six defensive outs must be consecutive',
+      'He has not — the six outs must be consecutive',
       'Substitutes have no mandatory play requirement',
       'He met it as long as he also batted',
     ],
@@ -432,7 +432,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, traditional order. A starter is pulled in the third inning for a substitute. In the fifth, the manager wants the starter back in the game.',
     options: [
       'Never — removed players are done for the game',
-      'Allowed once the substitute has met mandatory play, and only in the starter’s original batting spot',
+      'Allowed once the substitute has met mandatory play',
       'Allowed anywhere in the order',
       'Allowed only if the substitute is injured',
     ],
@@ -449,7 +449,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, traditional order. A substitute is ejected for throwing his bat before reaching his six defensive outs. The manager sends the starter he replaced back onto the field.',
     options: [
       'Fine — the ejection frees the spot',
-      'Not allowed — if the substitute fails to meet mandatory play through injury or ejection, the starter may NOT re-enter',
+      'Not allowed — the starter’s re-entry right is gone',
       'Allowed with the umpire-in-chief’s permission',
       'The team plays a man short',
     ],
@@ -465,8 +465,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game using the continuous batting order. The coach freely rotates all twelve players through defensive positions inning by inning, with no player getting six consecutive outs.',
     options: [
-      'Violation — six consecutive outs are always required',
-      'Legal — with a continuous order there is free defensive substitution, but every player must still total six defensive outs',
+      'Violation — six consecutive defensive outs are always required',
+      'Legal — but every player must still total six defensive outs',
       'Legal, and there is no defensive requirement at all',
       'Only starters must reach six outs',
     ],
@@ -483,7 +483,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, continuous batting order, two out. The catcher of record is on second base. The coach sends in another player from the bench to run for him so he can put his gear on.',
     options: [
       'Illegal — courtesy runners do not exist in Little League',
-      'Legal — a courtesy runner is allowed for the pitcher or catcher of record with two outs',
+      'Legal for the catcher of record with two outs',
       'Legal for anyone at any time with a continuous order',
       'Legal only in the last inning',
     ],
@@ -499,8 +499,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game, traditional order. In the fourth inning a starter re-enters — but into a different spot in the batting order. The opposing manager notices right away, before the next pitch.',
     options: [
-      'Nothing can be done during the game',
-      'It is a protestable violation that must be corrected before the next pitch or play',
+      'Nothing can be done until the game is protested afterwards',
+      'A protestable violation — correct it before the next pitch',
       'The re-entering player is ejected',
       'The game is immediately forfeited',
     ],
@@ -519,9 +519,9 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, R1 and R2. The pitcher rushes his delivery before the batter’s hands and eyes are up.',
     options: [
       'Balk — runners advance one base',
-      'Ball on the batter — Majors has no balks, and a quick pitch there is always ruled a ball',
-      'Strike if the pitch is in the zone',
-      'Warning only',
+      'Ball on the batter — Majors has no balks',
+      'Strike if the pitch crosses the strike zone',
+      'Warning to the pitcher only',
     ],
     correctIndex: 1,
     explanation:
@@ -536,7 +536,7 @@ export const LL_QUESTIONS: Question[] = [
       'Junior League game, R1. The pitcher quick-pitches before the batter is reasonably set in the box.',
     options: [
       'Ball on the batter, runners hold',
-      'Balk — with runners on base in Intermediate and above, a quick pitch is a balk',
+      'Balk — quick pitch with a runner on base',
       'No penalty — the batter must be ready',
       'The pitch counts as delivered',
     ],
@@ -553,7 +553,7 @@ export const LL_QUESTIONS: Question[] = [
       'Senior League game, R1 and R3. From the rubber, the pitcher steps toward third and fakes a throw — disengaging as he does — then steps toward first and throws over, nearly picking R1 off.',
     options: [
       'Balk — the fake-to-third, throw-to-first move is illegal',
-      'Legal in Little League — a feint to an occupied third with a proper step is allowed, and the disengaged pitcher may then throw to first',
+      'Legal — Little League still allows the fake-to-third move',
       'Balk — a pitcher may only feint to second',
       'Legal only if he threw to third first',
     ],
@@ -569,8 +569,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Intermediate game, R1. In the set position, the pitcher’s free foot swings back past the back edge of the pitcher’s plate — and he then throws to first for a pickoff.',
     options: [
-      'Legal — the foot position is meaningless',
-      'Balk — once the free foot passes the back edge, he must pitch, except to throw to second on a pickoff of an advancing runner',
+      'Legal — free-foot position is meaningless in the set',
+      'Balk — past the back edge, he is committed to pitching',
       'Legal because the runner was stealing',
       'Illegal pitch — ball on the batter',
     ],
@@ -586,8 +586,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Junior League game, R2. While engaged and taking the sign, the pitcher fumbles the ball; it drops and dribbles four feet, staying inside the foul lines.',
     options: [
-      'No penalty — pick it up and resume',
-      'Balk — a dropped ball while engaged that stays inside the foul lines is an illegal pitch, a balk with a runner on',
+      'No penalty — he simply picks it up and resumes',
+      'Balk — the drop stayed inside the foul lines',
       'Ball on the batter in every case',
       'Dead ball, do-over',
     ],
@@ -603,10 +603,10 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game, bases empty. The pitcher wanders two steps off the mound with the ball, then fires a surprise pitch to the catcher without touching the pitcher’s plate.',
     options: [
-      'Legal — no runners were on',
-      'Ball on the batter — pitching while not in contact with the pitcher’s plate is one of the two illegal pitches penalized even with the bases empty',
-      'Strike if in the zone',
-      'No pitch, warning only',
+      'Legal — with no runners on, nothing to penalize',
+      'Ball on the batter — an illegal pitch',
+      'Strike if the pitch is in the zone',
+      'No pitch — warn the pitcher and reset',
     ],
     correctIndex: 1,
     explanation:
@@ -620,8 +620,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game, R1. The pitcher steps off the pitcher’s plate but keeps both hands together on the ball, then immediately steps back on and starts his motion.',
     options: [
-      'Legal — he disengaged properly',
-      'Improper — after disengaging he must separate his hands and drop them to his sides before re-engaging',
+      'Legal — he disengaged from the plate properly',
+      'Improper — the hands must come apart first',
       'Automatic balk in all divisions',
       'Legal as long as the runner was on the base',
     ],
@@ -638,7 +638,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. The coach visits the mound to settle his pitcher in the third inning, then comes out to talk to the same pitcher again later in the same inning.',
     options: [
       'Fine — visits are unlimited in Majors',
-      'The pitcher must be removed from the mound on the second visit in the same inning',
+      'The pitcher must be removed from the mound',
       'The coach is ejected',
       'The second visit costs a ball to the batter',
     ],
@@ -655,7 +655,7 @@ export const LL_QUESTIONS: Question[] = [
       'Intermediate game, R1. The pitcher sets up in a stance that blends windup and set features — pivot foot on the plate, free foot slightly ahead, hands together in front. The offensive coach demands a balk for an “illegal hybrid stance.”',
     options: [
       'Balk — a pitcher must clearly declare windup or set',
-      'No violation — nothing in the pitching rules prohibits a hybrid stance, provided all the usual delivery rules are followed',
+      'No violation — nothing prohibits a hybrid stance',
       'Illegal pitch — ball on the batter',
       'Time — the umpire must make him restart in a legal stance',
     ],
@@ -673,9 +673,9 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game, R1 and R2, one out. The first baseman makes a fine running catch on a foul pop and his momentum carries him down the dugout steps, ball held high.',
     options: [
-      'Catch stands, play on — hustle play',
+      'Catch stands and the ball stays live — hustle play',
       'No catch — foul ball',
-      'Catch stands, but the ball is dead and both runners advance one base from the time of pitch',
+      'Catch stands — ball dead, runners advance one base',
       'Catch stands and runners are frozen',
     ],
     correctIndex: 2,
@@ -691,9 +691,9 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. Chasing a pop-up toward his own dugout, the catcher gloves the ball with one foot on the dugout lip and the other foot planted on the top step inside.',
     options: [
       'Legal catch — one foot was on the lip',
-      'No catch — a foot on the ground inside the dugout at the moment of the catch makes him “inside,” and no valid catch can be made there',
+      'No catch — a foot down inside the dugout makes him “inside”',
       'Legal catch, ball dead, runners advance',
-      'Foul ball only if it would have landed in the dugout',
+      'Foul ball, but only if it would have landed inside the dugout',
     ],
     correctIndex: 1,
     explanation:
@@ -707,8 +707,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Same chase, different footwork: the catcher gloves the pop-up with one foot on the dugout lip and the other foot in the air above the steps.',
     options: [
-      'No catch — part of him was over the dugout',
-      'Legal catch — a foot on or over the playing surface with neither foot down in dead-ball territory is valid',
+      'No catch — part of his body was over the dugout steps',
+      'Legal catch — no foot was down in dead-ball territory',
       'Legal only if he does not fall in afterward',
       'Umpire’s discretion',
     ],
@@ -724,8 +724,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game, R2. The third baseman fields a ground ball and his errant throw to first sails into the stands.',
     options: [
-      'Catch-and-carry: one base from time of pitch',
-      'This is not catch-and-carry at all — it is an overthrow, awarded under the thrown-ball rules (two bases)',
+      'Catch-and-carry — award one base from the time of pitch',
+      'Not catch-and-carry — it is an overthrow, two bases',
       'The runner returns to second',
       'Dead ball, no awards',
     ],
@@ -741,10 +741,10 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game. An outfielder sprints toward the open bullpen gate, launches himself, and gloves the fly ball in mid-air before landing entirely inside the bullpen (a dead-ball area by ground rules), never having touched live-ball ground during the catch.',
     options: [
-      'No catch — a fielder who dives into dead-ball territory with neither foot on or over the playing surface cannot make a valid catch',
-      'Catch, ball dead, one-base award',
-      'Catch, play on',
-      'Home run',
+      'No catch — neither foot was on or over live-ball ground',
+      'Catch — the ball is dead and a one-base award applies',
+      'Catch — the ball stays live, play on',
+      'Home run — the ball ended up in dead-ball territory',
     ],
     correctIndex: 0,
     explanation:
@@ -760,9 +760,9 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game. A bunt dies right in front of the plate. The catcher springs out to field it and tangles legs with the batter-runner leaving the box; both stumble. The umpire judges nobody meant anything by it.',
     options: [
-      'Interference — the batter must yield',
-      'Obstruction — the catcher must yield',
-      'Nothing — incidental tangle/untangle contact between catcher and batter-runner is part of the play',
+      'Interference — the batter-runner must yield to the catcher',
+      'Obstruction — the catcher must yield to the batter-runner',
+      'Nothing — incidental contact here is part of the play',
       'Dead ball, replay the pitch',
     ],
     correctIndex: 2,
@@ -779,7 +779,7 @@ export const LL_QUESTIONS: Question[] = [
     options: [
       'Still nothing — contact at the plate is always incidental',
       'Interference on the batter-runner',
-      'Obstruction on the catcher — flagrant contact that impedes the batter-runner is penalized',
+      'Obstruction on the catcher — the shove was flagrant',
       'Ejection but no base award',
     ],
     correctIndex: 2,
@@ -795,7 +795,7 @@ export const LL_QUESTIONS: Question[] = [
       'Senior League game, strike three in the dirt, batter-runner takes off. Because the ball squirted toward the first-base dugout, the catcher’s throw comes from foul ground — and the batter-runner, running in fair territory outside the running lane, is hit in the shoulder by it.',
     options: [
       'Interference — he was outside the lane, automatic out',
-      'Not interference — with the throw coming from the foul side, running in fair territory is legal on an uncaught third strike, unless he interfered intentionally',
+      'Not interference — the throw came from the foul side',
       'Dead ball, batter out, runners return',
       'The throw hitting him makes him out regardless of position',
     ],
@@ -811,8 +811,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Majors game. While their teammate bats, the next batter stands outside the dugout swinging a bat to stay loose.',
     options: [
-      'Fine — that is what the on-deck circle is for',
-      'Not allowed — there is no on-deck position in Majors and below, and the next batter may not pick up a bat until it is their turn',
+      'Perfectly fine — that is what the on-deck circle is for',
+      'Not allowed — there is no on-deck position in Majors',
       'Allowed with a helmet on',
       'Allowed only if the field has no fence',
     ],
@@ -828,8 +828,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Junior League game. A batting weight is left lying in the on-deck circle. A foul pop drifts that way and the catcher, tracking the ball, trips over it and the ball drops.',
     options: [
-      'Tough luck — play on',
-      'Unnecessary equipment on the field can draw an interference call against the team at fault — here the offence, so the batter can be ruled out',
+      'Tough luck — the catcher should watch where he is going',
+      'Interference on the offence — the batter can be ruled out',
       'Automatic dead ball, no penalty',
       'The catcher is charged with an error',
     ],
@@ -846,8 +846,8 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, R1. A ground ball rolls toward the second baseman, and R1, running from first, is bumped as the fielder charges the ball; the fielder bobbles it and everyone is safe. The umpire judges the contact hindered the fielder.',
     options: [
       'Obstruction — award R1 second',
-      'Interference — the fielder fielding a batted ball has the right of way; R1 is out and the ball is dead',
-      'Nothing — the contact was accidental',
+      'Interference — R1 is out and the ball is dead',
+      'Nothing — the contact was accidental, play on',
       'Both players penalized',
     ],
     correctIndex: 1,
@@ -863,7 +863,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, R3, one out. The batter squares to bunt, fouls it straight down, and the ball spins into fair territory where R3, sprinting home on the squeeze, is struck by it in fair ground before it passes any fielder.',
     options: [
       'Run scores if he beats the ball home',
-      'R3 is out, the ball is dead, and the batter is awarded first base',
+      'R3 is out and the batter is awarded first',
       'Foul ball — replay',
       'R3 returns to third, no out',
     ],
@@ -882,7 +882,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game on a field with a double first base. A chopper down the line lands squarely on the orange half of the bag without touching the white.',
     options: [
       'Fair — it hit the base',
-      'Foul — a ball touching only the orange portion is foul',
+      'Foul — only the white half is fair',
       'Umpire’s judgment on the bounce',
       'Dead ball',
     ],
@@ -899,8 +899,8 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, double first base, bang-bang play on a ground ball. Which halves of the base are the fielder and the batter-runner each supposed to use?',
     options: [
       'Either player may use either half',
-      'Fielder on the orange, runner on the white',
-      'Fielder on the white, batter-runner on the orange for his first attempt at the bag',
+      'Fielder on the orange half, runner on the white half',
+      'Fielder on the white, batter-runner on the orange',
       'Both must touch both halves',
     ],
     correctIndex: 2,
@@ -916,7 +916,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, close play at the double first base. The batter-runner beats the throw but steps only on the white half. Before he returns to the bag, the defence clearly appeals that he used the wrong half.',
     options: [
       'Safe — he touched some part of the base',
-      'It is treated like a missed base — the umpire rules on the appeal and the batter-runner is out',
+      'Treated like a missed base — the batter-runner is out',
       'He just gets sent back to touch the orange half',
       'The defence must tag him physically to win the appeal',
     ],
@@ -933,7 +933,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, double first base. The batter-runner laces a double-turned-single into the gap — no play anywhere near first — and touches the orange half rounding the bag before retreating to stand on it.',
     options: [
       'Out on appeal — with no play, he must use the white half',
-      'Legal — with no chance of a play at first, either half may be touched',
+      'Legal — with no play coming, either half may be touched',
       'He must re-touch the white half to be safe',
       'Interference',
     ],
@@ -950,7 +950,7 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, double first base, R1 standing on the bag. On a pickoff throw, R1 dives back and grabs the orange half as the tag comes down on him.',
     options: [
       'Safe — any part of the double base counts',
-      'Out — for pickoffs, tag-ups, and leaving the base, the runner may only use the white half',
+      'Out — on a pickoff, only the white half is the base',
       'Safe if the first baseman was on the white half',
       'No play allowed at a double base',
     ],
@@ -967,7 +967,7 @@ export const LL_QUESTIONS: Question[] = [
       'Senior League game, double first base, uncaught third strike. The batter-runner sprints as the catcher retrieves the ball and fires to first, where the first baseman stretches with a foot on the orange half a beat before the runner hits the white half.',
     options: [
       'Runner safe — the fielder must use the white half',
-      'Runner out — on an uncaught third strike, both the defence and the batter-runner may use either half of the base',
+      'Runner out — either player may use either half here',
       'No play — batters cannot run on strike three',
       'Runner safe — he touched the correct half',
     ],
@@ -986,8 +986,8 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game, nobody on, two strikes. The batter swings through strike three and the ball skips off the dirt past the catcher to the backstop. The batter takes off for first.',
     options: [
       'He can take first if he beats the throw',
-      'He is out — in Majors and below the batter is out on strike three whether or not the catcher holds it',
-      'He is safe automatically because the ball got away',
+      'He is out — batters cannot run on strike three in Majors',
+      'He is automatically safe at first because the ball got away',
       'The pitch is replayed',
     ],
     correctIndex: 1,
@@ -1002,8 +1002,8 @@ export const LL_QUESTIONS: Question[] = [
     scenario:
       'Intermediate (50/70) game, R1 on first, one out. Strike three bounces off the catcher’s glove and rolls away. The batter sprints for first.',
     options: [
-      'He may run — the ball was not caught',
-      'He is out — with first base occupied and fewer than two outs, the batter may not advance on an uncaught third strike',
+      'He may run — the ball was not caught cleanly by the catcher',
+      'He is out — first is occupied with fewer than two outs',
       'He is out only if the catcher tags him',
       'R1 must advance for the batter to run',
     ],
@@ -1020,8 +1020,8 @@ export const LL_QUESTIONS: Question[] = [
       'Majors game. Annoyed by a called strike, the batter steps out of the box without asking for time just as the pitcher delivers the next pitch, which crosses the plate.',
     options: [
       'No pitch — the box was empty',
-      'The pitch counts, and the benefit of the doubt on ball or strike goes to the pitcher',
-      'Automatic strike regardless of location',
+      'The pitch counts — benefit of the doubt to the pitcher',
+      'Automatic strike on the batter regardless of location',
       'The batter is out',
     ],
     correctIndex: 1,
@@ -1037,7 +1037,7 @@ export const LL_QUESTIONS: Question[] = [
       'Junior League game, R1. The pitcher has begun his motion when the batter abruptly steps out of the box, and the startled pitcher interrupts his delivery.',
     options: [
       'Balk — he stopped his motion with a runner on',
-      'No balk — the batter induced the stop; the umpire calls time and both players restart',
+      'No balk — call time and let both players restart',
       'Strike on the batter as a penalty',
       'The batter is ejected',
     ],

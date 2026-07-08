@@ -34,7 +34,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Senior Interlock game scheduled for 8:15 PM under lights starts 20 minutes late. The home coach argues a new inning can begin any time before 10:35 PM, two hours after the first pitch. Correct?',
     options: [
       'Yes — the limit runs from the actual first pitch',
-      'No — no new inning may start more than two hours after the SCHEDULED start (10:15), and lights-out curfews may cut that shorter',
+      'No — the two hours run from the scheduled start (10:15)',
       'No — Senior games have no time limit',
       'Yes, but only with the umpire’s blessing',
     ],
@@ -51,7 +51,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Rain ends a Junior Interlock game in the 4th inning after exactly 1 hour and 48 minutes of play. Five innings were never reached. Is this a regulation game?',
     options: [
       'No — Junior games need five complete innings, full stop',
-      'Yes — a game played at least 1 hour 45 minutes is regulation by time',
+      'Yes — 1 hour 45 minutes of play makes it regulation',
       'Only if both coaches sign the scorebook',
       'No — it must be replayed from the first pitch',
     ],
@@ -68,7 +68,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A regulation Senior game is called for darkness during the top of the 6th with the visitors having scored three runs that inning to lead 9–8. The home team led 8–6 after five complete innings. Final score?',
     options: [
       'Visitors 9–8 — the score when called always stands',
-      'Home 8–6 — the incomplete inning is wiped and the score reverts to the end of the 5th',
+      'Home 8–6 — the score reverts to the end of the 5th',
       'A 8–8 tie is recorded',
       'The game resumes from that exact point another day',
     ],
@@ -85,7 +85,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A regular-season Junior Interlock game reaches regulation tied 3–3 and is then stopped by the two-hour limit. The coaches want to know how the winner will be decided. What do you tell them?',
     options: [
       'Extra innings will be scheduled next week',
-      'Nothing — regular-season ties are allowed and 3–3 is the final',
+      'Nothing — regular-season ties stand',
       'A five-run shootout decides it',
       'The team with more hits wins',
     ],
@@ -104,7 +104,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A visiting Junior team arrives to find the home field set up with 80-foot bases and a 54-foot pitching distance. The visiting coach demands full 90/60′6″ dimensions because that’s what his home league uses. Who’s right?',
     options: [
       'The visitors — Junior must always be 90 feet',
-      'The home team — Junior games use the dimensions of the home team’s field for that game',
+      'The home team — visitors adapt to the home field',
       'The umpire chooses whichever seems safer',
       'The game is postponed until the convenor rules',
     ],
@@ -138,7 +138,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Before a Senior night game, the home coach hands you one scuffed practice ball to start the game. What does the Interlock require of the home team?',
     options: [
       'One ball is fine if both coaches agree',
-      'At least two NEW approved leather game balls, plus spares available',
+      'Two new approved game balls, plus spares',
       'Three new balls per game, no exceptions',
       'The visitors must supply the game balls',
     ],
@@ -156,8 +156,8 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
     scenario:
       'A Senior coach argues the 5-run inning cap is “a little-kids rule” that can’t possibly apply to his division. Does the cap apply at Junior/Senior Interlock?',
     options: [
-      'No — big-diamond innings are open',
-      'Yes — the 5-run cap applies everywhere except the Major All-Star tier',
+      'No — innings are open on the big diamond',
+      'Yes — only Major All-Stars are exempt',
       'Only in the Nationals tier',
       'Only in the first three innings',
     ],
@@ -174,7 +174,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Bottom of the 7th — the final inning of a Junior game. The home team has scored five runs to pull within two and has runners aboard. The dugout insists the final inning is open. What’s the call?',
     options: [
       'Play on — the last inning has no cap',
-      'The half-inning ended when the fifth run scored — the cap applies to the final inning too',
+      'The half-inning ended when the fifth run scored',
       'The cap moves to ten runs in the 7th',
       'The umpire decides whether to open the inning',
     ],
@@ -191,7 +191,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'After four complete innings a Junior Interlock game sits at 14–3. The winning coach starts shaking hands, citing the mercy rule. Is the game over?',
     options: [
       'Yes — a 10-run lead after four innings ends any Interlock game',
-      'No — at Junior/Senior the mercy checkpoint is FIVE complete innings, not four',
+      'No — the checkpoint is five complete innings here',
       'Yes — a lead over 10 ends a game at any point',
       'No — Junior/Senior games have no mercy rule',
     ],
@@ -278,7 +278,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Senior batter grounds out, and two batters later the coach wants him to be the courtesy runner for the catcher of record, who just walked with two outs. Is this the right runner?',
     options: [
       'No — courtesy runners must be players not in the batting order',
-      'Yes — the courtesy runner must be the player in the batting order who made the last out, and two outs is the right time',
+      'Yes — he made the last out and there are two outs',
       'No — courtesy runners are only for the pitcher',
       'Yes, but only in extra innings',
     ],
@@ -295,7 +295,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Senior batter is in the habit of strolling several feet out of the box after every pitch to adjust his gloves. The opposing coach asks you to enforce the Interlock batter’s box rule. What does it require?',
     options: [
       'Nothing at Senior — the box rule is a small-diamond option',
-      'At least one foot must remain in the box throughout the at-bat, at all divisions and tiers',
+      'At least one foot must remain in the box all at-bat',
       'Both feet must stay in the box at all times',
       'The batter may leave the box freely with the umpire’s permission',
     ],
@@ -331,7 +331,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Senior coach moves his starter to first base in the 4th, then wants him back on the mound in the 6th, pointing out that regular Little League Senior rules can allow a pitcher to return. What does Interlock say?',
     options: [
       'He may return once, as in the regular rule book',
-      'He may not — Interlock bars a removed pitcher from returning to the mound at ALL divisions, Senior included',
+      'He may not — the Interlock override covers Senior too',
       'He may return if he threw under 40 pitches',
       'He may return only with the opposing coach’s consent',
     ],
@@ -348,7 +348,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Junior team’s 15-year-old over-age player (approved by the Board to play in the division) is sent to the mound in a blowout. The opposing coach objects. Who’s right?',
     options: [
       'The pitching change stands — an approved player is a full player',
-      'The objection stands — over-age players may not pitch unless the Board specifically approved them to pitch',
+      'The objection stands — playing approval is not pitching approval',
       'Over-age players may pitch a maximum of one inning',
       'Over-age players may pitch only in blowouts',
     ],
@@ -365,7 +365,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'In the 6th inning a Senior coach brings in his fifth pitcher of the night. The opposing scorekeeper claims there’s a limit on the number of pitchers a team may use. Is there?',
     options: [
       'Yes — four pitchers per game',
-      'No — there is no limit on pitchers used; only pitch counts and rest rules constrain them',
+      'No — only pitch counts and rest rules constrain him',
       'Yes — three pitchers per game unless there’s an injury',
       'Only in the playoffs',
     ],
@@ -382,7 +382,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A suspended Junior game resumes the following week. The reliever who was pitching when play stopped shows up rested and his coach wants him to continue. A pitcher who’d been pulled from the mound in the first part is also “available,” per the coach. What’s correct?',
     options: [
       'Both may pitch — it’s a new day',
-      'The pitcher of record may continue (within his eligibility for the new day); the previously removed pitcher remains ineligible to pitch',
+      'The pitcher of record may continue; the removed one may not',
       'Neither may pitch in the continuation',
       'Only a pitcher who didn’t appear in the first part may pitch',
     ],
@@ -418,7 +418,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Junior game suspended in the 3rd resumes a week later. Two players from the original lineup are away at a tournament, and one new player who missed the first part is at the field. How is the batting order handled?',
     options: [
       'The order is re-drawn from scratch for the continuation',
-      'Absent players are skipped without penalty; the new player is added to the bottom of the order',
+      'Absent players are skipped; the new player bats last',
       'Absent players are automatic outs; the new player may not play',
       'The new player takes over an absent player’s spot',
     ],
@@ -435,7 +435,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Between pitches, a Senior coach rotates three fielders to new positions for a pull hitter — no announcement to anyone. The opposing manager wants the moves disallowed as unannounced substitutions. Ruling?',
     options: [
       'Position changes must be announced and logged',
-      'Legal — defensive substitution and repositioning are unlimited, except that a removed pitcher may not return to the mound',
+      'Legal — defensive repositioning is unlimited',
       'Legal only between innings',
       'Each player may change position twice per game',
     ],
@@ -454,7 +454,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Nationals (“B”) Junior team has only eight players confirmed for tomorrow. Which of these is a LEGAL way to add a ninth?',
     options: [
       'Call down a player from the Canadians (“A”) Junior team',
-      'Call up a rostered Major player (any tier of the next lower division)',
+      'Call up a rostered Major player from the division below',
       'Borrow a 19U league player for the night',
       'Add a house-league player who isn’t Interlock-registered',
     ],
@@ -470,8 +470,8 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
     scenario:
       'A Senior coach uses two call-ups to get to ten players but never mentions it to anyone. In the 3rd inning the opposing manager notices unfamiliar faces and objects. What did the coach fail to do?',
     options: [
-      'Nothing — call-ups need no disclosure',
-      'Identify the call-ups to the opposing manager before the start of the game',
+      'Nothing — call-ups require no disclosure to anyone',
+      'Identify them to the opposing manager pre-game',
       'File a protest form before the game',
       'Have the call-ups sign the scorebook',
     ],
@@ -507,7 +507,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Summer Interlock, Senior game. After back-to-back doubles, the manager visits the mound and the shortstop and first baseman jog in to join the conversation. The opposing coach objects, citing the battery-only rule. Ruling?',
     options: [
       'Sustain the objection — mound visits are battery-only',
-      'Allow it — in SUMMER Interlock, players besides the pitcher may join the manager’s visit; it still counts as a visit to the pitcher',
+      'Allow it — battery-only is a Spring rule',
       'Allow it but charge two visits',
       'Disallow all player visits in either season',
     ],
@@ -524,7 +524,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A flash of lightning is spotted beyond the outfield during a Senior game; 25 minutes into the delay, thunder rolls again. When can play resume?',
     options: [
       'Five minutes later — the original 30-minute clock finishes',
-      'Thirty minutes after the LATEST thunder or lightning — each event resets the full delay',
+      'Thirty minutes after the latest thunder or lightning',
       'Immediately, since the storm is moving away',
       'Not at all — any second event ends the game',
     ],
@@ -558,7 +558,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Senior player is ejected arguing a call. His team’s next game is an away tournament game with his house league, not an Interlock game. His coach says the suspension only covers Interlock play. Correct?',
     options: [
       'Yes — Interlock discipline stays inside Interlock',
-      'No — the suspension applies to the team’s next physically played game at ANY level, tournament included',
+      'No — it covers the next played game at any level',
       'Only if the Board confirms within 24 hours',
       'The player chooses which game to sit out',
     ],
@@ -575,7 +575,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'An ejection occurs in a testy Senior game. What is the reporting obligation on the umpire?',
     options: [
       'None — ejections are self-reporting through the coaches',
-      'Submit an incident report through the district website the same evening, before the team’s next game',
+      'Submit an incident report the same evening',
       'Phone each league president within the hour',
       'Note it in the scorebook and nothing more',
     ],
@@ -594,7 +594,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'A Junior playoff game is still tied after seven innings, and the two-hour mark from the scheduled start has passed. The convenor is watching from the stands. What happens next?',
     options: [
       'The game ends as a tie and both teams advance on points',
-      'Keep playing — the time limit and curfew do not apply to playoff games, and extra innings are required until there’s a winner',
+      'Keep playing — time limits do not apply in the playoffs',
       'A coin flip decides the winner',
       'The higher seed advances on the tiebreaker',
     ],
@@ -611,7 +611,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Darkness forces the umpire to call a Senior playoff game during the 6th inning. The home team leads 6–2 with five innings complete — regulation length for the division. The trailing coach demands the game resume another day since playoffs “must be played to completion.” Ruling?',
     options: [
       'He’s right — playoff games must always be finished on the field',
-      'The result stands — the game reached regulation length with a winner, so there’s no requirement to resume',
+      'The result stands — regulation length with a winner',
       'Playoff games revert to a full 7-inning replay when called early',
       'The result stands only if both coaches agree',
     ],
@@ -645,7 +645,7 @@ export const INTERLOCK_BIG_QUESTIONS: Question[] = [
       'Two Senior teams meet in a playoff game at a neutral-ish time slot and both coaches claim home team. How is home team decided in Interlock playoffs?',
     options: [
       'Coin flip at the plate meeting',
-      'The team with the higher regular-season finish is home',
+      'The higher regular-season finisher is home',
       'The team that traveled farther is home',
       'Alternates by inning',
     ],

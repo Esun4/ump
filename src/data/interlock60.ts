@@ -39,7 +39,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'It’s 8:40 PM on a field with no lights and dusk is coming fast. The two-hour limit hasn’t expired, but the plate umpire doubts the next inning can be finished before dark. Must the crew start it anyway?',
     options: [
       'Yes — innings must be started until the time limit expires',
-      'No — an inning shouldn’t start without a reasonable expectation of completing it',
+      'No — don’t start an inning you can’t expect to finish',
       'Only if both coaches agree to stop',
       'Yes, but the inning is capped at ten minutes',
     ],
@@ -56,7 +56,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Steady rain ends an Interlock Minor game in the bottom of the 4th inning, 1 hour and 50 minutes after it started. The trailing coach argues the game must be replayed from scratch because four innings weren’t completed. Is he right?',
     options: [
       'Yes — fewer than four complete innings means no game',
-      'No — a game played for at least 1 hour 45 minutes is regulation',
+      'No — 1 hour 45 minutes of play makes it regulation',
       'Yes, unless both coaches agree to accept the score',
       'No — every started game counts no matter how short',
     ],
@@ -90,7 +90,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Trailing 7–6, the home team bats in the bottom of the 5th and scores two runs to lead 8–7. Before the third out, thunder forces the game to be called and it can’t resume. The visiting coach demands the score revert to the end of the 4th. Ruling?',
     options: [
       'Score reverts — the 5th inning was never completed',
-      'The 8–7 score stands — the home team tied or went ahead while at bat in the partial inning',
+      'The 8–7 score stands — the home team went ahead at bat',
       'The game is recorded as a tie',
       'The game must be resumed from the point of interruption another day',
     ],
@@ -141,7 +141,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Your game is running long and another league holds the permit for the next game on the same lit diamond. How long before the next permit’s start time must your game stop and the field and dugouts be cleared?',
     options: [
       'Right at the next game’s start time',
-      'At least 10 minutes before, since it’s a night game under lights',
+      'At least 10 minutes before, for a night game',
       'At least 30 minutes before',
       'Whenever the arriving teams physically take the field',
     ],
@@ -160,7 +160,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Interlock Major Canadians game, four runs already in this half-inning, bases loaded. The batter rips a double and two runners cross the plate before the ball comes back in. How many of those runs count?',
     options: [
       'Both — runs on the same play all score',
-      'Only the first — the half-inning ends the moment the 5th run crosses the plate',
+      'Only the first — the inning ends when the 5th run scores',
       'Both, but the inning ends after the play',
       'Neither — the play is dead as soon as the 5th run becomes possible',
     ],
@@ -177,7 +177,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Top of the 6th — the final inning. The trailing team has already scored five runs this inning and has the bases loaded with the rally alive. Their coach insists the last inning is “open” with no run cap. What’s the ruling?',
     options: [
       'He’s right — the final inning has no run limit',
-      'The half-inning is over — the 5-run cap applies to every inning, including the last',
+      'The half-inning is over — the cap never lifts',
       'The cap doubles to ten in the final inning',
       'The umpire may waive the cap in a close game',
     ],
@@ -211,7 +211,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'After four complete innings of an Interlock Minor game the visitors lead 13–2. The home coach wants to keep the game going because his hitters need the reps. What does the mercy rule say?',
     options: [
       'The game continues — mercy only applies after five innings',
-      'The game is over — a 10-run lead after four complete innings ends it',
+      'The game is over — ten after four ends it',
       'The game continues until a 15-run lead',
       'Mercy only applies if the losing coach requests it',
     ],
@@ -228,7 +228,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'The mercy rule ends a game 12–1 after four innings, but the coaches agree to play two more innings as friendly practice, and the losing team scores six unanswered runs. What score gets reported?',
     options: [
       '12–7 — everything that happened on the field counts',
-      '12–1 — the official score is fixed the moment the mercy rule takes effect',
+      '12–1 — the score froze when the mercy rule hit',
       'Whatever the two coaches agree to submit',
       'The game reverts to the last complete inning before the mercy',
     ],
@@ -245,7 +245,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Heading to the 6th and final inning, the home team leads by seven runs. The visiting coach says there’s no point playing it and starts packing up. What do you do?',
     options: [
       'Agree — a lead bigger than the 5-run cap ends the game',
-      'Require the inning to be played — a lead over 5 but under 10 doesn’t end anything, and a coach may not shorten the game',
+      'Require the inning to be played — seven runs ends nothing',
       'Let the home coach decide whether to play on',
       'Record a forfeit against the visitors immediately',
     ],
@@ -298,7 +298,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Interlock Minor game, two outs, runner on second. The batter swings through strike three and the ball bounces off the catcher’s mitt to the backstop. The batter sprints for first. What’s the call?',
     options: [
       'Live ball — the batter-runner may try for first',
-      'The batter is out — at Minor the batter is always out on strike three, caught or not',
+      'The batter is out — Minor has no uncaught-third-strike run',
       'The batter is out only if first base was occupied',
       'Dead ball — everyone returns',
     ],
@@ -349,7 +349,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'While the pitcher warms up between innings at an Interlock Major game, the next batter kneels in the on-deck circle taking practice swings. What should the umpire do?',
     options: [
       'Nothing — on-deck batters are fine at every level',
-      'Send them back to the dugout — there are no on-deck batters at Minor/Major',
+      'Send them back — no on-deck batters at Minor/Major',
       'Allow it only without a bat in hand',
       'Allow it only on the dugout side of the plate',
     ],
@@ -382,10 +382,10 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
     scenario:
       'Two outs, pitcher of record on first. The coach wants to send a fresh bench player out as the courtesy runner. Who must the courtesy runner be?',
     options: [
-      'Any player not currently on base',
-      'The player in the batting order who made the last out',
-      'The fastest available substitute',
-      'The next batter due up',
+      'Any rostered player not currently on base',
+      'The player who made the last out',
+      'The fastest available player on the bench',
+      'The next batter due up in the order',
     ],
     correctIndex: 1,
     explanation:
@@ -400,7 +400,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A Major player jogs out to shortstop wearing metal cleats his older brother handed down. The opposing coach objects. What’s the ruling?',
     options: [
       'Metal cleats are fine at every division',
-      'Metal cleats are not permitted at Minor/Major — he needs to change footwear',
+      'Not permitted at Minor/Major — change the footwear',
       'Metal cleats are allowed for infielders only',
       'Allowed, but only on grass fields',
     ],
@@ -417,7 +417,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Bases loaded, one out at Interlock Minor. The batter pops the ball straight up over the mound. The defensive coach yells that the infield fly rule “doesn’t apply in Minors.” Does it?',
     options: [
       'He’s right — no infield fly below Major',
-      'The infield fly rule applies at all Interlock divisions — call it',
+      'It applies at all Interlock divisions — call it',
       'It applies only when the Nationals tier is playing',
       'It applies only with two outs',
     ],
@@ -436,7 +436,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'The starting pitcher is moved to shortstop in the 3rd inning and stays in the game. In the 5th, with the reliever struggling, the coach wants the starter back on the mound — he never left the lineup. What’s the ruling?',
     options: [
       'Allowed — a pitcher who stays in the game may return to the mound once',
-      'Not allowed — once removed from the mound, a pitcher may not pitch again that game at any Interlock division',
+      'Not allowed — once off the mound, he is done pitching',
       'Allowed only if he threw fewer than 20 pitches',
       'Allowed only in extra innings',
     ],
@@ -470,7 +470,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Late in a game, a coach who used a call-up to reach nine players wants to put that call-up on the mound to protect his regular pitchers’ pitch counts. Can the call-up pitch?',
     options: [
       'Yes — a call-up is a full player once the game starts',
-      'No — call-ups, call-overs, taxi-squad members, and over-age players are not eligible to pitch',
+      'No — call-ups are not eligible to pitch',
       'Yes, but only two innings',
       'Only if the opposing coach consents',
     ],
@@ -487,7 +487,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A rain-suspended game resumes three days later. The pitcher of record at the suspension had thrown 30 pitches. His coach wants him to start the continuation on the mound. Is that legal?',
     options: [
       'No — a suspended game means a fresh pitcher must start the continuation',
-      'Yes — the pitcher of record may continue, to the extent of his eligibility for the new day, since the rest requirement was met',
+      'Yes — he may continue within his eligibility for the new day',
       'Yes, and his count resets to zero for the continuation',
       'Only if he pitched fewer than 20 pitches in the first part',
     ],
@@ -506,7 +506,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A team starts an Interlock game with exactly eight players. The opposing coach hands you a lineup complaint: he wants an automatic out recorded every time the empty 9th spot comes up. What does the Interlock rule say?',
     options: [
       'He’s right — the 9th spot is an automatic out',
-      'No automatic out — an 8-player lineup bats eight with no penalty',
+      'No automatic out — eight bat with no penalty',
       'The game can’t start with fewer than nine',
       'The 9th spot is an out only after the 3rd inning',
     ],
@@ -523,7 +523,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Leading 9–1 in the 5th, a team loses a player to ejection and is down to seven available players. The coach argues the game should stand as-is since the outcome is beyond doubt. What happens?',
     options: [
       'The score stands as a win — the game was already regulation',
-      'The game is forfeited — dropping below eight players ends it regardless of score or inning',
+      'The game is forfeited — the team dropped below eight',
       'The team finishes the game with seven',
       'The umpire suspends the game for the convenor to sort out',
     ],
@@ -557,7 +557,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A player twists an ankle in the 2nd inning and can’t continue (the team still has nine others). In the 4th, his spot in the order comes up with two outs and the bases loaded. The defensive coach wants an automatic out. Ruling?',
     options: [
       'Automatic out — his spot must be covered',
-      'Skip the spot with no penalty and move to the next batter',
+      'Skip the spot with no penalty',
       'The team forfeits for losing a batter',
       'The coach must insert a call-up immediately',
     ],
@@ -574,7 +574,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A coach swaps his left fielder and second baseman in the middle of an inning, the third defensive change that inning. The opposing manager objects that substitutions were never announced or recorded. What’s the ruling?',
     options: [
       'Illegal — defensive changes are limited to between innings',
-      'Legal — defensive substitution is unlimited for everyone except the pitcher',
+      'Legal — defensive substitution is unlimited',
       'Legal, but each player may only change positions once per game',
       'Illegal — position changes require umpire approval',
     ],
@@ -593,7 +593,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A Major Canadians team has ten rostered players confirmed for tonight, and the coach still wants to bring a Nationals call-up “for depth.” Is the call-up allowed?',
     options: [
       'Yes — call-ups are always allowed from a lower tier',
-      'No — call-ups may only bring a lineup up to ten, and a team with ten or more present may not use one',
+      'No — a team with ten present may not use a call-up',
       'Yes, up to a lineup of twelve',
       'Only if the call-up doesn’t bat',
     ],
@@ -646,7 +646,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Spring Interlock season. After a walk, the defensive manager calls time and waves his middle infielders to the mound along with the pitcher and catcher for a strategy chat. What’s the Interlock rule?',
     options: [
       'Fine — mound visits may include any players',
-      'In Spring, the visit may only include the battery — pitcher and catcher',
+      'In Spring, only the battery may attend the visit',
       'Mound visits are banned entirely in Spring',
       'Infielders may attend but it then counts as two visits',
     ],
@@ -663,7 +663,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'The offensive team’s runner at second is clearly relaying pitch types to the batter. The defensive manager demands the runner and the coach be ejected for stealing signs. What does the Interlock provide?',
     options: [
       'Eject the runner — sign stealing is an automatic ejection',
-      'No ejection — the Interlock declined the option to eject for stealing signals',
+      'No ejection — the Interlock declined that option',
       'Eject only on the second offence',
       'Award an automatic strike to the batter',
     ],
@@ -680,7 +680,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Mid-inning you hear a low rumble of thunder in the distance; the sky overhead is mostly clear and neither coach seems concerned. What must you do?',
     options: [
       'Play on and monitor the sky',
-      'Suspend play immediately and start a 30-minute delay that resets with every new thunder or lightning event',
+      'Suspend play immediately and start a 30-minute delay',
       'Finish the current inning first, then delay 15 minutes',
       'Delay only if lightning is actually seen',
     ],
@@ -697,7 +697,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A manager was ejected on Tuesday. His team’s Wednesday game was rained out before it started, and he shows up Friday saying the rainout served as his suspension. Is he eligible to coach Friday?',
     options: [
       'Yes — the suspension attached to the next scheduled game',
-      'No — the suspension applies to the next PHYSICALLY PLAYED game; rainouts don’t count',
+      'No — it applies to the next physically played game',
       'Yes, if the Interlock Board hasn’t ruled yet',
       'Only if he watched the rainout from the parking lot',
     ],
@@ -714,7 +714,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'Only the plate umpire shows up for an Interlock Major game. The home coach spots an experienced parent in the stands willing to do the bases. Can the parent work the game?',
     options: [
       'No — games must have two rostered umpires or be rescheduled',
-      'Yes — with the opposing coach’s agreement, a volunteer spectator may take the bases as an exceptional measure',
+      'Yes — with the opposing coach’s agreement',
       'Yes — the home coach may appoint anyone without asking',
       'No — the plate umpire must work the game alone',
     ],
@@ -765,7 +765,7 @@ export const INTERLOCK60_QUESTIONS: Question[] = [
       'A manager believes you misapplied a rule and yells from the dugout that the game is “under protest,” then tells his scorekeeper to note it. Later he’s upset the protest wasn’t heard. What did he miss?',
     options: [
       'Nothing — announcing it to the dugout is enough',
-      'A protest must be officially registered with the umpire at the designated time, per the rule book, or it won’t be heard',
+      'He never officially registered it with the umpire',
       'Protests must be phoned to the district administrator during the game',
       'Play should have been suspended until the protest was resolved',
     ],
