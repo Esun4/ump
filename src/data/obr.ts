@@ -347,6 +347,40 @@ export const OBR_QUESTIONS: Question[] = [
     explanation:
       'When the plate umpire hinders the catcher’s throw and the runner is not retired, the ball is dead and the runner returns. If the throw had retired the runner, the out would stand.',
   },
+  {
+    id: 'obr-061',
+    ruleset: 'obr',
+    topic: 'Interference',
+    tier: 'district',
+    scenario:
+      'R3, one out. A slow chopper bounces up the third-base line in foul territory, and R3, drifting back toward the bag, is struck by it in foul ground before any fielder touches it.',
+    options: [
+      'R3 is out — he was hit by a batted ball',
+      'Foul ball — dead, R3 returns, nobody out',
+      'Interference — R3 out and the batter awarded first',
+      'Live ball — play on',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A runner is out only when struck by a FAIR batted ball. A ball that touches a runner while over foul territory is simply a foul ball: dead, batter back in the box, nobody out. Fair or foul decides everything on this play.',
+  },
+  {
+    id: 'obr-062',
+    ruleset: 'obr',
+    topic: 'Interference',
+    tier: 'district',
+    scenario:
+      'R2, nobody out, ordinary ground ball — no infield fly. The grounder strikes R2 on the leg while he is standing directly on second base, before it reaches the shortstop.',
+    options: [
+      'Nothing — a runner touching his base cannot be out',
+      'R2 is out, ball dead, batter awarded first',
+      'Foul ball — replay the pitch',
+      'Out only if the umpire judges he did it on purpose',
+    ],
+    correctIndex: 1,
+    explanation:
+      'The base is not a sanctuary from a batted ball: a runner hit by a fair ball is out even while standing on his bag, and the batter gets first. The lone exception is a runner touching his base when struck by a declared infield fly — that one is nothing.',
+  },
 
   // ── Obstruction ──────────────────────────────────────────────────────
   {
@@ -640,6 +674,40 @@ export const OBR_QUESTIONS: Question[] = [
     explanation:
       'A runner may not deviate from his path to initiate contact with the catcher when a slide was available. He is out even though the ball came loose, the ball is dead, and the contact can also draw an ejection.',
   },
+  {
+    id: 'obr-063',
+    ruleset: 'obr',
+    topic: 'Force & tag plays',
+    tier: 'district',
+    scenario:
+      'R1, nobody out. Deep drive to the wall. R1 holds halfway to see if it is caught while the batter-runner sprints head-down — and runs right past R1 between first and second. The ball then drops in untouched.',
+    options: [
+      'No penalty as long as the runners never touch each other',
+      'The batter-runner is out the moment he passes R1; the ball stays live',
+      'R1 is out — the trailing runner caught up to him',
+      'Both runners are out',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A runner who passes a preceding runner before that runner is out is out himself, instantly and automatically — here the batter-runner. No tag, no appeal, and the ball stays live for plays on everyone else.',
+  },
+  {
+    id: 'obr-064',
+    ruleset: 'obr',
+    topic: 'Force & tag plays',
+    tier: 'district',
+    scenario:
+      'R1 and R2, double steal. R2 stops halfway to third and retreats to second — where R1 has already arrived. With both runners standing on the bag, the shortstop tags each of them in turn.',
+    options: [
+      'Both runners are out',
+      'R1 is out; R2 is entitled to second base',
+      'R2 is out; the base belongs to the advancing runner',
+      'Neither is out while touching the base',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Two runners cannot occupy one base. Absent a force, the base belongs to the LEAD runner (R2), so the trailing runner (R1) is out when tagged. With a force on, it flips: the lead runner is the one who must vacate.',
+  },
 
   // ── Batted ball rulings ──────────────────────────────────────────────
   {
@@ -795,6 +863,74 @@ export const OBR_QUESTIONS: Question[] = [
     explanation:
       'A fair ball rolling into a bat lying on the ground is nothing, provided the batter did not drop the bat onto the ball or intend to interfere. Judge intent; absent it, play on.',
   },
+  {
+    id: 'obr-065',
+    ruleset: 'obr',
+    topic: 'Batted ball rulings',
+    tier: 'district',
+    scenario:
+      'R1 and R2, nobody out. “Infield fly, batter’s out!” The shortstop makes the catch. R2, who had drifted well off second, now wants to try for third.',
+    options: [
+      'He may run immediately — the infield fly call freezes nothing',
+      'He must retouch second after the catch, then may advance at his own risk',
+      'He may not advance at all on an infield fly',
+      'He must return to second and stay until the next pitch',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A caught infield fly is an ordinary caught fly ball for the runners: they must retouch their base after the catch (tag up), and from there may advance at their own risk. The call only retires the batter and removes the force — it does not chain anyone to a base.',
+  },
+  {
+    id: 'obr-066',
+    ruleset: 'obr',
+    topic: 'Batted ball rulings',
+    tier: 'district',
+    scenario:
+      'R1 breaks on the pitch, one strike on the batter. The batter offers, the ball nicks the bat and goes sharp and direct into the catcher’s mitt, where it is caught. R1 slides into second ahead of the throw.',
+    options: [
+      'Foul ball — dead, R1 returns to first',
+      'Foul tip — a live-ball strike; the stolen base stands',
+      'R1 must tag up at first because the ball was caught',
+      'Dead-ball strike; R1 returns to first',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Bat to glove, sharp and direct, and caught: that is a foul tip, which is nothing more than a strike with a LIVE ball. Runners may steal on it and there is nothing to tag up on. If it is not caught, or touches the catcher’s body first and pops up, it is a foul ball instead.',
+  },
+  {
+    id: 'obr-068',
+    ruleset: 'obr',
+    topic: 'Batted ball rulings',
+    tier: 'district',
+    scenario:
+      'R1, nobody out. A line drive into the gap lands fair on the warning track and one-hops over the outfield fence.',
+    options: [
+      'Home run — it cleared the fence',
+      'Dead ball — batter and R1 are each awarded two bases from the time of pitch',
+      'Live ball if it bounces back onto the field',
+      'A double for the batter, but R1 may only advance to second',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A fair ball that bounces over (or through) the fence is not a home run: the ball is dead and every runner, batter included, is awarded two bases from the time of the pitch. It is popularly called a “ground-rule double,” but it is a rulebook award that applies on every field.',
+  },
+  {
+    id: 'obr-069',
+    ruleset: 'obr',
+    topic: 'Batted ball rulings',
+    tier: 'district',
+    scenario:
+      'R1 running on the pitch. A deep drive rolls to the base of the outfield fence and wedges underneath it. The centre fielder tugs at the ball, gives up, and throws both hands in the air.',
+    options: [
+      'Live ball — the fielder must dig it out while runners circle the bases',
+      'Dead ball the moment it is judged lodged — two bases from the time of pitch',
+      'Dead ball — one base for everyone',
+      'Home run — the ball left the playing field',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A fair ball that sticks in, under, or through a fence is dead as soon as the umpire judges it lodged, and the award is two bases from the time of the pitch. The fielder’s raised hands are a signal, not a ruling — the umpire decides when it is lodged rather than playable.',
+  },
 
   // ── Appeals ──────────────────────────────────────────────────────────
   {
@@ -932,6 +1068,23 @@ export const OBR_QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'A runner who misses home may correct the miss until he is tagged or the plate itself is tagged after he heads for the bench. The umpire makes no signal until one side resolves it — here, the tag retires him.',
+  },
+  {
+    id: 'obr-067',
+    ruleset: 'obr',
+    topic: 'Appeals',
+    tier: 'district',
+    scenario:
+      'R3, one out. Medium fly ball to left. R3 breaks for home on contact without tagging; the left fielder makes the catch and fires to the third baseman, who steps on third while R3 is still scrambling back.',
+    options: [
+      'Safe — retiring a runner at a base requires a tag of the runner',
+      'Out — the base was touched before he retouched it',
+      'Safe if he gets back before the next pitch',
+      'The defence must verbally announce an appeal first',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A runner who leaves early on a caught fly must retouch his base. During continuing action the defence just plays on him: touching the base with the ball before he gets back retires him — the everyday “doubled off” play. No formal appeal ceremony is needed while the action is live.',
   },
 
   // ── Substitutions & lineups ──────────────────────────────────────────

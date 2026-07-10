@@ -750,6 +750,57 @@ export const LL_QUESTIONS: Question[] = [
     explanation:
       'The catch must begin from the playing surface: one or both feet on or over live-ball ground. Diving fully into a dead-ball area with neither foot on or above the playing surface makes a valid catch impossible.',
   },
+  {
+    id: 'll-065',
+    ruleset: 'll',
+    topic: 'Catch & carry',
+    tier: 'majors',
+    scenario:
+      'Majors game, R1 running on the pitch. Ground ball to deep short; by the time the shortstop’s throw to first — his first play — leaves his hand, R1 has already rounded second. The throw sails into the stands.',
+    options: [
+      'R1 scores — two bases from where he was when the ball went out',
+      'R1 to third, batter-runner to second — two bases from the time of pitch',
+      'One base each from where they stood',
+      'R1 to third, batter-runner stays at first',
+    ],
+    correctIndex: 1,
+    explanation:
+      'On the first play by an infielder, when the batter-runner has not yet reached first, the two-base award is measured from the TIME OF PITCH — not from where the runners were when the throw got away. R1 started the play on first, so he gets third; the batter gets second. “One plus one” is a myth.',
+  },
+  {
+    id: 'll-066',
+    ruleset: 'll',
+    topic: 'Catch & carry',
+    tier: 'majors',
+    scenario:
+      'Majors game, R1. Single to right; R1 has touched second and the batter-runner has touched first when the right fielder’s throw toward third leaves his hand and flies into the dugout.',
+    options: [
+      'R1 to third, batter-runner to second — two bases from the time of pitch',
+      'R1 scores and the batter-runner takes third — two bases from the time of the throw',
+      'One base each — dugout throws are one-base awards',
+      'R1 scores; the batter-runner returns to first',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A throw by an outfielder (or any throw that is not an infielder’s first play) that goes out of play awards two bases from where each runner was AT THE TIME OF THE THROW — the moment it left the hand. R1 had second, so he scores; the batter-runner had first, so he gets third.',
+  },
+  {
+    id: 'll-067',
+    ruleset: 'll',
+    topic: 'Catch & carry',
+    tier: 'majors',
+    scenario:
+      'Majors game, R2, 1-1 count. A pitch in the dirt skips up and wedges into the catcher’s chest protector. The catcher spins around searching for a ball he cannot find.',
+    options: [
+      'Live ball — the catcher must find it, R2 runs at his own risk',
+      'Dead ball — R2 is awarded third, and the pitch counts as a ball',
+      'Dead ball — no awards, replay the pitch',
+      'Dead ball — R2 is awarded home, two bases',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A pitched ball that lodges in the catcher’s or umpire’s equipment is dead, and every runner is awarded ONE base from the time of the pitch. The pitch itself still counts on the batter — here a ball, making the count 2-1.',
+  },
 
   // ── Interference ─────────────────────────────────────────────────────
   {
@@ -1044,5 +1095,73 @@ export const LL_QUESTIONS: Question[] = [
     correctIndex: 1,
     explanation:
       'When the batter causes the interruption by stepping out mid-delivery, no balk or illegal pitch is charged. The umpire calls time, everyone resets, and the sequence starts over cleanly.',
+  },
+  {
+    id: 'll-061',
+    ruleset: 'll',
+    topic: 'Batting & the box',
+    tier: 'majors',
+    scenario:
+      'Majors game. A curveball bounces in the dirt in front of the plate, skips up, and hits the batter on the shin as he hops to get out of the way.',
+    options: [
+      'No award — a pitch that bounces is dead when it lands',
+      'Hit by pitch — dead ball, batter takes first',
+      'Just a ball — a bounced pitch cannot hit a batter',
+      'The batter chooses between first base and the count',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A pitch does not stop being a pitch when it hits the dirt. A batter struck by a bounced pitch while trying to avoid it is awarded first exactly as if it had hit him on the fly: dead ball, forced runners move up one.',
+  },
+  {
+    id: 'll-062',
+    ruleset: 'll',
+    topic: 'Batting & the box',
+    tier: 'majors',
+    scenario:
+      'Majors game. An inside fastball strikes the batter on the fingers while they grip the bat; he was pulling back, not swinging. The defence shouts “hands are part of the bat — foul ball!”',
+    options: [
+      'Foul ball — the hands are part of the bat',
+      'Hit by pitch — dead ball, batter awarded first',
+      'Strike — the ball contacted the bat area',
+      'No pitch — replay it',
+    ],
+    correctIndex: 1,
+    explanation:
+      '“Hands are part of the bat” is pure myth: the hands are part of the batter. A pitch that hits the hands of a non-swinging batter attempting to avoid is a hit-by-pitch. Had he been swinging, it would be a dead-ball strike instead — never a foul ball.',
+  },
+  {
+    id: 'll-063',
+    ruleset: 'll',
+    topic: 'Batting & the box',
+    tier: 'majors',
+    scenario:
+      'Majors game. The batter chops a pitch straight down and the ball bounces up off the ground and strikes his back foot while both his feet are still in the batter’s box.',
+    options: [
+      'Batter out — struck by his own batted ball',
+      'Foul ball — dead, no matter where it was headed',
+      'Fair ball if it would have rolled fair',
+      'Interference — runners return and the batter is out',
+    ],
+    correctIndex: 1,
+    explanation:
+      'A batted ball that touches the batter while he is still in the box is simply a foul ball. He is out for being struck by his own batted ball only when it happens in fair territory after he has left the box.',
+  },
+  {
+    id: 'll-064',
+    ruleset: 'll',
+    topic: 'Batting & the box',
+    tier: 'majors',
+    scenario:
+      'Majors game, 1-1 count. An inside pitch, clearly off the plate, drifts in and grazes the elbow of the batter, who freezes and makes no move at all to avoid it.',
+    options: [
+      'Award first — any pitch that touches the batter is a hit-by-pitch',
+      'Dead ball, ball two — no award when he makes no attempt to avoid',
+      'Strike two for letting it hit him',
+      'Warn the batter and replay the pitch',
+    ],
+    correctIndex: 1,
+    explanation:
+      'First base must be earned by an attempt to avoid the pitch. When the batter makes none, the ball is dead but he stays in the box: the pitch is simply called a ball (or a strike, if it was in the zone) and the at-bat continues.',
   },
 ];
