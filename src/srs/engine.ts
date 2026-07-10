@@ -87,6 +87,38 @@ export function buildPractice(
   return shuffle(questions, rng).slice(0, PRACTICE_SIZE);
 }
 
+/**
+ * Questions the user has missed on a first attempt and not yet re-mastered.
+ * Climbing back to the 14-day bucket clears a question off the list, so it
+ * self-prunes as weak spots get repaired.
+ */
+export function troubleSpots(
+  questions: Question[],
+  progress: ProgressMap,
+): Question[] {
+  return questions.filter((q) => {
+    const p = progress[q.id];
+    return p !== undefined && p.firstCorrect < p.firstAttempts && p.bucket < 3;
+  });
+}
+
+/**
+ * Consecutive days of activity ending today — or ending yesterday, so the
+ * streak isn't shown as broken before today's session happens.
+ */
+export function currentStreak(
+  activity: Record<string, number>,
+  today: string,
+): number {
+  let day = (activity[today] ?? 0) > 0 ? today : addDays(today, -1);
+  let streak = 0;
+  while ((activity[day] ?? 0) > 0) {
+    streak++;
+    day = addDays(day, -1);
+  }
+  return streak;
+}
+
 export interface TopicCount {
   topic: string;
   count: number;

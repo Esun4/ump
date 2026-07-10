@@ -25,6 +25,9 @@ import StatsScreen from './src/screens/StatsScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import TopicsScreen from './src/screens/TopicsScreen';
 import LibraryScreen from './src/screens/LibraryScreen';
+import CoverageScreen from './src/screens/CoverageScreen';
+import PlateMeetingScreen from './src/screens/PlateMeetingScreen';
+import MythsScreen from './src/screens/MythsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -139,6 +142,21 @@ export default function App() {
             name="Library"
             component={LibraryScreen}
             options={{ title: 'Question Library' }}
+          />
+          <Stack.Screen
+            name="Coverage"
+            component={CoverageScreen}
+            options={{ title: 'Fly Ball Coverage' }}
+          />
+          <Stack.Screen
+            name="PlateMeeting"
+            component={PlateMeetingScreen}
+            options={{ title: 'Plate Meeting' }}
+          />
+          <Stack.Screen
+            name="Myths"
+            component={MythsScreen}
+            options={{ title: 'Rule Myths' }}
           />
         </Stack.Navigator>
         <StatusBar style={dark ? 'light' : 'dark'} />

@@ -8,7 +8,13 @@ import { useRuleset } from '../state/RulesetContext';
 import { Question, RULESETS } from '../types';
 import { getBank } from '../data';
 import { reportsEnabled, submitReport } from '../data/reports';
-import { loadProgress, saveProgress } from '../srs/storage';
+import {
+  bumpActivity,
+  loadBookmarks,
+  loadProgress,
+  saveBookmarks,
+  saveProgress,
+} from '../srs/storage';
 import {
   applyFirstAnswer,
   buildPractice,
@@ -16,6 +22,7 @@ import {
   ProgressMap,
   shuffle,
   todayKey,
+  troubleSpots,
 } from '../srs/engine';
 import { Chip, PrimaryButton } from '../ui';
 
@@ -24,11 +31,12 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Quiz'>;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 export default function QuizScreen({ route, navigation }: Props) {
-  const { mode, topic } = route.params;
+  const { mode, topic, filter } = route.params;
   const theme = useTheme();
   const { ruleset } = useRuleset();
 
   const [queue, setQueue] = useState<Question[] | null>(null);
+  const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<number | null>(null);
   const [firstTryCorrect, setFirstTryCorrect] = useState(0);
   const [total, setTotal] = useState(0);
@@ -42,29 +50,47 @@ export default function QuizScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     navigation.setOptions({
-      title: mode === 'practice' ? topic ?? 'Practice' : 'Session',
+      title:
+        filter === 'trouble'
+          ? 'Trouble Spots'
+          : filter === 'bookmarks'
+            ? 'Bookmarks'
+            : mode === 'practice'
+              ? topic ?? 'Practice'
+              : 'Session',
     });
-  }, [navigation, mode, topic]);
+  }, [navigation, mode, topic, filter]);
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
-      if (cancelled) return;
-      progressRef.current = progress;
-      // A topic filter only ever narrows practice runs — SRS sessions always
-      // schedule across the whole bank.
-      const session =
-        mode === 'practice'
-          ? buildPractice(topic ? bank.filter((q) => q.topic === topic) : bank)
-          : buildSession(bank, progress, todayKey());
-      setQueue(session);
-      setTotal(session.length);
-    });
+    Promise.all([loadProgress(ruleset), getBank(ruleset), loadBookmarks(ruleset)]).then(
+      ([progress, bank, saved]) => {
+        if (cancelled) return;
+        progressRef.current = progress;
+        setBookmarks(saved);
+        // Topic, trouble-spot, and bookmark filters only ever narrow practice
+        // runs — SRS sessions always schedule across the whole bank.
+        const pool =
+          filter === 'trouble'
+            ? troubleSpots(bank, progress)
+            : filter === 'bookmarks'
+              ? bank.filter((q) => saved.has(q.id))
+              : topic
+                ? bank.filter((q) => q.topic === topic)
+                : bank;
+        const session =
+          mode === 'practice'
+            ? buildPractice(pool)
+            : buildSession(bank, progress, todayKey());
+        setQueue(session);
+        setTotal(session.length);
+      },
+    );
     return () => {
       cancelled = true;
     };
     // A quiz is built once for the ruleset/mode/topic it was opened with.
-  }, [ruleset, mode, topic]);
+  }, [ruleset, mode, topic, filter]);
 
   const question = queue && queue.length > 0 ? queue[0] : null;
   // Options display in a random order per showing so the answer's position
@@ -86,6 +112,9 @@ export default function QuizScreen({ route, navigation }: Props) {
     if (isFirst) {
       answeredOnce.current.add(question.id);
       if (correct) setFirstTryCorrect((n) => n + 1);
+      // Every first answer counts toward the day's activity — practice
+      // included. Requeue retries never do.
+      void bumpActivity(todayKey());
       if (mode === 'session') {
         progressRef.current = applyFirstAnswer(
           progressRef.current,
@@ -135,6 +164,15 @@ export default function QuizScreen({ route, navigation }: Props) {
     ]);
   };
 
+  const onToggleBookmark = () => {
+    if (!question) return;
+    const next = new Set(bookmarks);
+    if (next.has(question.id)) next.delete(question.id);
+    else next.add(question.id);
+    setBookmarks(next);
+    void saveBookmarks(ruleset, next);
+  };
+
   const onNext = () => {
     if (!question || selected === null || !queue) return;
     const wrong = selected !== question.correctIndex;
@@ -152,6 +190,35 @@ export default function QuizScreen({ route, navigation }: Props) {
     return (
       <View style={[styles.center, { backgroundColor: theme.background }]}>
         <Text style={{ color: theme.subtleText }}>Loading…</Text>
+      </View>
+    );
+  }
+
+  // Filtered practice pools can come up empty — that's a good sign for
+  // trouble spots and just an unstarted list for bookmarks, not a 0% run.
+  if (question === null && total === 0) {
+    return (
+      <View style={[styles.center, { backgroundColor: theme.background }]}>
+        <Ionicons
+          name={filter === 'bookmarks' ? 'bookmark-outline' : 'shield-checkmark-outline'}
+          size={40}
+          color={theme.accent}
+          style={styles.emptyIcon}
+        />
+        <Text style={[styles.emptyTitle, { color: theme.text }]}>
+          {filter === 'bookmarks' ? 'No bookmarks yet' : 'No trouble spots'}
+        </Text>
+        <Text style={[styles.emptyText, { color: theme.subtleText }]}>
+          {filter === 'bookmarks'
+            ? 'Tap the bookmark on any question during a session or practice run to save it here.'
+            : 'Questions you miss collect here until you’ve worked them back up. Right now the slate is clean.'}
+        </Text>
+        <PrimaryButton
+          theme={theme}
+          label="DONE"
+          onPress={() => navigation.goBack()}
+          style={styles.doneButton}
+        />
       </View>
     );
   }
@@ -201,6 +268,13 @@ export default function QuizScreen({ route, navigation }: Props) {
         <Text style={[styles.metaText, { color: theme.faintText }]}>
           {queue.length} left
         </Text>
+        <Pressable onPress={onToggleBookmark} hitSlop={10} style={styles.bookmark}>
+          <Ionicons
+            name={bookmarks.has(question.id) ? 'bookmark' : 'bookmark-outline'}
+            size={20}
+            color={bookmarks.has(question.id) ? theme.accent : theme.faintText}
+          />
+        </Pressable>
       </View>
 
       <Text style={[styles.scenario, { color: theme.text }]}>
@@ -335,6 +409,20 @@ const styles = StyleSheet.create({
   },
   metaChip: { flexShrink: 1, marginRight: 12 },
   metaText: { fontSize: 13, fontWeight: '600', fontVariant: ['tabular-nums'] },
+  bookmark: { marginLeft: 14 },
+  emptyIcon: { marginBottom: 14 },
+  emptyTitle: {
+    fontFamily: fonts.display,
+    fontSize: 30,
+    marginBottom: 8,
+  },
+  emptyText: {
+    fontSize: 15,
+    lineHeight: 22,
+    textAlign: 'center',
+    marginBottom: 32,
+    maxWidth: 300,
+  },
   scenario: { fontSize: 19, lineHeight: 28, marginBottom: 22 },
   option: {
     flexDirection: 'row',

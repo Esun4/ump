@@ -8,8 +8,8 @@ import { fonts, useTheme } from '../theme';
 import { useRuleset } from '../state/RulesetContext';
 import { RULESETS } from '../types';
 import { getBank } from '../data';
-import { loadProgress } from '../srs/storage';
-import { sessionCounts, todayKey, SessionCounts } from '../srs/engine';
+import { loadBookmarks, loadProgress } from '../srs/storage';
+import { sessionCounts, todayKey, troubleSpots, SessionCounts } from '../srs/engine';
 import { Chip, DiamondMotif, NavRow, PrimaryButton, SectionLabel } from '../ui';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
@@ -19,15 +19,21 @@ export default function HomeScreen({ navigation }: Props) {
   const insets = useSafeAreaInsets();
   const { ruleset } = useRuleset();
   const [counts, setCounts] = useState<SessionCounts | null>(null);
+  const [troubleCount, setTroubleCount] = useState(0);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
       let cancelled = false;
       setCounts(null);
-      Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
-        if (cancelled) return;
-        setCounts(sessionCounts(bank, progress, todayKey()));
-      });
+      Promise.all([loadProgress(ruleset), getBank(ruleset), loadBookmarks(ruleset)]).then(
+        ([progress, bank, bookmarks]) => {
+          if (cancelled) return;
+          setCounts(sessionCounts(bank, progress, todayKey()));
+          setTroubleCount(troubleSpots(bank, progress).length);
+          setBookmarkCount(bank.filter((q) => bookmarks.has(q.id)).length);
+        },
+      );
       return () => {
         cancelled = true;
       };
@@ -114,6 +120,52 @@ export default function HomeScreen({ navigation }: Props) {
         subtitle="Drill one area — never touches your schedule"
         onPress={() => navigation.navigate('Topics')}
       />
+      <NavRow
+        theme={theme}
+        icon="flame-outline"
+        title="Trouble spots"
+        subtitle={
+          troubleCount === 0
+            ? 'Nothing you’ve missed needs work'
+            : `${troubleCount} missed ${troubleCount === 1 ? 'question' : 'questions'} to shore up`
+        }
+        onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'trouble' })}
+      />
+      <NavRow
+        theme={theme}
+        icon="bookmark-outline"
+        title="Bookmarks"
+        subtitle={
+          bookmarkCount === 0
+            ? 'Save questions from any quiz to revisit'
+            : `${bookmarkCount} saved ${bookmarkCount === 1 ? 'question' : 'questions'}`
+        }
+        onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'bookmarks' })}
+      />
+
+      <View style={styles.sectionGap} />
+      <SectionLabel theme={theme}>Game day</SectionLabel>
+      <NavRow
+        theme={theme}
+        icon="navigate-outline"
+        title="Fly ball coverage"
+        subtitle="4-umpire rotations — routine and trouble balls"
+        onPress={() => navigation.navigate('Coverage')}
+      />
+      <NavRow
+        theme={theme}
+        icon="clipboard-outline"
+        title="Plate meeting"
+        subtitle="Tick through the pre-game conference"
+        onPress={() => navigation.navigate('PlateMeeting')}
+      />
+      <NavRow
+        theme={theme}
+        icon="alert-circle-outline"
+        title="Rule myths"
+        subtitle="What the bench thinks the rulebook says"
+        onPress={() => navigation.navigate('Myths')}
+      />
     </ScrollView>
   );
 }
@@ -167,4 +219,5 @@ const styles = StyleSheet.create({
   countDivider: { width: 1, height: 44, marginHorizontal: 24 },
   heroButton: { marginTop: 2 },
   practiceNote: { fontSize: 12.5, marginTop: 12, textAlign: 'center' },
+  sectionGap: { height: 18 },
 });

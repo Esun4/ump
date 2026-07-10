@@ -44,7 +44,7 @@ export default function SettingsScreen() {
     const label = RULESETS[target].label;
     Alert.alert(
       `Reset ${label} progress?`,
-      'This permanently clears the review schedule and stats for this ruleset. Questions in the other ruleset are not affected.',
+      'This permanently clears the review schedule and trouble spots for this ruleset. Bookmarks, your activity heatmap, and other rulesets are not affected.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
