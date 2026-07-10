@@ -6,6 +6,7 @@ export type RootStackParamList = {
   // never set for SRS sessions.
   Quiz: { mode: QuizMode; topic?: string };
   Topics: undefined;
+  Library: undefined;
 };
 
 export type TabParamList = {

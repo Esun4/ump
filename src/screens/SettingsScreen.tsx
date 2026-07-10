@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from '../theme';
 import { RULESETS, RULESET_IDS, RulesetId } from '../types';
 import { useRuleset } from '../state/RulesetContext';
 import { BankInfo, getBankInfo } from '../data';
 import { resetProgress } from '../srs/storage';
+import { SectionLabel } from '../ui';
 
 const SOURCE_LABELS: Record<BankInfo['source'], string> = {
   server: 'Live from server',
@@ -55,10 +57,11 @@ export default function SettingsScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Text style={[styles.sectionTitle, { color: theme.subtleText }]}>
-        QUESTION BANK
-      </Text>
+    <ScrollView
+      style={{ backgroundColor: theme.background }}
+      contentContainerStyle={styles.container}
+    >
+      <SectionLabel theme={theme}>Question bank</SectionLabel>
       <View
         style={[
           styles.bankCard,
@@ -77,65 +80,72 @@ export default function SettingsScreen() {
               {bankInfo.questions.length === 1 ? '' : 's'} ·{' '}
               {SOURCE_LABELS[bankInfo.source]}
             </Text>
-            <Text style={[styles.bankDetail, { color: theme.subtleText }]}>
+            <Text style={[styles.bankDetail, { color: theme.faintText }]}>
               {syncLabel(bankInfo)}
             </Text>
           </>
         )}
       </View>
 
-      <Text style={[styles.sectionTitle, { color: theme.subtleText }]}>
-        PROGRESS
-      </Text>
-      {RULESET_IDS.map((id) => (
-        <Pressable
-          key={id}
-          onPress={() => confirmReset(id)}
-          style={({ pressed }) => [
-            styles.resetButton,
-            {
-              backgroundColor: theme.card,
-              borderColor: theme.border,
-              opacity: pressed ? 0.7 : 1,
-            },
-          ]}
-        >
-          <Text style={[styles.resetLabel, { color: theme.danger }]}>
-            Reset {RULESETS[id].label} progress
-          </Text>
-        </Pressable>
-      ))}
-      <Text style={[styles.note, { color: theme.subtleText }]}>
+      <SectionLabel theme={theme}>Progress</SectionLabel>
+      <View
+        style={[
+          styles.resetCard,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        {RULESET_IDS.map((id, i) => (
+          <Pressable
+            key={id}
+            onPress={() => confirmReset(id)}
+            style={({ pressed }) => [
+              styles.resetRow,
+              i > 0 && { borderTopWidth: 1, borderTopColor: theme.hairline },
+              pressed && { backgroundColor: theme.cardRaised },
+            ]}
+          >
+            <Ionicons
+              name="refresh-outline"
+              size={16}
+              color={theme.danger}
+              style={styles.resetIcon}
+            />
+            <Text style={[styles.resetLabel, { color: theme.danger }]}>
+              Reset {RULESETS[id].label}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+      <Text style={[styles.note, { color: theme.faintText }]}>
         All progress is stored on this device only.
       </Text>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  sectionTitle: {
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 0.5,
-    marginBottom: 10,
-  },
+  container: { padding: 20, paddingBottom: 48 },
   bankCard: {
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 16,
-    marginBottom: 24,
+    marginBottom: 28,
   },
   bankRuleset: { fontSize: 13, fontWeight: '600', marginBottom: 6 },
   bankCount: { fontSize: 15, fontWeight: '600', marginBottom: 4 },
   bankDetail: { fontSize: 13 },
-  resetButton: {
+  resetCard: {
     borderWidth: 1,
-    borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    marginBottom: 10,
+    borderRadius: 16,
+    overflow: 'hidden',
   },
-  resetLabel: { fontSize: 15, fontWeight: '600' },
-  note: { fontSize: 13, marginTop: 8 },
+  resetRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 13,
+    paddingHorizontal: 16,
+  },
+  resetIcon: { marginRight: 10 },
+  resetLabel: { fontSize: 15, fontWeight: '600', flexShrink: 1 },
+  note: { fontSize: 13, marginTop: 12 },
 });

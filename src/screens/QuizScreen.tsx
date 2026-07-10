@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
-import { useTheme } from '../theme';
+import { fonts, useTheme } from '../theme';
 import { useRuleset } from '../state/RulesetContext';
 import { Question, RULESETS } from '../types';
 import { getBank } from '../data';
@@ -16,8 +17,11 @@ import {
   shuffle,
   todayKey,
 } from '../srs/engine';
+import { Chip, PrimaryButton } from '../ui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Quiz'>;
+
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 export default function QuizScreen({ route, navigation }: Props) {
   const { mode, topic } = route.params;
@@ -38,7 +42,7 @@ export default function QuizScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     navigation.setOptions({
-      title: mode === 'practice' ? topic ?? 'Practice' : 'Quiz',
+      title: mode === 'practice' ? topic ?? 'Practice' : 'Session',
     });
   }, [navigation, mode, topic]);
 
@@ -142,6 +146,7 @@ export default function QuizScreen({ route, navigation }: Props) {
 
   const answered = selected !== null;
   const correct = question !== null && selected === question.correctIndex;
+  const cleared = queue === null ? 0 : total - queue.length;
 
   if (queue === null) {
     return (
@@ -152,23 +157,22 @@ export default function QuizScreen({ route, navigation }: Props) {
   }
 
   if (question === null) {
+    const pct = total === 0 ? 0 : Math.round((firstTryCorrect / total) * 100);
     return (
       <View style={[styles.center, { backgroundColor: theme.background }]}>
-        <Text style={[styles.doneTitle, { color: theme.text }]}>
-          {mode === 'practice' ? 'Practice complete' : 'Session complete'}
+        <Text style={[styles.doneEyebrow, { color: theme.accent }]}>
+          {mode === 'practice' ? 'PRACTICE COMPLETE' : 'SESSION COMPLETE'}
         </Text>
+        <Text style={[styles.donePct, { color: theme.text }]}>{pct}%</Text>
         <Text style={[styles.doneStats, { color: theme.subtleText }]}>
-          First try: {firstTryCorrect} / {total}
+          {firstTryCorrect} of {total} on the first try
         </Text>
-        <Pressable
+        <PrimaryButton
+          theme={theme}
+          label="DONE"
           onPress={() => navigation.goBack()}
-          style={({ pressed }) => [
-            styles.doneButton,
-            { backgroundColor: theme.primary, opacity: pressed ? 0.85 : 1 },
-          ]}
-        >
-          <Text style={[styles.doneLabel, { color: theme.onPrimary }]}>Done</Text>
-        </Pressable>
+          style={styles.doneButton}
+        />
       </View>
     );
   }
@@ -178,11 +182,23 @@ export default function QuizScreen({ route, navigation }: Props) {
       style={{ backgroundColor: theme.background }}
       contentContainerStyle={styles.container}
     >
+      <View style={[styles.progressTrack, { backgroundColor: theme.hairline }]}>
+        <View
+          style={[
+            styles.progressFill,
+            {
+              backgroundColor: theme.accent,
+              width: total === 0 ? '0%' : `${(cleared / total) * 100}%`,
+            },
+          ]}
+        />
+      </View>
+
       <View style={styles.meta}>
-        <Text style={[styles.metaText, { color: theme.subtleText }]}>
-          {question.topic} · {tierLabel}
-        </Text>
-        <Text style={[styles.metaText, { color: theme.subtleText }]}>
+        <View style={styles.metaChip}>
+          <Chip theme={theme}>{`${question.topic} · ${tierLabel}`}</Chip>
+        </View>
+        <Text style={[styles.metaText, { color: theme.faintText }]}>
           {queue.length} left
         </Text>
       </View>
@@ -191,29 +207,54 @@ export default function QuizScreen({ route, navigation }: Props) {
         {question.scenario}
       </Text>
 
-      {optionOrder.map((optionIndex) => {
+      {optionOrder.map((optionIndex, displayIndex) => {
         const option = question.options[optionIndex];
         const isCorrect = optionIndex === question.correctIndex;
         const isSelected = optionIndex === selected;
         let bg = theme.card;
         let border = theme.border;
         let color = theme.text;
+        let badgeBg = 'transparent';
+        let badgeBorder = theme.border;
+        let badgeColor = theme.subtleText;
         if (answered && isCorrect) {
           bg = theme.correctBg;
           border = theme.correct;
           color = theme.correct;
+          badgeBg = theme.correct;
+          badgeBorder = theme.correct;
+          badgeColor = theme.correctBg;
         } else if (answered && isSelected) {
           bg = theme.wrongBg;
           border = theme.wrong;
           color = theme.wrong;
+          badgeBg = theme.wrong;
+          badgeBorder = theme.wrong;
+          badgeColor = theme.wrongBg;
         }
         return (
           <Pressable
             key={optionIndex}
             disabled={answered}
             onPress={() => onAnswer(optionIndex)}
-            style={[styles.option, { backgroundColor: bg, borderColor: border }]}
+            style={({ pressed }) => [
+              styles.option,
+              {
+                backgroundColor: pressed && !answered ? theme.cardRaised : bg,
+                borderColor: border,
+              },
+            ]}
           >
+            <View
+              style={[
+                styles.badge,
+                { backgroundColor: badgeBg, borderColor: badgeBorder },
+              ]}
+            >
+              <Text style={[styles.badgeText, { color: badgeColor }]}>
+                {LETTERS[displayIndex] ?? '·'}
+              </Text>
+            </View>
             <Text style={[styles.optionText, { color }]}>{option}</Text>
           </Pressable>
         );
@@ -223,20 +264,24 @@ export default function QuizScreen({ route, navigation }: Props) {
         <View
           style={[
             styles.feedback,
-            {
-              backgroundColor: correct ? theme.correctBg : theme.wrongBg,
-              borderColor: correct ? theme.correct : theme.wrong,
-            },
+            { backgroundColor: correct ? theme.correctBg : theme.wrongBg },
           ]}
         >
-          <Text
-            style={[
-              styles.feedbackTitle,
-              { color: correct ? theme.correct : theme.wrong },
-            ]}
-          >
-            {correct ? 'Correct' : 'Not quite'}
-          </Text>
+          <View style={styles.feedbackHeader}>
+            <Ionicons
+              name={correct ? 'checkmark-circle' : 'close-circle'}
+              size={20}
+              color={correct ? theme.correct : theme.wrong}
+            />
+            <Text
+              style={[
+                styles.feedbackTitle,
+                { color: correct ? theme.correct : theme.wrong },
+              ]}
+            >
+              {correct ? 'CORRECT CALL' : 'NOT QUITE'}
+            </Text>
+          </View>
           <Text style={[styles.explanation, { color: theme.text }]}>
             {question.explanation}
           </Text>
@@ -261,15 +306,12 @@ export default function QuizScreen({ route, navigation }: Props) {
       )}
 
       {answered && (
-        <Pressable
+        <PrimaryButton
+          theme={theme}
+          label="NEXT"
           onPress={onNext}
-          style={({ pressed }) => [
-            styles.nextButton,
-            { backgroundColor: theme.primary, opacity: pressed ? 0.85 : 1 },
-          ]}
-        >
-          <Text style={[styles.nextLabel, { color: theme.onPrimary }]}>Next</Text>
-        </Pressable>
+          style={styles.nextButton}
+        />
       )}
     </ScrollView>
   );
@@ -278,27 +320,60 @@ export default function QuizScreen({ route, navigation }: Props) {
 const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 48 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  progressTrack: {
+    height: 4,
+    borderRadius: 2,
+    marginBottom: 18,
+    overflow: 'hidden',
+  },
+  progressFill: { height: 4, borderRadius: 2 },
   meta: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 16,
+    alignItems: 'center',
+    marginBottom: 18,
   },
-  metaText: { fontSize: 13, fontWeight: '600' },
-  scenario: { fontSize: 18, lineHeight: 26, marginBottom: 20 },
+  metaChip: { flexShrink: 1, marginRight: 12 },
+  metaText: { fontSize: 13, fontWeight: '600', fontVariant: ['tabular-nums'] },
+  scenario: { fontSize: 19, lineHeight: 28, marginBottom: 22 },
   option: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1.5,
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 14,
     marginBottom: 10,
   },
-  optionText: { fontSize: 15, lineHeight: 21 },
-  feedback: {
+  badge: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     borderWidth: 1.5,
-    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  badgeText: {
+    fontFamily: fonts.displaySemi,
+    fontSize: 15,
+  },
+  optionText: { fontSize: 15, lineHeight: 21, flex: 1 },
+  feedback: {
+    borderRadius: 14,
     padding: 16,
     marginTop: 8,
   },
-  feedbackTitle: { fontSize: 16, fontWeight: '800', marginBottom: 6 },
+  feedbackHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  feedbackTitle: {
+    fontFamily: fonts.displaySemi,
+    fontSize: 17,
+    letterSpacing: 1,
+    marginLeft: 7,
+  },
   explanation: { fontSize: 15, lineHeight: 22 },
   requeueNote: { fontSize: 13, marginTop: 10 },
   reportLink: {
@@ -307,19 +382,19 @@ const styles = StyleSheet.create({
     marginTop: 12,
     textDecorationLine: 'underline',
   },
-  nextButton: {
-    marginTop: 16,
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
+  nextButton: { marginTop: 16 },
+  doneEyebrow: {
+    fontFamily: fonts.displaySemi,
+    fontSize: 16,
+    letterSpacing: 2,
+    marginBottom: 6,
   },
-  nextLabel: { fontSize: 17, fontWeight: '700' },
-  doneTitle: { fontSize: 26, fontWeight: '800', marginBottom: 8 },
-  doneStats: { fontSize: 17, marginBottom: 28 },
-  doneButton: {
-    paddingVertical: 14,
-    paddingHorizontal: 48,
-    borderRadius: 12,
+  donePct: {
+    fontFamily: fonts.display,
+    fontSize: 76,
+    lineHeight: 80,
+    fontVariant: ['tabular-nums'],
   },
-  doneLabel: { fontSize: 17, fontWeight: '700' },
+  doneStats: { fontSize: 15, marginTop: 4, marginBottom: 32 },
+  doneButton: { alignSelf: 'stretch', marginHorizontal: 24 },
 });

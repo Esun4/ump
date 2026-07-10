@@ -1,25 +1,29 @@
 import React, { useCallback, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
-import { useTheme } from '../theme';
+import { fonts, useTheme } from '../theme';
 import { useRuleset } from '../state/RulesetContext';
-import { RULESETS, RULESET_IDS } from '../types';
+import { RULESETS } from '../types';
 import { getBank } from '../data';
 import { loadProgress } from '../srs/storage';
 import { sessionCounts, todayKey, SessionCounts } from '../srs/engine';
+import { Chip, DiamondMotif, NavRow, PrimaryButton, SectionLabel } from '../ui';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function HomeScreen({ navigation }: Props) {
   const theme = useTheme();
-  const { ruleset, setRuleset } = useRuleset();
+  const insets = useSafeAreaInsets();
+  const { ruleset } = useRuleset();
   const [counts, setCounts] = useState<SessionCounts | null>(null);
 
   useFocusEffect(
     useCallback(() => {
       let cancelled = false;
+      setCounts(null);
       Promise.all([loadProgress(ruleset), getBank(ruleset)]).then(([progress, bank]) => {
         if (cancelled) return;
         setCounts(sessionCounts(bank, progress, todayKey()));
@@ -33,126 +37,134 @@ export default function HomeScreen({ navigation }: Props) {
   const caughtUp = counts !== null && counts.due === 0 && counts.newFill === 0;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Text style={[styles.title, { color: theme.text }]}>Ump</Text>
+    <ScrollView
+      style={{ backgroundColor: theme.background }}
+      contentContainerStyle={[styles.container, { paddingTop: insets.top + 24 }]}
+    >
+      <View style={styles.header}>
+        <Text style={[styles.wordmark, { color: theme.text }]}>UMP</Text>
+        <View style={[styles.wordmarkDot, { backgroundColor: theme.accent }]} />
+      </View>
       <Text style={[styles.subtitle, { color: theme.subtleText }]}>
         Scenario drills for umpires
       </Text>
 
-      <View style={[styles.toggle, { borderColor: theme.border, backgroundColor: theme.card }]}>
-        {RULESET_IDS.map((id) => {
-          const active = id === ruleset;
-          return (
-            <Pressable
-              key={id}
-              onPress={() => setRuleset(id)}
-              style={[
-                styles.toggleOption,
-                active && { backgroundColor: theme.primary },
-              ]}
-            >
-              <Text
-                style={[
-                  styles.toggleLabel,
-                  { color: active ? theme.onPrimary : theme.subtleText },
-                ]}
-              >
-                {RULESETS[id].shortLabel}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
+      <View
+        style={[
+          styles.hero,
+          { backgroundColor: theme.card, borderColor: theme.border },
+        ]}
+      >
+        <DiamondMotif theme={theme} />
+        <Chip theme={theme}>{`Today · ${RULESETS[ruleset].shortLabel}`}</Chip>
 
-      <View style={[styles.card, { backgroundColor: theme.card, borderColor: theme.border }]}>
-        <Text style={[styles.rulesetName, { color: theme.subtleText }]}>
-          {RULESETS[ruleset].label}
-        </Text>
         {counts === null ? (
-          <Text style={[styles.counts, { color: theme.subtleText }]}>…</Text>
+          <Text style={[styles.heroQuiet, { color: theme.faintText }]}>Checking your schedule…</Text>
         ) : caughtUp ? (
-          <Text style={[styles.counts, { color: theme.text }]}>
-            All caught up 🎉
-          </Text>
+          <>
+            <Text style={[styles.heroHeadline, { color: theme.text }]}>All caught up</Text>
+            <Text style={[styles.heroSub, { color: theme.subtleText }]}>
+              Nothing due today. Keep the eye sharp with a practice run.
+            </Text>
+          </>
         ) : (
-          <Text style={[styles.counts, { color: theme.text }]}>
-            {counts.due} review{counts.due === 1 ? '' : 's'} due · {counts.newFill} new
-          </Text>
+          <View style={styles.countRow}>
+            <View style={styles.countBlock}>
+              <Text style={[styles.countNumber, { color: theme.text }]}>{counts.due}</Text>
+              <Text style={[styles.countLabel, { color: theme.subtleText }]}>
+                {counts.due === 1 ? 'review due' : 'reviews due'}
+              </Text>
+            </View>
+            <View style={[styles.countDivider, { backgroundColor: theme.hairline }]} />
+            <View style={styles.countBlock}>
+              <Text style={[styles.countNumber, { color: theme.accent }]}>{counts.newFill}</Text>
+              <Text style={[styles.countLabel, { color: theme.subtleText }]}>new</Text>
+            </View>
+          </View>
         )}
-        <Pressable
+
+        <PrimaryButton
+          theme={theme}
           disabled={counts === null}
+          label={caughtUp ? 'PRACTICE' : 'START SESSION'}
           onPress={() =>
-            navigation.navigate('Quiz', {
-              mode: caughtUp ? 'practice' : 'session',
-            })
+            navigation.navigate('Quiz', { mode: caughtUp ? 'practice' : 'session' })
           }
-          style={({ pressed }) => [
-            styles.startButton,
-            { backgroundColor: theme.primary, opacity: pressed ? 0.85 : 1 },
-          ]}
-        >
-          <Text style={[styles.startLabel, { color: theme.onPrimary }]}>
-            {caughtUp ? 'Practice' : 'Start'}
-          </Text>
-        </Pressable>
+          style={styles.heroButton}
+        />
         {caughtUp && (
-          <Text style={[styles.practiceNote, { color: theme.subtleText }]}>
+          <Text style={[styles.practiceNote, { color: theme.faintText }]}>
             Practice never affects your schedule or stats.
           </Text>
         )}
-        <Pressable
-          onPress={() => navigation.navigate('Topics')}
-          hitSlop={8}
-          style={({ pressed }) => [{ opacity: pressed ? 0.6 : 1 }]}
-        >
-          <Text style={[styles.topicLink, { color: theme.subtleText }]}>
-            Practice a topic
-          </Text>
-        </Pressable>
       </View>
-    </View>
+
+      <SectionLabel theme={theme}>Train</SectionLabel>
+      <NavRow
+        theme={theme}
+        icon="library-outline"
+        title="Question library"
+        subtitle={RULESETS[ruleset].label}
+        onPress={() => navigation.navigate('Library')}
+      />
+      <NavRow
+        theme={theme}
+        icon="locate-outline"
+        title="Practice a topic"
+        subtitle="Drill one area — never touches your schedule"
+        onPress={() => navigation.navigate('Topics')}
+      />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, paddingTop: 72 },
-  title: { fontSize: 40, fontWeight: '800' },
-  subtitle: { fontSize: 16, marginTop: 4, marginBottom: 28 },
-  toggle: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  container: { padding: 24, paddingBottom: 48 },
+  header: { flexDirection: 'row', alignItems: 'flex-end' },
+  wordmark: {
+    fontFamily: fonts.display,
+    fontSize: 44,
+    letterSpacing: 3,
+    lineHeight: 46,
+  },
+  wordmarkDot: {
+    width: 9,
+    height: 9,
+    borderRadius: 2,
+    marginLeft: 7,
+    marginBottom: 9,
+    transform: [{ rotate: '45deg' }],
+  },
+  subtitle: { fontSize: 15, marginTop: 2, marginBottom: 28 },
+  hero: {
     borderWidth: 1,
-    borderRadius: 12,
-    padding: 4,
-    marginBottom: 20,
+    borderRadius: 20,
+    padding: 22,
+    marginBottom: 32,
+    overflow: 'hidden',
   },
-  toggleOption: {
-    flexBasis: '50%',
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  toggleLabel: { fontSize: 15, fontWeight: '600' },
-  card: {
-    borderWidth: 1,
-    borderRadius: 16,
-    padding: 24,
-    alignItems: 'center',
-  },
-  rulesetName: { fontSize: 14, marginBottom: 8 },
-  counts: { fontSize: 22, fontWeight: '700', marginBottom: 20 },
-  startButton: {
-    alignSelf: 'stretch',
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  startLabel: { fontSize: 17, fontWeight: '700' },
-  practiceNote: { fontSize: 13, marginTop: 12, textAlign: 'center' },
-  topicLink: {
-    fontSize: 15,
-    fontWeight: '600',
+  heroQuiet: { fontSize: 15, marginTop: 20, marginBottom: 24 },
+  heroHeadline: {
+    fontFamily: fonts.display,
+    fontSize: 34,
     marginTop: 16,
-    textDecorationLine: 'underline',
   },
+  heroSub: { fontSize: 14, lineHeight: 20, marginTop: 4, marginBottom: 22 },
+  countRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 18,
+    marginBottom: 22,
+  },
+  countBlock: { minWidth: 72 },
+  countNumber: {
+    fontFamily: fonts.display,
+    fontSize: 52,
+    lineHeight: 54,
+    fontVariant: ['tabular-nums'],
+  },
+  countLabel: { fontSize: 13, marginTop: 2 },
+  countDivider: { width: 1, height: 44, marginHorizontal: 24 },
+  heroButton: { marginTop: 2 },
+  practiceNote: { fontSize: 12.5, marginTop: 12, textAlign: 'center' },
 });
