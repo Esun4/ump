@@ -115,6 +115,13 @@ export default function HomeScreen({ navigation }: Props) {
       />
       <NavRow
         theme={theme}
+        icon="play-outline"
+        title="Play simulator"
+        subtitle="Watch the play unfold — make the move, then the call"
+        onPress={() => navigation.navigate('Simulator')}
+      />
+      <NavRow
+        theme={theme}
         icon="locate-outline"
         title="Practice a topic"
         subtitle="Drill one area — never touches your schedule"

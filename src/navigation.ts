@@ -1,3 +1,5 @@
+import { SimCrew } from './sim/types';
+
 export type QuizMode = 'session' | 'practice';
 
 // Practice runs can be narrowed three ways, all mutually exclusive:
@@ -13,6 +15,9 @@ export type RootStackParamList = {
   Coverage: undefined;
   PlateMeeting: undefined;
   Myths: undefined;
+  Simulator: undefined;
+  // A run of shuffled plays for the crew, or one play from the library.
+  SimPlay: { crew: SimCrew; scenarioId?: string };
 };
 
 export type TabParamList = {

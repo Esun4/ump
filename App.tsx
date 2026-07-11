@@ -28,6 +28,8 @@ import LibraryScreen from './src/screens/LibraryScreen';
 import CoverageScreen from './src/screens/CoverageScreen';
 import PlateMeetingScreen from './src/screens/PlateMeetingScreen';
 import MythsScreen from './src/screens/MythsScreen';
+import SimulatorScreen from './src/screens/SimulatorScreen';
+import SimPlayScreen from './src/screens/SimPlayScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -158,6 +160,12 @@ export default function App() {
             component={MythsScreen}
             options={{ title: 'Rule Myths' }}
           />
+          <Stack.Screen
+            name="Simulator"
+            component={SimulatorScreen}
+            options={{ title: 'Play Simulator' }}
+          />
+          <Stack.Screen name="SimPlay" component={SimPlayScreen} />
         </Stack.Navigator>
         <StatusBar style={dark ? 'light' : 'dark'} />
       </NavigationContainer>
