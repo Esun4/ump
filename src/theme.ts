@@ -1,7 +1,7 @@
 // Visual identity: flat, grid-first, light-ground. Square corners
-// everywhere, ink rules doing the structural work, and a single muted
-// claret carrying every accent the old navy-and-brass theme used to split
-// between two colors.
+// everywhere and ink rules doing the structural work. The palette is
+// tonal — navy ink on ivory, sapphire for every accent, and warm taupe
+// and champagne carrying the neutrals so the greys never go cold.
 export interface Theme {
   dark: boolean;
   background: string;
@@ -19,8 +19,8 @@ export interface Theme {
   primary: string;
   primaryPressed: string;
   onPrimary: string;
-  // Claret identity color. `accentSoft` is the 100 tint it sits on;
-  // `accentDeep` is the 700 step small text uses on that tint.
+  // Sapphire identity color. `accentSoft` is the pale tint it sits on;
+  // `accentDeep` is the navy step small text uses on that tint.
   accent: string;
   accentSoft: string;
   accentDeep: string;
@@ -37,28 +37,32 @@ export interface Theme {
 
 export const lightTheme: Theme = {
   dark: false,
-  background: '#f3f2f2',
+  background: '#f5f4f0', // ivory
   card: '#ffffff',
-  cardRaised: '#eae9e9',
-  text: '#201e1d',
-  subtleText: '#6b6664',
-  faintText: '#8a8583',
-  border: '#cdc9c9',
-  hairline: '#cdc9c9',
-  rule: '#201e1d',
-  primary: '#a13f38',
-  primaryPressed: '#8a352f',
+  cardRaised: '#e7e2ce', // champagne
+  text: '#112250', // navy
+  subtleText: '#5a6178',
+  faintText: '#8f8a7c', // warm taupe, darkened to stay readable
+  border: '#d5d0c3', // warm taupe, lightened to a hairline
+  hairline: '#d5d0c3',
+  rule: '#112250',
+  primary: '#3b507d', // sapphire
+  primaryPressed: '#2e3f63',
   onPrimary: '#ffffff',
-  accent: '#a13f38',
-  accentSoft: '#f6ecea',
-  accentDeep: '#6f2c27',
+  accent: '#3b507d',
+  accentSoft: '#e6eaf2',
+  // Deepened sapphire rather than the navy ink — eyebrows, tags and
+  // active-row titles have to stay legible as *accent*, not read as body.
+  accentDeep: '#354872',
   correct: '#2f7d54',
   correctBg: '#e6f0e9',
   correctText: '#1f5136',
   correctPanel: '#eef4f0',
-  wrong: '#a13f38',
-  wrongBg: '#f6ecea',
-  danger: '#a13f38',
+  // Sapphire can't double as the error color the way the old accent did,
+  // so wrong answers get their own muted brick — used nowhere else.
+  wrong: '#a8443a',
+  wrongBg: '#f6ebe8',
+  danger: '#a8443a',
 };
 
 // Type roles. Archivo carries the whole app: 800 for the wordmark, big

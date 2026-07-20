@@ -283,7 +283,7 @@ export default function SimPlayScreen({ navigation, route }: Props) {
                   {scenario.explanation}
                 </Text>
                 <Text style={[styles.trailNote, { color: theme.subtleText }]}>
-                  Dotted lines show each umpire’s path — yours in claret.
+                  Dotted lines show each umpire’s path — yours in sapphire.
                 </Text>
               </FeedbackPanel>
               <Pressable onPress={replayReveal} style={styles.quietAction}>

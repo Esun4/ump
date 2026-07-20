@@ -36,14 +36,14 @@ interface Palette {
   base: string;
 }
 
-// Flat and ink-drawn to match the rest of the app: no green grass or
-// brown dirt, just tonal greys with ink lines and white bases.
+// Flat and ink-drawn to match the rest of the app: no green grass, just
+// the ivory ground and a champagne infield under navy lines.
 function palette(theme: Theme): Palette {
   return {
-    grass: '#f3f2f2',
-    dirt: '#e2dfde',
+    grass: theme.background,
+    dirt: theme.cardRaised,
     chalk: theme.rule,
-    faintLine: 'rgba(32, 30, 29, 0.22)',
+    faintLine: 'rgba(17, 34, 80, 0.22)',
     fence: theme.rule,
     base: '#ffffff',
   };
