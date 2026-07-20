@@ -481,7 +481,7 @@ export const MECH60_QUESTIONS: Question[] = [
     topic: 'Fair / Foul',
     tier: 'sixty',
     scenario:
-      '60-ft diamond. Earlier in the play U1 abandoned the right-field line to take a play, and now a looping ball lands near that line beyond first base. Who has fair/foul?',
+      '60-ft diamond, no runners on. A ball is driven into the right-field corner and U1 pivots into the working area rather than staying on the line. The ball bounds toward the line beyond first base. Who has fair/foul?',
     options: [
       'U1 hustles back to the line to make the call himself',
       'The plate umpire — the line became his when U1 left',
@@ -490,7 +490,7 @@ export const MECH60_QUESTIONS: Question[] = [
     ],
     correctIndex: 1,
     explanation:
-      'An umpire who abandons his line never comes back to make a fair/foul decision. The plate umpire assumes the entire foul line the moment U1 or U3 leaves it — one of the reasons PU “holds the line” at PoP when not rotating.',
+      'Straddle the line or pivot into the working area — U1 picks one as the ball is hit, and pivoting abandons the line. An umpire who abandons his line never comes back to make a fair/foul decision; the plate umpire assumes the entire foul line the moment U1 or U3 leaves it, which is one of the reasons PU “holds the line” at PoP when not rotating.',
   },
   {
     id: 'mech-029',

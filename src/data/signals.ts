@@ -240,16 +240,16 @@ export const SIGNALS_QUESTIONS: Question[] = [
     topic: 'Fly Balls & Fair/Foul',
     tier: 'sixty',
     scenario:
-      'U1 abandons the right-field line to go out on a fly ball. Moments later a different runner’s hit hooks toward that same line. U1 is still in the outfield. Who owns fair/foul on the line now?',
+      'U1 goes out on a sinking fly ball toward the right-field corner, leaving the line behind him. The ball lands untouched a few feet off the line beyond first base. Who owns fair/foul?',
     options: [
-      'U1 hustles back to the line — it’s still his',
+      'U1 — he went out on the ball, so the whole call is his',
       'The plate umpire — the line is his once U1 abandons it',
       'U2 slides over to take the line',
       'Whichever umpire ends up with the best look in the moment',
     ],
     correctIndex: 1,
     explanation:
-      'The manual is blunt: if U1 or U3 abandons the line, NEVER come back to it for a fair/foul decision. The plate umpire assumes the entire foul line the moment the wing umpire leaves — which is why “going out” is communicated loudly, so PU knows the line is his.',
+      'Going out gets U1 catch/no-catch on that ball — it does not get him the line. The manual is blunt: if U1 or U3 abandons the line, NEVER come back to it for a fair/foul decision. The plate umpire assumes the entire foul line the moment the wing umpire leaves, which is why “going out” is communicated loudly — it tells PU the line is now his.',
   },
   {
     id: 'sig-015',
