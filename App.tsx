@@ -1,24 +1,23 @@
 import React, { useEffect } from 'react';
-import { AppState, useColorScheme, View } from 'react-native';
+import { AppState, Pressable, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-} from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBarButtonProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import {
   useFonts,
-  BarlowCondensed_500Medium,
-  BarlowCondensed_600SemiBold,
-  BarlowCondensed_700Bold,
-} from '@expo-google-fonts/barlow-condensed';
+  Archivo_400Regular,
+  Archivo_600SemiBold,
+  Archivo_800ExtraBold,
+} from '@expo-google-fonts/archivo';
 import { RootStackParamList, TabParamList } from './src/navigation';
 import { refreshBanks } from './src/data';
 import { RulesetProvider } from './src/state/RulesetContext';
-import { darkTheme, fonts, lightTheme, Theme } from './src/theme';
+import { fonts, lightTheme, Theme } from './src/theme';
 import HomeScreen from './src/screens/HomeScreen';
 import QuizScreen from './src/screens/QuizScreen';
 import StatsScreen from './src/screens/StatsScreen';
@@ -43,6 +42,35 @@ const TAB_ICONS: Record<
   Settings: { active: 'settings', inactive: 'settings-outline' },
 };
 
+// The active tab is marked by a claret bar inset along the top of its
+// cell, which needs to span the full cell — hence a custom tab button
+// rather than decoration hung off the icon.
+function TabButton({ theme, ...props }: BottomTabBarButtonProps & { theme: Theme }) {
+  const selected = props.accessibilityState?.selected ?? false;
+  const { style, children, delayLongPress, ref, ...rest } = props;
+  return (
+    <Pressable
+      {...rest}
+      delayLongPress={delayLongPress ?? undefined}
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+    >
+      {selected && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 2,
+            backgroundColor: theme.accent,
+          }}
+        />
+      )}
+      {children}
+    </Pressable>
+  );
+}
+
 function Tabs({ theme }: { theme: Theme }) {
   return (
     <Tab.Navigator
@@ -51,18 +79,24 @@ function Tabs({ theme }: { theme: Theme }) {
         headerShadowVisible: false,
         headerStyle: { backgroundColor: theme.background },
         headerTitleStyle: {
-          fontFamily: fonts.displaySemi,
-          fontSize: 24,
-          letterSpacing: 0.5,
+          fontFamily: fonts.display,
+          fontSize: 20,
           color: theme.text,
         },
         tabBarActiveTintColor: theme.accent,
-        tabBarInactiveTintColor: theme.faintText,
+        tabBarInactiveTintColor: theme.subtleText,
         tabBarStyle: {
           backgroundColor: theme.card,
-          borderTopColor: theme.hairline,
+          borderTopWidth: 2,
+          borderTopColor: theme.rule,
         },
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+        tabBarLabelStyle: {
+          fontFamily: fonts.bodyBold,
+          fontSize: 10,
+          letterSpacing: 0.6,
+        },
+        tabBarLabel: route.name.toUpperCase(),
+        tabBarButton: (props) => <TabButton {...props} theme={theme} />,
         tabBarIcon: ({ size, color, focused }) => (
           <Ionicons
             name={focused ? TAB_ICONS[route.name].active : TAB_ICONS[route.name].inactive}
@@ -81,9 +115,9 @@ function Tabs({ theme }: { theme: Theme }) {
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    BarlowCondensed_500Medium,
-    BarlowCondensed_600SemiBold,
-    BarlowCondensed_700Bold,
+    Archivo_400Regular,
+    Archivo_600SemiBold,
+    Archivo_800ExtraBold,
   });
 
   // Banks refresh when the app returns to the foreground; refreshBanks
@@ -95,18 +129,16 @@ export default function App() {
     return () => sub.remove();
   }, []);
 
-  const dark = useColorScheme() === 'dark';
-  const app = dark ? darkTheme : lightTheme;
+  const app = lightTheme;
 
   if (!fontsLoaded) {
     return <View style={{ flex: 1, backgroundColor: app.background }} />;
   }
 
-  const base = dark ? DarkTheme : DefaultTheme;
   const navTheme = {
-    ...base,
+    ...DefaultTheme,
     colors: {
-      ...base.colors,
+      ...DefaultTheme.colors,
       primary: app.accent,
       background: app.background,
       card: app.card,
@@ -120,8 +152,8 @@ export default function App() {
     headerStyle: { backgroundColor: app.background },
     headerTintColor: app.accent,
     headerTitleStyle: {
-      fontFamily: fonts.displaySemi,
-      fontSize: 22,
+      fontFamily: fonts.display,
+      fontSize: 20,
       color: app.text,
     },
     headerBackTitleVisible: false,
@@ -167,7 +199,7 @@ export default function App() {
           />
           <Stack.Screen name="SimPlay" component={SimPlayScreen} />
         </Stack.Navigator>
-        <StatusBar style={dark ? 'light' : 'dark'} />
+        <StatusBar style="dark" />
       </NavigationContainer>
     </RulesetProvider>
   );

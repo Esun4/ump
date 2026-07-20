@@ -23,12 +23,14 @@ const WEEKS = 16;
 const CELL = 14;
 const GAP = 3;
 
+const LEVELS = [0.35, 0.6, 0.85, 1];
+
 function intensity(count: number): number {
   if (count === 0) return 0;
-  if (count < 5) return 0.25;
-  if (count < 10) return 0.45;
-  if (count < 20) return 0.7;
-  return 1;
+  if (count < 5) return LEVELS[0];
+  if (count < 10) return LEVELS[1];
+  if (count < 20) return LEVELS[2];
+  return LEVELS[3];
 }
 
 function Heatmap({ theme, log, today }: { theme: Theme; log: ActivityLog; today: string }) {
@@ -69,7 +71,7 @@ function Heatmap({ theme, log, today }: { theme: Theme; log: ActivityLog; today:
       <View style={styles.grid}>{columns}</View>
       <View style={styles.legend}>
         <Text style={[styles.legendText, { color: theme.faintText }]}>LESS</Text>
-        {[0, 0.25, 0.45, 0.7, 1].map((level) => (
+        {[0, ...LEVELS].map((level) => (
           <View
             key={level}
             style={[
@@ -87,10 +89,22 @@ function Heatmap({ theme, log, today }: { theme: Theme; log: ActivityLog; today:
   );
 }
 
-function Tile({ theme, value, label }: { theme: Theme; value: number; label: string }) {
+function Tile({
+  theme,
+  value,
+  label,
+  accent,
+}: {
+  theme: Theme;
+  value: number;
+  label: string;
+  accent?: boolean;
+}) {
   return (
     <View style={[styles.tile, { backgroundColor: theme.card, borderColor: theme.border }]}>
-      <Text style={[styles.tileValue, { color: theme.text }]}>{value}</Text>
+      <Text style={[styles.tileValue, { color: accent ? theme.accent : theme.text }]}>
+        {value}
+      </Text>
       <Text style={[styles.tileLabel, { color: theme.subtleText }]}>{label}</Text>
     </View>
   );
@@ -131,7 +145,7 @@ export default function StatsScreen() {
       style={{ backgroundColor: theme.background }}
       contentContainerStyle={styles.container}
     >
-      <View style={[styles.hero, { backgroundColor: theme.card, borderColor: theme.border }]}>
+      <View style={[styles.hero, { borderBottomColor: theme.rule }]}>
         <View style={styles.streakRow}>
           <Text style={[styles.streakNumber, { color: theme.text }]}>{streak}</Text>
           <View style={styles.streakText}>
@@ -154,7 +168,7 @@ export default function StatsScreen() {
       <View style={styles.tileRow}>
         <Tile theme={theme} value={totalAnswered} label="answers" />
         <Tile theme={theme} value={daysActive} label="days active" />
-        <Tile theme={theme} value={mastered} label="mastered" />
+        <Tile theme={theme} value={mastered} label="mastered" accent />
       </View>
       <View style={styles.masteredNote}>
         <Chip theme={theme}>{RULESETS[ruleset].shortLabel}</Chip>
@@ -168,11 +182,11 @@ export default function StatsScreen() {
 
 const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 48 },
+  // The streak block is closed by an ink rule rather than boxed in a card.
   hero: {
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 28,
+    borderBottomWidth: 2,
+    paddingBottom: 20,
+    marginBottom: 26,
   },
   streakRow: {
     flexDirection: 'row',
@@ -182,17 +196,18 @@ const styles = StyleSheet.create({
   streakNumber: {
     fontFamily: fonts.display,
     fontSize: 64,
-    lineHeight: 66,
+    lineHeight: 64,
+    letterSpacing: -2,
     fontVariant: ['tabular-nums'],
-    marginRight: 14,
+    marginRight: 16,
   },
   streakText: { flex: 1 },
   streakLabel: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 20,
-    letterSpacing: 0.5,
+    fontFamily: fonts.display,
+    fontSize: 19,
+    letterSpacing: -0.3,
   },
-  streakSub: { fontSize: 13.5, lineHeight: 18, marginTop: 2 },
+  streakSub: { fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 3 },
   grid: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -201,7 +216,6 @@ const styles = StyleSheet.create({
   cell: {
     width: CELL,
     height: CELL,
-    borderRadius: 3.5,
     marginBottom: GAP,
   },
   legend: {
@@ -212,30 +226,30 @@ const styles = StyleSheet.create({
   },
   legendCell: { marginBottom: 0, marginRight: GAP },
   legendText: {
-    fontSize: 10.5,
-    fontWeight: '700',
-    letterSpacing: 1,
-    marginHorizontal: 5,
+    fontFamily: fonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 1.2,
+    marginHorizontal: 6,
   },
   tileRow: { flexDirection: 'row', gap: 10, marginBottom: 14 },
   tile: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 16,
     paddingVertical: 16,
-    alignItems: 'center',
+    paddingHorizontal: 12,
   },
   tileValue: {
     fontFamily: fonts.display,
-    fontSize: 34,
-    lineHeight: 36,
+    fontSize: 32,
+    lineHeight: 34,
+    letterSpacing: -1,
     fontVariant: ['tabular-nums'],
   },
-  tileLabel: { fontSize: 12.5, marginTop: 3 },
+  tileLabel: { fontFamily: fonts.body, fontSize: 12, marginTop: 4 },
   masteredNote: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
   },
-  masteredText: { flex: 1, fontSize: 12.5, lineHeight: 17 },
+  masteredText: { flex: 1, fontFamily: fonts.body, fontSize: 12, lineHeight: 17 },
 });

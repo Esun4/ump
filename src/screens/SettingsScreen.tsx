@@ -2,12 +2,12 @@ import React, { useCallback, useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import { useTheme } from '../theme';
+import { fonts, useTheme } from '../theme';
 import { RULESETS, RULESET_IDS, RulesetId } from '../types';
 import { useRuleset } from '../state/RulesetContext';
 import { BankInfo, getBankInfo } from '../data';
 import { resetProgress } from '../srs/storage';
-import { SectionLabel } from '../ui';
+import { Card, SectionLabel, rowDivider } from '../ui';
 
 const SOURCE_LABELS: Record<BankInfo['source'], string> = {
   server: 'Live from server',
@@ -62,12 +62,7 @@ export default function SettingsScreen() {
       contentContainerStyle={styles.container}
     >
       <SectionLabel theme={theme}>Question bank</SectionLabel>
-      <View
-        style={[
-          styles.bankCard,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
+      <Card theme={theme} style={styles.bankCard}>
         <Text style={[styles.bankRuleset, { color: theme.subtleText }]}>
           {RULESETS[ruleset].label}
         </Text>
@@ -85,23 +80,18 @@ export default function SettingsScreen() {
             </Text>
           </>
         )}
-      </View>
+      </Card>
 
       <SectionLabel theme={theme}>Progress</SectionLabel>
-      <View
-        style={[
-          styles.resetCard,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
+      <Card theme={theme} style={styles.resetCard}>
         {RULESET_IDS.map((id, i) => (
           <Pressable
             key={id}
             onPress={() => confirmReset(id)}
             style={({ pressed }) => [
               styles.resetRow,
-              i > 0 && { borderTopWidth: 1, borderTopColor: theme.hairline },
-              pressed && { backgroundColor: theme.cardRaised },
+              rowDivider(theme, i),
+              { backgroundColor: pressed ? theme.accentSoft : theme.card },
             ]}
           >
             <Ionicons
@@ -115,9 +105,12 @@ export default function SettingsScreen() {
             </Text>
           </Pressable>
         ))}
-      </View>
-      <Text style={[styles.note, { color: theme.faintText }]}>
-        All progress is stored on this device only.
+      </Card>
+
+      <SectionLabel theme={theme}>About</SectionLabel>
+      <Text style={[styles.note, { color: theme.subtleText }]}>
+        Offline-first · progress lives on this device only.{'\n'}
+        Scenario drills for amateur baseball umpires.
       </Text>
     </ScrollView>
   );
@@ -126,19 +119,13 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 48 },
   bankCard: {
-    borderWidth: 1,
-    borderRadius: 16,
     padding: 16,
     marginBottom: 28,
   },
-  bankRuleset: { fontSize: 13, fontWeight: '600', marginBottom: 6 },
-  bankCount: { fontSize: 15, fontWeight: '600', marginBottom: 4 },
-  bankDetail: { fontSize: 13 },
-  resetCard: {
-    borderWidth: 1,
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
+  bankRuleset: { fontFamily: fonts.bodyBold, fontSize: 12.5, marginBottom: 6 },
+  bankCount: { fontFamily: fonts.bodyBold, fontSize: 14.5, marginBottom: 4 },
+  bankDetail: { fontFamily: fonts.body, fontSize: 12.5 },
+  resetCard: { marginBottom: 28 },
   resetRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -146,6 +133,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   resetIcon: { marginRight: 10 },
-  resetLabel: { fontSize: 15, fontWeight: '600', flexShrink: 1 },
-  note: { fontSize: 13, marginTop: 12 },
+  resetLabel: { fontFamily: fonts.bodyBold, fontSize: 14.5, flexShrink: 1 },
+  note: { fontFamily: fonts.body, fontSize: 13, lineHeight: 21 },
 });

@@ -12,7 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
 import { fonts, useTheme } from '../theme';
-import { Chip, PrimaryButton } from '../ui';
+import { Chip, FeedbackPanel, OptionRow, OptionState, PrimaryButton, Rule } from '../ui';
 import FieldCanvas from '../sim/FieldCanvas';
 import { SIM_SCENARIOS, scenariosForCrew } from '../sim/scenarios60';
 import { SimScenario } from '../sim/types';
@@ -180,22 +180,19 @@ export default function SimPlayScreen({ navigation, route }: Props) {
       style={{ backgroundColor: theme.background }}
       contentContainerStyle={styles.container}
     >
-      <View style={styles.meta}>
+      <View style={[styles.meta, { borderBottomColor: theme.rule }]}>
         <Chip theme={theme}>{`${crew === 'two' ? '2-Man' : '4-Man'} · ${kindLabel}`}</Chip>
         {isRun && (
-          <Text style={[styles.metaText, { color: theme.faintText }]}>
+          <Text style={[styles.metaText, { color: theme.subtleText }]}>
             {index + 1} of {deck.length}
             {index > 0 || answered ? ` · ${right} right` : ''}
           </Text>
         )}
       </View>
 
-      <View
-        style={[
-          styles.fieldCard,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
+      {/* The field panel and its caption strip read as one tinted block,
+          closed off by the ink rule below the caption. */}
+      <View style={[styles.fieldCard, { backgroundColor: theme.cardRaised }]}>
         <FieldCanvas
           theme={theme}
           actors={scenario.actors}
@@ -204,15 +201,16 @@ export default function SimPlayScreen({ navigation, route }: Props) {
         />
       </View>
 
-      <View style={styles.captionStrip}>
+      <View style={[styles.captionStrip, { backgroundColor: theme.cardRaised }]}>
         {phase === 'asking' && scenario.kind === 'mechanics' ? (
-          <Text style={[styles.captionText, { color: theme.accent }]}>
+          <Text style={[styles.captionText, { color: theme.accentDeep }]}>
             ⏸ FROZEN — {caption ?? 'the ball is in the air'}
           </Text>
         ) : caption ? (
           <Text style={[styles.captionText, { color: theme.subtleText }]}>{caption}</Text>
         ) : null}
       </View>
+      <Rule theme={theme} style={styles.fieldRule} />
 
       {phase === 'ready' && (
         <>
@@ -230,50 +228,39 @@ export default function SimPlayScreen({ navigation, route }: Props) {
       {(phase === 'asking' || phase === 'reveal') && (
         <>
           <Text style={[styles.question, { color: theme.text }]}>
-            <Text style={{ color: theme.accent }}>{`You are ${scenario.seat}.  `}</Text>
+            <Text style={[styles.questionSeat, { color: theme.accentDeep }]}>
+              {`You are ${scenario.seat}.  `}
+            </Text>
             {scenario.question}
           </Text>
 
           {scenario.options.map((option, i) => {
-            const isCorrect = i === scenario.correctIndex;
-            const isSelected = i === selected;
-            let bg = theme.card;
-            let border = theme.border;
-            let color = theme.text;
-            if (answered && isCorrect) {
-              bg = theme.correctBg;
-              border = theme.correct;
-              color = theme.correct;
-            } else if (answered && isSelected) {
-              bg = theme.wrongBg;
-              border = theme.wrong;
-              color = theme.wrong;
+            let state: OptionState = 'idle';
+            if (answered) {
+              state =
+                i === scenario.correctIndex
+                  ? 'correct'
+                  : i === selected
+                    ? 'wrong'
+                    : 'dimmed';
             }
             return (
-              <Pressable
+              <OptionRow
                 key={i}
+                theme={theme}
+                letter={LETTERS[i]}
+                text={option}
+                state={state}
                 disabled={answered}
                 onPress={() => onAnswer(i)}
-                style={({ pressed }) => [
-                  styles.option,
-                  {
-                    backgroundColor: pressed && !answered ? theme.cardRaised : bg,
-                    borderColor: border,
-                  },
-                ]}
-              >
-                <Text style={[styles.optionBadge, { color: theme.faintText }]}>
-                  {LETTERS[i]}
-                </Text>
-                <Text style={[styles.optionText, { color }]}>{option}</Text>
-              </Pressable>
+              />
             );
           })}
 
           {phase === 'asking' && scenario.kind === 'call' && (
             <Pressable onPress={replayForAsking} style={styles.quietAction}>
-              <Ionicons name="refresh" size={15} color={theme.accent} />
-              <Text style={[styles.quietActionText, { color: theme.accent }]}>
+              <Ionicons name="refresh" size={15} color={theme.accentDeep} />
+              <Text style={[styles.quietActionText, { color: theme.accentDeep }]}>
                 Watch it again
               </Text>
             </Pressable>
@@ -281,41 +268,27 @@ export default function SimPlayScreen({ navigation, route }: Props) {
 
           {phase === 'reveal' && (
             <>
-              <View
-                style={[
-                  styles.feedback,
-                  { backgroundColor: correct ? theme.correctBg : theme.wrongBg },
-                ]}
+              <FeedbackPanel
+                theme={theme}
+                correct={correct}
+                title={
+                  correct
+                    ? scenario.kind === 'mechanics'
+                      ? 'RIGHT MOVE'
+                      : 'CORRECT CALL'
+                    : 'NOT QUITE'
+                }
               >
-                <View style={styles.feedbackHeader}>
-                  <Ionicons
-                    name={correct ? 'checkmark-circle' : 'close-circle'}
-                    size={20}
-                    color={correct ? theme.correct : theme.wrong}
-                  />
-                  <Text
-                    style={[
-                      styles.feedbackTitle,
-                      { color: correct ? theme.correct : theme.wrong },
-                    ]}
-                  >
-                    {correct
-                      ? scenario.kind === 'mechanics'
-                        ? 'RIGHT MOVE'
-                        : 'CORRECT CALL'
-                      : 'NOT QUITE'}
-                  </Text>
-                </View>
                 <Text style={[styles.explanation, { color: theme.text }]}>
                   {scenario.explanation}
                 </Text>
                 <Text style={[styles.trailNote, { color: theme.subtleText }]}>
-                  Dotted lines show each umpire’s path — yours in brass.
+                  Dotted lines show each umpire’s path — yours in claret.
                 </Text>
-              </View>
+              </FeedbackPanel>
               <Pressable onPress={replayReveal} style={styles.quietAction}>
-                <Ionicons name="refresh" size={15} color={theme.accent} />
-                <Text style={[styles.quietActionText, { color: theme.accent }]}>
+                <Ionicons name="refresh" size={15} color={theme.accentDeep} />
+                <Text style={[styles.quietActionText, { color: theme.accentDeep }]}>
                   Replay the whole play
                 </Text>
               </Pressable>
@@ -340,83 +313,63 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    borderBottomWidth: 2,
+    paddingBottom: 14,
+    marginBottom: 16,
   },
-  metaText: { fontSize: 13, fontVariant: ['tabular-nums'] },
+  metaText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    fontVariant: ['tabular-nums'],
+  },
   fieldCard: {
-    borderWidth: 1,
-    borderRadius: 18,
-    overflow: 'hidden',
+    paddingVertical: 14,
+    paddingHorizontal: 16,
   },
   captionStrip: {
-    minHeight: 30,
+    minHeight: 34,
     justifyContent: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 2,
+    paddingBottom: 12,
+    paddingHorizontal: 16,
   },
+  fieldRule: { marginBottom: 18 },
   captionText: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 15,
-    letterSpacing: 0.4,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13.5,
+    letterSpacing: 0.5,
   },
   title: {
     fontFamily: fonts.display,
-    fontSize: 28,
+    fontSize: 26,
+    letterSpacing: -0.6,
     marginTop: 2,
   },
-  setup: { fontSize: 14.5, lineHeight: 21, marginTop: 6, marginBottom: 14 },
-  hint: { fontSize: 13, lineHeight: 18, marginBottom: 14, marginTop: -6 },
-  question: { fontSize: 15.5, lineHeight: 22, marginBottom: 14, marginTop: 2 },
-  option: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    borderWidth: 1,
-    borderRadius: 14,
-    padding: 13,
-    marginBottom: 9,
-  },
-  optionBadge: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 14,
-    width: 20,
-    marginTop: 1,
-  },
-  optionText: { flex: 1, fontSize: 14.5, lineHeight: 20 },
-  feedback: {
-    borderRadius: 14,
-    padding: 14,
-    marginTop: 6,
-    marginBottom: 4,
-  },
-  feedbackHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 7 },
-  feedbackTitle: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 16,
-    letterSpacing: 0.8,
-    marginLeft: 7,
-  },
-  explanation: { fontSize: 14.5, lineHeight: 21 },
-  trailNote: { fontSize: 12.5, marginTop: 9 },
+  setup: { fontFamily: fonts.body, fontSize: 14, lineHeight: 21, marginTop: 8, marginBottom: 14 },
+  hint: { fontFamily: fonts.body, fontSize: 12.5, lineHeight: 18, marginBottom: 14, marginTop: -6 },
+  question: { fontFamily: fonts.body, fontSize: 16, lineHeight: 23, marginBottom: 16, marginTop: 2 },
+  questionSeat: { fontFamily: fonts.bodyBold },
+  explanation: { fontFamily: fonts.body, fontSize: 14.5, lineHeight: 21 },
+  trailNote: { fontFamily: fonts.body, fontSize: 12.5, marginTop: 9 },
   quietAction: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 13,
+    paddingVertical: 14,
     gap: 6,
   },
-  quietActionText: { fontSize: 14.5, fontWeight: '600' },
+  quietActionText: { fontFamily: fonts.bodyBold, fontSize: 14 },
   summaryContainer: { padding: 24, paddingTop: 72, alignItems: 'stretch' },
   summaryScore: {
     fontFamily: fonts.display,
     fontSize: 76,
-    textAlign: 'center',
+    letterSpacing: -2.5,
     fontVariant: ['tabular-nums'],
   },
   summaryLabel: {
-    fontSize: 15,
+    fontFamily: fonts.body,
+    fontSize: 14.5,
     lineHeight: 21,
-    textAlign: 'center',
-    marginTop: 4,
+    marginTop: 8,
     marginBottom: 28,
   },
 });

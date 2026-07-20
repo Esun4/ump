@@ -24,7 +24,7 @@ import {
   todayKey,
   troubleSpots,
 } from '../srs/engine';
-import { Chip, PrimaryButton } from '../ui';
+import { Chip, FeedbackPanel, OptionRow, OptionState, PrimaryButton } from '../ui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Quiz'>;
 
@@ -282,80 +282,31 @@ export default function QuizScreen({ route, navigation }: Props) {
       </Text>
 
       {optionOrder.map((optionIndex, displayIndex) => {
-        const option = question.options[optionIndex];
         const isCorrect = optionIndex === question.correctIndex;
         const isSelected = optionIndex === selected;
-        let bg = theme.card;
-        let border = theme.border;
-        let color = theme.text;
-        let badgeBg = 'transparent';
-        let badgeBorder = theme.border;
-        let badgeColor = theme.subtleText;
-        if (answered && isCorrect) {
-          bg = theme.correctBg;
-          border = theme.correct;
-          color = theme.correct;
-          badgeBg = theme.correct;
-          badgeBorder = theme.correct;
-          badgeColor = theme.correctBg;
-        } else if (answered && isSelected) {
-          bg = theme.wrongBg;
-          border = theme.wrong;
-          color = theme.wrong;
-          badgeBg = theme.wrong;
-          badgeBorder = theme.wrong;
-          badgeColor = theme.wrongBg;
+        let state: OptionState = 'idle';
+        if (answered) {
+          state = isCorrect ? 'correct' : isSelected ? 'wrong' : 'dimmed';
         }
         return (
-          <Pressable
+          <OptionRow
             key={optionIndex}
+            theme={theme}
+            letter={LETTERS[displayIndex] ?? '·'}
+            text={question.options[optionIndex]}
+            state={state}
             disabled={answered}
             onPress={() => onAnswer(optionIndex)}
-            style={({ pressed }) => [
-              styles.option,
-              {
-                backgroundColor: pressed && !answered ? theme.cardRaised : bg,
-                borderColor: border,
-              },
-            ]}
-          >
-            <View
-              style={[
-                styles.badge,
-                { backgroundColor: badgeBg, borderColor: badgeBorder },
-              ]}
-            >
-              <Text style={[styles.badgeText, { color: badgeColor }]}>
-                {LETTERS[displayIndex] ?? '·'}
-              </Text>
-            </View>
-            <Text style={[styles.optionText, { color }]}>{option}</Text>
-          </Pressable>
+          />
         );
       })}
 
       {answered && (
-        <View
-          style={[
-            styles.feedback,
-            { backgroundColor: correct ? theme.correctBg : theme.wrongBg },
-          ]}
+        <FeedbackPanel
+          theme={theme}
+          correct={correct}
+          title={correct ? 'CORRECT CALL' : 'NOT QUITE'}
         >
-          <View style={styles.feedbackHeader}>
-            <Ionicons
-              name={correct ? 'checkmark-circle' : 'close-circle'}
-              size={20}
-              color={correct ? theme.correct : theme.wrong}
-            />
-            <Text
-              style={[
-                styles.feedbackTitle,
-                { color: correct ? theme.correct : theme.wrong },
-              ]}
-            >
-              {correct ? 'CORRECT CALL' : 'NOT QUITE'}
-            </Text>
-          </View>
           <Text style={[styles.explanation, { color: theme.text }]}>
             {question.explanation}
           </Text>
@@ -376,7 +327,7 @@ export default function QuizScreen({ route, navigation }: Props) {
                 </Text>
               </Pressable>
             ))}
-        </View>
+        </FeedbackPanel>
       )}
 
       {answered && (
@@ -393,14 +344,13 @@ export default function QuizScreen({ route, navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 48 },
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  center: { flex: 1, alignItems: 'flex-start', justifyContent: 'center', padding: 24 },
   progressTrack: {
-    height: 4,
-    borderRadius: 2,
+    height: 5,
     marginBottom: 18,
     overflow: 'hidden',
   },
-  progressFill: { height: 4, borderRadius: 2 },
+  progressFill: { height: 5 },
   meta: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -408,81 +358,48 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   metaChip: { flexShrink: 1, marginRight: 12 },
-  metaText: { fontSize: 13, fontWeight: '600', fontVariant: ['tabular-nums'] },
+  metaText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    fontVariant: ['tabular-nums'],
+  },
   bookmark: { marginLeft: 14 },
   emptyIcon: { marginBottom: 14 },
   emptyTitle: {
     fontFamily: fonts.display,
     fontSize: 30,
+    letterSpacing: -0.6,
     marginBottom: 8,
   },
   emptyText: {
-    fontSize: 15,
-    lineHeight: 22,
-    textAlign: 'center',
+    fontFamily: fonts.body,
+    fontSize: 14.5,
+    lineHeight: 21,
     marginBottom: 32,
-    maxWidth: 300,
   },
-  scenario: { fontSize: 19, lineHeight: 28, marginBottom: 22 },
-  option: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1.5,
-    borderRadius: 14,
-    padding: 14,
-    marginBottom: 10,
-  },
-  badge: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  badgeText: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 15,
-  },
-  optionText: { fontSize: 15, lineHeight: 21, flex: 1 },
-  feedback: {
-    borderRadius: 14,
-    padding: 16,
-    marginTop: 8,
-  },
-  feedbackHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  feedbackTitle: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 17,
-    letterSpacing: 1,
-    marginLeft: 7,
-  },
-  explanation: { fontSize: 15, lineHeight: 22 },
-  requeueNote: { fontSize: 13, marginTop: 10 },
+  scenario: { fontFamily: fonts.body, fontSize: 19, lineHeight: 27, marginBottom: 22 },
+  explanation: { fontFamily: fonts.body, fontSize: 14.5, lineHeight: 21 },
+  requeueNote: { fontFamily: fonts.body, fontSize: 13, marginTop: 10 },
   reportLink: {
+    fontFamily: fonts.bodyMedium,
     fontSize: 13,
-    fontWeight: '600',
     marginTop: 12,
     textDecorationLine: 'underline',
   },
   nextButton: { marginTop: 16 },
   doneEyebrow: {
-    fontFamily: fonts.displaySemi,
-    fontSize: 16,
-    letterSpacing: 2,
-    marginBottom: 6,
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    letterSpacing: 1.7,
+    marginBottom: 8,
   },
   donePct: {
     fontFamily: fonts.display,
     fontSize: 76,
-    lineHeight: 80,
+    lineHeight: 78,
+    letterSpacing: -2.5,
     fontVariant: ['tabular-nums'],
   },
-  doneStats: { fontSize: 15, marginTop: 4, marginBottom: 32 },
-  doneButton: { alignSelf: 'stretch', marginHorizontal: 24 },
+  doneStats: { fontFamily: fonts.body, fontSize: 14.5, marginTop: 6, marginBottom: 32 },
+  doneButton: { alignSelf: 'stretch' },
 });

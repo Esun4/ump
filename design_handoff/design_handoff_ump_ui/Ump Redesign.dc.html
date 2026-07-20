@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/modernist-f6395712-58e9-43c4-bea5-a29850fd63f9/styles.css">
+<script src="_ds/modernist-f6395712-58e9-43c4-bea5-a29850fd63f9/_ds_bundle.js"></script>
+<style>
+:root{
+  --color-accent:#a13f38;
+  --color-accent-500:#a13f38;
+  --color-accent-600:#8a352f;
+  --color-accent-700:#6f2c27;
+  --color-accent-100:#f6ecea;
+  --color-accent-200:#ecd6d2;
+  --color-accent-300:#dbb4ad;
+  --ink:#201e1d;
+  --line:#cdc9c9;
+  --line2:#201e1d;
+  --muted:#6b6664;
+}
+body{background:#c9c5c4;margin:0;}
+.om-cap{font-family:"Archivo",sans-serif;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#5a5654;}
+.om-badge{position:absolute;top:-32px;left:0;background:var(--color-accent);color:#fff;font-family:"Archivo",sans-serif;font-weight:800;font-size:12px;letter-spacing:.06em;padding:4px 9px;}
+.scr{background:#f3f2f2;border:2px solid var(--ink);color:var(--ink);font-family:"Archivo",sans-serif;}
+.tile{background:#fff;border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:8px;transition:background .12s;}
+.tile:hover{background:var(--color-accent-100);}
+.tirow:hover{background:var(--color-accent-100);}
+.eyebrow{font-family:"Archivo",sans-serif;font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.big{font-family:"Archivo",sans-serif;font-weight:800;font-variant-numeric:tabular-nums;line-height:.9;letter-spacing:-.02em;}
+.navlink{font-family:"Archivo",sans-serif;font-weight:800;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;}
+.navlink.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--color-accent);}
+</style>
+</helmet>
+
+<section style="padding:56px 64px 120px;display:flex;flex-direction:column;gap:14px;">
+  <div style="display:flex;align-items:flex-end;gap:16px;">
+    <div class="big" style="font-size:64px;color:var(--ink);">UMP</div>
+    <div style="width:12px;height:12px;background:var(--color-accent);transform:rotate(45deg);margin-bottom:12px;"></div>
+    <div style="flex:1;"></div>
+  </div>
+  <div style="max-width:760px;color:#4c4846;font-size:16px;line-height:1.5;">
+    UI redesign on the <strong>Modernist</strong> system — a flat, grid-first, Archivo-set direction in a softened
+    “old-money” claret instead of the old navy-and-brass night theme. Home and Quiz come in two directions each; the
+    rest of the app follows the strongest one. Reference any panel by its id (e.g. <strong>1a</strong>).
+  </div>
+  <div style="height:2px;background:var(--ink);margin:8px 0 24px;max-width:760px;"></div>
+
+  <!-- ================= ROW: HOME VARIATIONS ================= -->
+  <div class="om-cap" style="margin-bottom:6px;">Home — two directions</div>
+  <div style="display:flex;flex-wrap:wrap;gap:64px 56px;align-items:flex-start;margin-top:24px;">
+
+    <!-- 1a HOME · Dashboard grid (web) -->
+    <div style="position:relative;">
+      <div class="om-badge">1a</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Home · dashboard grid · web</div>
+      <div class="scr" style="width:1000px;">
+        <!-- nav -->
+        <div style="display:flex;align-items:center;gap:28px;padding:16px 28px;border-bottom:2px solid var(--ink);">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <div class="big" style="font-size:26px;">UMP</div>
+            <div style="width:7px;height:7px;background:var(--color-accent);transform:rotate(45deg);"></div>
+          </div>
+          <div style="display:flex;gap:22px;margin-left:8px;">
+            <a class="navlink on">Home</a><a class="navlink">Library</a><a class="navlink">Stats</a><a class="navlink">Simulator</a>
+          </div>
+          <div style="flex:1;"></div>
+          <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--line);padding:6px 12px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <span style="font-family:Archivo;font-weight:800;font-size:13px;">12</span>
+            <span style="font-size:12px;color:var(--muted);">day streak</span>
+          </div>
+          <div style="width:34px;height:34px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#201e1d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+        </div>
+        <!-- hero -->
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;">
+          <div style="padding:32px 28px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);">
+            <div class="eyebrow" style="color:var(--color-accent-700);">Today · Little League</div>
+            <div style="display:flex;align-items:flex-end;gap:36px;margin:22px 0 26px;">
+              <div>
+                <div class="big" style="font-size:88px;color:var(--ink);">7</div>
+                <div style="color:var(--muted);font-size:14px;margin-top:6px;">reviews due</div>
+              </div>
+              <div style="width:1px;height:78px;background:var(--line);margin-bottom:10px;"></div>
+              <div>
+                <div class="big" style="font-size:88px;color:var(--color-accent);">3</div>
+                <div style="color:var(--muted);font-size:14px;margin-top:6px;">new</div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block" style="font-size:16px;padding:14px 18px;">
+              <span style="flex:1;text-align:left;">START SESSION</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div style="padding:28px 26px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;">
+            <div class="eyebrow">This week</div>
+            <div class="big" style="font-size:52px;margin:14px 0 2px;">128</div>
+            <div style="color:var(--muted);font-size:13px;">calls made</div>
+            <div style="display:flex;gap:4px;margin-top:20px;align-items:flex-end;height:56px;">
+              <div style="flex:1;height:40%;background:var(--color-accent-200);"></div>
+              <div style="flex:1;height:70%;background:var(--color-accent-300);"></div>
+              <div style="flex:1;height:55%;background:var(--color-accent-200);"></div>
+              <div style="flex:1;height:100%;background:var(--color-accent);"></div>
+              <div style="flex:1;height:85%;background:var(--color-accent-300);"></div>
+              <div style="flex:1;height:30%;background:var(--color-accent-200);"></div>
+              <div style="flex:1;height:60%;background:var(--color-accent-300);"></div>
+            </div>
+            <div style="color:var(--muted);font-size:11px;letter-spacing:.1em;margin-top:8px;text-transform:uppercase;">Mon — Sun</div>
+          </div>
+        </div>
+        <!-- train grid -->
+        <div style="padding:26px 28px 30px;">
+          <div class="eyebrow" style="margin-bottom:14px;">Train</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+            <div class="tile">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <div style="font-weight:800;font-size:16px;">Question library</div>
+              <div style="color:var(--muted);font-size:13px;line-height:1.4;">Little League · Majors & Intermediate+</div>
+            </div>
+            <div class="tile">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              <div style="font-weight:800;font-size:16px;">Play simulator</div>
+              <div style="color:var(--muted);font-size:13px;line-height:1.4;">Watch the play — make the move, then the call</div>
+            </div>
+            <div class="tile">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <div style="font-weight:800;font-size:16px;">Practice a topic</div>
+              <div style="color:var(--muted);font-size:13px;line-height:1.4;">Drill one area — never touches your schedule</div>
+            </div>
+            <div class="tile">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              <div style="display:flex;align-items:center;gap:8px;"><div style="font-weight:800;font-size:16px;">Trouble spots</div><div class="tag tag-accent" style="font-size:11px;">4</div></div>
+              <div style="color:var(--muted);font-size:13px;line-height:1.4;">4 missed questions to shore up</div>
+            </div>
+            <div class="tile">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              <div style="font-weight:800;font-size:16px;">Bookmarks</div>
+              <div style="color:var(--muted);font-size:13px;line-height:1.4;">9 saved questions</div>
+            </div>
+            <div class="tile" style="justify-content:center;align-items:center;background:var(--color-accent);border-color:var(--color-accent);">
+              <div style="font-family:Archivo;font-weight:800;font-size:15px;color:#fff;letter-spacing:.04em;">85% first-try</div>
+              <div style="color:#f0d9d6;font-size:12px;">accuracy this bank</div>
+            </div>
+          </div>
+        </div>
+        <!-- game day -->
+        <div style="padding:0 28px 30px;">
+          <div class="eyebrow" style="margin-bottom:14px;">Game day</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:14px 16px;background:#fff;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              <div style="font-weight:800;font-size:14px;">Fly ball coverage</div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:14px 16px;background:#fff;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 2v3h6V2"/></svg>
+              <div style="font-weight:800;font-size:14px;">Plate meeting</div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:14px 16px;background:#fff;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div style="font-weight:800;font-size:14px;">Rule myths</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= ROW: QUIZ VARIATIONS ================= -->
+  <div class="om-cap" style="margin:40px 0 6px;">Quiz — two directions</div>
+  <div style="display:flex;flex-wrap:wrap;gap:64px 56px;align-items:flex-start;margin-top:24px;">
+
+    <!-- 1c QUIZ · single column, unanswered -->
+    <div style="position:relative;">
+      <div class="om-badge">1c</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Quiz · focused single column</div>
+      <div class="scr" style="width:660px;">
+        <div style="height:5px;background:var(--line);position:relative;">
+          <div style="position:absolute;inset:0 55% 0 0;background:var(--color-accent);"></div>
+        </div>
+        <div style="padding:24px 30px 34px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+            <div class="tag tag-accent" style="font-size:11px;">Force plays · Majors</div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span style="color:var(--muted);font-size:13px;font-weight:800;">6 left</span>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6b6664" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+          <div style="font-size:22px;line-height:1.4;font-weight:400;margin-bottom:26px;">
+            Runners on first and second, one out. The batter hits a ground ball to the shortstop, who steps on second and throws to first. The batter-runner beats the throw. How many outs, and what is the status of the runner forced at second?
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="tirow" style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;cursor:pointer;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">A</div>
+              <div style="font-size:15px;">One out is recorded; the runner from second is safe at third.</div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;cursor:pointer;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">B</div>
+              <div style="font-size:15px;">Two outs; the runner forced at second is out on the fielder's touch of the base.</div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;cursor:pointer;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">C</div>
+              <div style="font-size:15px;">Two outs; the batter-runner is also out because the force carries to first.</div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;cursor:pointer;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">D</div>
+              <div style="font-size:15px;">No outs; the defense must tag the runner to retire him.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1d QUIZ · answered / result state -->
+    <div style="position:relative;">
+      <div class="om-badge">1d</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Quiz · answered state + feedback</div>
+      <div class="scr" style="width:660px;">
+        <div style="height:5px;background:var(--line);position:relative;">
+          <div style="position:absolute;inset:0 45% 0 0;background:var(--color-accent);"></div>
+        </div>
+        <div style="padding:24px 30px 34px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+            <div class="tag tag-accent" style="font-size:11px;">Force plays · Majors</div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <span style="color:var(--muted);font-size:13px;font-weight:800;">5 left</span>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#a13f38" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+          <div style="font-size:22px;line-height:1.4;margin-bottom:26px;">
+            Runners on first and second, one out. The batter hits a ground ball to the shortstop, who steps on second and throws to first. The batter-runner beats the throw. How many outs, and what is the status of the runner forced at second?
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;opacity:.55;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">A</div>
+              <div style="font-size:15px;">One out is recorded; the runner from second is safe at third.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;border:1.5px solid #2f7d54;background:#e6f0e9;padding:14px 16px;">
+              <div style="width:30px;height:30px;background:#2f7d54;display:flex;align-items:center;justify-content:center;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div style="font-size:15px;color:#1f5136;font-weight:600;">Two outs; the runner forced at second is out on the fielder's touch of the base.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;opacity:.55;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">C</div>
+              <div style="font-size:15px;">Two outs; the batter-runner is also out because the force carries to first.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:#fff;padding:14px 16px;opacity:.55;">
+              <div style="width:30px;height:30px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--muted);">D</div>
+              <div style="font-size:15px;">No outs; the defense must tag the runner to retire him.</div>
+            </div>
+          </div>
+          <div style="border-left:3px solid #2f7d54;background:#eef4f0;padding:16px 18px;margin-top:18px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <span style="font-family:Archivo;font-weight:800;font-size:14px;letter-spacing:.08em;color:#1f5136;">CORRECT CALL</span>
+            </div>
+            <div style="font-size:14.5px;line-height:1.5;">The out at second is a force, so no tag is needed — the runner is retired the instant the fielder touches the base. Because the batter-runner beat the throw to first, that force is not completed, so only the runner at second is out.</div>
+          </div>
+          <button class="btn btn-primary btn-block" style="font-size:15px;padding:13px 18px;margin-top:16px;">
+            <span style="flex:1;text-align:left;">NEXT</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ROW: MOBILE ================= -->
+  <div class="om-cap" style="margin:40px 0 6px;">Mobile — the app in the pocket</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;margin-top:24px;">
+
+    <!-- 1e MOBILE HOME -->
+    <div style="position:relative;">
+      <div class="om-badge">1e</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Home · mobile</div>
+      <div style="width:384px;background:#201e1d;border-radius:46px;padding:12px;">
+        <div style="background:#f3f2f2;border-radius:34px;overflow:hidden;font-family:Archivo;color:var(--ink);">
+          <div style="height:44px;display:flex;align-items:center;justify-content:center;position:relative;">
+            <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:22px;background:#201e1d;border-radius:12px;"></div>
+          </div>
+          <div style="padding:6px 22px 26px;">
+            <div style="display:flex;align-items:flex-end;gap:8px;">
+              <div class="big" style="font-size:38px;">UMP</div>
+              <div style="width:8px;height:8px;background:var(--color-accent);transform:rotate(45deg);margin-bottom:8px;"></div>
+            </div>
+            <div style="color:var(--muted);font-size:13px;margin-top:2px;">Scenario drills for umpires</div>
+            <div style="border:2px solid var(--ink);margin-top:18px;">
+              <div style="padding:16px 18px 4px;"><div class="eyebrow" style="color:var(--color-accent-700);font-size:11px;">Today · Little League</div></div>
+              <div style="display:flex;align-items:flex-end;gap:22px;padding:6px 18px 16px;">
+                <div><div class="big" style="font-size:56px;">7</div><div style="color:var(--muted);font-size:12px;">reviews due</div></div>
+                <div style="width:1px;height:48px;background:var(--line);margin-bottom:8px;"></div>
+                <div><div class="big" style="font-size:56px;color:var(--color-accent);">3</div><div style="color:var(--muted);font-size:12px;">new</div></div>
+              </div>
+              <button class="btn btn-primary btn-block" style="border-radius:0;margin:0;padding:14px 18px;font-size:15px;">
+                <span style="flex:1;text-align:left;">START SESSION</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <div class="eyebrow" style="font-size:11px;margin:22px 0 12px;">Train</div>
+            <div style="display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);">
+              <div class="tirow" style="display:flex;align-items:center;gap:12px;background:#fff;padding:13px 14px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <div style="flex:1;font-weight:800;font-size:14px;">Question library</div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="tirow" style="display:flex;align-items:center;gap:12px;background:#fff;padding:13px 14px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                <div style="flex:1;font-weight:800;font-size:14px;">Play simulator</div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="tirow" style="display:flex;align-items:center;gap:12px;background:#fff;padding:13px 14px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <div style="flex:1;font-weight:800;font-size:14px;">Practice a topic</div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+              <div class="tirow" style="display:flex;align-items:center;gap:12px;background:#fff;padding:13px 14px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                <div style="flex:1;font-weight:800;font-size:14px;">Trouble spots</div>
+                <div class="tag tag-accent" style="font-size:10px;">4</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;border-top:2px solid var(--ink);">
+            <div style="flex:1;padding:12px 0 20px;text-align:center;box-shadow:inset 0 2px 0 var(--color-accent);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <div style="font-size:10px;font-weight:800;letter-spacing:.06em;margin-top:4px;">HOME</div>
+            </div>
+            <div style="flex:1;padding:12px 0 20px;text-align:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6664" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <div style="font-size:10px;font-weight:800;letter-spacing:.06em;margin-top:4px;color:var(--muted);">STATS</div>
+            </div>
+            <div style="flex:1;padding:12px 0 20px;text-align:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6664" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <div style="font-size:10px;font-weight:800;letter-spacing:.06em;margin-top:4px;color:var(--muted);">SETTINGS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1f MOBILE QUIZ -->
+    <div style="position:relative;">
+      <div class="om-badge">1f</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Quiz · mobile</div>
+      <div style="width:384px;background:#201e1d;border-radius:46px;padding:12px;">
+        <div style="background:#f3f2f2;border-radius:34px;overflow:hidden;font-family:Archivo;color:var(--ink);">
+          <div style="height:44px;position:relative;">
+            <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:22px;background:#201e1d;border-radius:12px;"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:4px 20px 14px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#201e1d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <div style="flex:1;font-weight:800;font-size:16px;">Session</div>
+            <span style="color:var(--muted);font-size:13px;font-weight:800;">6 left</span>
+          </div>
+          <div style="height:5px;background:var(--line);position:relative;">
+            <div style="position:absolute;inset:0 55% 0 0;background:var(--color-accent);"></div>
+          </div>
+          <div style="padding:20px 20px 26px;">
+            <div class="tag tag-accent" style="font-size:11px;margin-bottom:16px;">Force plays · Majors</div>
+            <div style="font-size:18px;line-height:1.45;margin-bottom:20px;">
+              Runners on first and second, one out. Grounder to short, who steps on second and throws to first. The batter-runner beats the throw. How many outs, and the status of the runner forced at second?
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:#fff;padding:12px 14px;">
+                <div style="width:26px;height:26px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--muted);">A</div>
+                <div style="font-size:13.5px;line-height:1.3;">One out; runner from second safe at third.</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);padding:12px 14px;">
+                <div style="width:26px;height:26px;background:var(--color-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;">B</div>
+                <div style="font-size:13.5px;line-height:1.3;font-weight:600;">Two outs; runner forced at second is out on the touch.</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:#fff;padding:12px 14px;">
+                <div style="width:26px;height:26px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--muted);">C</div>
+                <div style="font-size:13.5px;line-height:1.3;">Two outs; batter-runner also out on the force.</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:#fff;padding:12px 14px;">
+                <div style="width:26px;height:26px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--muted);">D</div>
+                <div style="font-size:13.5px;line-height:1.3;">No outs; defense must tag the runner.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ROW: SUPPORTING SCREENS ================= -->
+  <div class="om-cap" style="margin:40px 0 6px;">Supporting screens</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;margin-top:24px;">
+
+    <!-- 1g LIBRARY -->
+    <div style="position:relative;">
+      <div class="om-badge">1g</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Library · bank picker</div>
+      <div class="scr" style="width:560px;">
+        <div style="padding:20px 26px;border-bottom:2px solid var(--ink);"><h4 style="margin:0;font-size:22px;">Question banks</h4><div style="color:var(--muted);font-size:13px;margin-top:4px;">Each bank keeps its own schedule and stats.</div></div>
+        <div style="padding:22px 26px 28px;">
+          <div class="eyebrow" style="margin-bottom:10px;">Rulebooks</div>
+          <div style="border:1px solid var(--line);background:#fff;margin-bottom:22px;">
+            <div class="tirow" style="display:flex;align-items:center;padding:15px 16px;border-bottom:1px solid var(--line);">
+              <div style="flex:1;"><div style="font-weight:800;font-size:15px;">Baseball Canada / OBR</div><div style="color:var(--muted);font-size:12px;">District & Provincial</div></div>
+              <div style="width:20px;height:20px;border:1.5px solid var(--line);border-radius:50%;"></div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;padding:15px 16px;background:var(--color-accent-100);">
+              <div style="flex:1;"><div style="font-weight:800;font-size:15px;color:var(--color-accent-700);">Little League</div><div style="color:var(--muted);font-size:12px;">Majors & Intermediate+</div></div>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#a13f38" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="none"/><polyline points="17 8.5 10.5 15.5 7 12"/></svg>
+            </div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:10px;">4-Umpire Mechanics</div>
+          <div style="border:1px solid var(--line);background:#fff;margin-bottom:22px;">
+            <div class="tirow" style="display:flex;align-items:center;padding:15px 16px;border-bottom:1px solid var(--line);">
+              <div style="flex:1;"><div style="font-weight:800;font-size:15px;">60-ft Diamond</div><div style="color:var(--muted);font-size:12px;">Minor & Major crews</div></div>
+              <div style="width:20px;height:20px;border:1.5px solid var(--line);border-radius:50%;"></div>
+            </div>
+            <div class="tirow" style="display:flex;align-items:center;padding:15px 16px;">
+              <div style="flex:1;"><div style="font-weight:800;font-size:15px;">50/70 & 90-ft</div><div style="color:var(--muted);font-size:12px;">Intermediate and up</div></div>
+              <div style="width:20px;height:20px;border:1.5px solid var(--line);border-radius:50%;"></div>
+            </div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:10px;">Crew Work</div>
+          <div style="border:1px solid var(--line);background:#fff;">
+            <div class="tirow" style="display:flex;align-items:center;padding:15px 16px;">
+              <div style="flex:1;"><div style="font-weight:800;font-size:15px;">Signals & Communication</div><div style="color:var(--muted);font-size:12px;">All crews</div></div>
+              <div style="width:20px;height:20px;border:1.5px solid var(--line);border-radius:50%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1h STATS -->
+    <div style="position:relative;">
+      <div class="om-badge">1h</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Stats · streak & activity</div>
+      <div class="scr" style="width:560px;">
+        <div style="padding:24px 26px;border-bottom:2px solid var(--ink);">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <div class="big" style="font-size:64px;">12</div>
+            <div><div style="font-weight:800;font-size:20px;">day streak</div><div style="color:var(--muted);font-size:13px;">You've trained today — streak is safe</div></div>
+          </div>
+          <div style="display:flex;gap:3px;margin-top:22px;justify-content:center;" id="heatmap">
+            <sc-for list="{{ weeks }}" as="wk" hint-placeholder-count="16">
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <sc-for list="{{ wk }}" as="c" hint-placeholder-count="7">
+                  <div style="width:14px;height:14px;background:{{ c.bg }};"></div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:8px;">
+            <span style="font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--muted);">LESS</span>
+            <div style="width:12px;height:12px;background:var(--line);"></div>
+            <div style="width:12px;height:12px;background:rgba(161,63,56,.35);"></div>
+            <div style="width:12px;height:12px;background:rgba(161,63,56,.6);"></div>
+            <div style="width:12px;height:12px;background:rgba(161,63,56,.85);"></div>
+            <div style="width:12px;height:12px;background:#a13f38;"></div>
+            <span style="font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--muted);">MORE</span>
+          </div>
+        </div>
+        <div style="padding:22px 26px 26px;">
+          <div class="eyebrow" style="margin-bottom:14px;">All time</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+            <div style="border:1px solid var(--line);background:#fff;padding:18px;text-align:center;"><div class="big" style="font-size:34px;">1,204</div><div style="color:var(--muted);font-size:12px;margin-top:4px;">answers</div></div>
+            <div style="border:1px solid var(--line);background:#fff;padding:18px;text-align:center;"><div class="big" style="font-size:34px;">63</div><div style="color:var(--muted);font-size:12px;margin-top:4px;">days active</div></div>
+            <div style="border:1px solid var(--line);background:#fff;padding:18px;text-align:center;"><div class="big" style="font-size:34px;color:var(--color-accent);">51</div><div style="color:var(--muted);font-size:12px;margin-top:4px;">mastered</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:16px;">
+            <div class="tag tag-accent" style="font-size:11px;">Little League</div>
+            <div style="color:var(--muted);font-size:12px;">Mastered = in the 30-day bucket · 51 of 60 in this bank</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1i TOPICS -->
+    <div style="position:relative;">
+      <div class="om-badge">1i</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Topics · practice picker</div>
+      <div class="scr" style="width:440px;">
+        <div style="padding:20px 24px;border-bottom:2px solid var(--ink);"><h4 style="margin:0;font-size:20px;">Practice a topic</h4><div style="color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.4;">Drill one area of Little League. Never touches your schedule.</div></div>
+        <div style="padding:8px 24px 22px;">
+          <div class="tirow" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);"><span style="flex:1;font-weight:800;font-size:14px;">Force plays</span><span class="tag tag-accent" style="font-size:11px;">8</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="tirow" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);"><span style="flex:1;font-weight:800;font-size:14px;">Tag-ups & appeals</span><span class="tag tag-accent" style="font-size:11px;">7</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="tirow" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);"><span style="flex:1;font-weight:800;font-size:14px;">Interference</span><span class="tag tag-accent" style="font-size:11px;">9</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="tirow" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);"><span style="flex:1;font-weight:800;font-size:14px;">Obstruction</span><span class="tag tag-accent" style="font-size:11px;">6</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="tirow" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);"><span style="flex:1;font-weight:800;font-size:14px;">Batter-runner</span><span class="tag tag-accent" style="font-size:11px;">7</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="tirow" style="display:flex;align-items:center;gap:12px;padding:14px 0;"><span style="flex:1;font-weight:800;font-size:14px;">Dead ball & awards</span><span class="tag tag-accent" style="font-size:11px;">8</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1j SETTINGS -->
+    <div style="position:relative;">
+      <div class="om-badge">1j</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Settings</div>
+      <div class="scr" style="width:440px;">
+        <div style="padding:20px 24px;border-bottom:2px solid var(--ink);"><h4 style="margin:0;font-size:20px;">Settings</h4></div>
+        <div style="padding:22px 24px 26px;">
+          <div class="eyebrow" style="margin-bottom:12px;">Appearance</div>
+          <div style="display:flex;border:1px solid var(--ink);margin-bottom:24px;">
+            <div style="flex:1;text-align:center;padding:9px 0;background:var(--color-accent);color:#fff;font-weight:800;font-size:13px;">Light</div>
+            <div style="flex:1;text-align:center;padding:9px 0;font-weight:800;font-size:13px;color:var(--muted);border-left:1px solid var(--ink);">Dark</div>
+            <div style="flex:1;text-align:center;padding:9px 0;font-weight:800;font-size:13px;color:var(--muted);border-left:1px solid var(--ink);">System</div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:12px;">Daily reminder</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:6px;">
+            <div><div style="font-weight:800;font-size:14px;">Practice reminder</div><div style="color:var(--muted);font-size:12px;">Nudge me at 6:00 PM</div></div>
+            <div style="width:44px;height:26px;background:var(--color-accent);position:relative;"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;"></div></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:24px;">
+            <div><div style="font-weight:800;font-size:14px;">Report questions</div><div style="color:var(--muted);font-size:12px;">Flag errors to the maintainer</div></div>
+            <div style="width:44px;height:26px;background:var(--line);position:relative;"><div style="position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;"></div></div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:12px;">About</div>
+          <div style="color:var(--muted);font-size:13px;line-height:1.6;">Ump v2.0 · Offline-first · Progress lives on this device.<br>Scenario drills for amateur baseball umpires.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ROW: GAME DAY TOOLS & SIMULATOR ================= -->
+  <div class="om-cap" style="margin:40px 0 6px;">Game-day tools & simulator</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;margin-top:24px;">
+
+    <!-- 1k COVERAGE -->
+    <div style="position:relative;">
+      <div class="om-badge">1k</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Fly-ball coverage</div>
+      <div class="scr" style="width:560px;">
+        <div style="padding:20px 26px;border-bottom:2px solid var(--ink);">
+          <div class="tag tag-accent" style="font-size:11px;">4-Umpire · 60-ft Diamond</div>
+          <div style="color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:12px;">Read the ball, read your partners, respond. Priorities in order: fair/foul, catch/no-catch, everything else.</div>
+        </div>
+        <div style="padding:22px 26px 26px;">
+          <div class="eyebrow" style="margin-bottom:12px;">Going out — area of responsibility</div>
+          <div style="border:1px solid var(--line);background:#fff;margin-bottom:24px;">
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 16px;"><div style="width:36px;padding:4px 0;text-align:center;background:var(--color-accent-100);color:var(--color-accent-700);font-weight:800;font-size:13px;letter-spacing:.02em;">U1</div><div style="flex:1;font-size:14px;line-height:1.45;">Any fly ball from the right-field line to right-center — go out, give catch/no-catch.</div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 16px;border-top:1px solid var(--line);"><div style="width:36px;padding:4px 0;text-align:center;background:var(--color-accent-100);color:var(--color-accent-700);font-weight:800;font-size:13px;letter-spacing:.02em;">U3</div><div style="flex:1;font-size:14px;line-height:1.45;">Any fly ball from the left-field line to left-center — go out, give catch/no-catch.</div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 16px;border-top:1px solid var(--line);"><div style="width:36px;padding:4px 0;text-align:center;background:var(--color-accent-100);color:var(--color-accent-700);font-weight:800;font-size:13px;letter-spacing:.02em;">U2</div><div style="flex:1;font-size:14px;line-height:1.45;">Straightaway center splits the difference — the umpire with the better angle takes it and calls loudly.</div></div>
+            <div style="border-top:2px solid var(--ink);padding:14px 16px;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-size:13.5px;"><span style="color:var(--color-accent-700);font-weight:800;letter-spacing:.04em;">FIND</span> &nbsp;the ball off the bat before you move.</div>
+              <div style="font-size:13.5px;"><span style="color:var(--color-accent-700);font-weight:800;letter-spacing:.04em;">FREEZE</span> &nbsp;set your feet, then read the trajectory.</div>
+              <div style="font-size:13.5px;"><span style="color:var(--color-accent-700);font-weight:800;letter-spacing:.04em;">FIRE</span> &nbsp;sell the call — voice and signal together.</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;">
+            <div class="eyebrow">Trouble ball · runners on</div>
+            <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.06em;color:var(--color-accent-700);">RiSP</div>
+          </div>
+          <div style="border:1px solid var(--line);background:#fff;margin-top:12px;margin-bottom:24px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);">
+              <div style="font-weight:800;font-size:15px;">U1 goes out on the gapper</div>
+              <div style="border:1px solid var(--color-accent);color:var(--color-accent-700);font-weight:800;font-size:11px;letter-spacing:.06em;padding:2px 8px;">U2 FILL</div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:12px 16px;"><div style="width:36px;padding:4px 0;text-align:center;background:var(--color-accent-100);color:var(--color-accent-700);font-weight:800;font-size:13px;letter-spacing:.02em;">U2</div><div style="flex:1;font-size:14px;line-height:1.45;">Rotate to cover any play at third; U3 stays home on the plate.</div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:12px 16px;border-top:1px solid var(--line);"><div style="width:36px;padding:4px 0;text-align:center;background:var(--color-accent-100);color:var(--color-accent-700);font-weight:800;font-size:13px;letter-spacing:.02em;">PU</div><div style="flex:1;font-size:14px;line-height:1.45;">Trail the batter-runner toward first, ready to help with the touch.</div></div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:10px;">Shorthand</div>
+          <div style="border:1px solid var(--line);background:#fff;">
+            <div style="display:flex;gap:16px;padding:9px 16px;"><div style="width:96px;color:var(--color-accent-700);font-weight:800;font-size:13.5px;">AoR</div><div style="flex:1;color:var(--muted);font-size:13px;">Area of responsibility</div></div>
+            <div style="display:flex;gap:16px;padding:9px 16px;border-top:1px solid var(--line);"><div style="width:96px;color:var(--color-accent-700);font-weight:800;font-size:13.5px;">RiSP</div><div style="flex:1;color:var(--muted);font-size:13px;">Runner(s) in scoring position</div></div>
+            <div style="display:flex;gap:16px;padding:9px 16px;border-top:1px solid var(--line);"><div style="width:96px;color:var(--color-accent-700);font-weight:800;font-size:13.5px;">U2 Fill</div><div style="flex:1;color:var(--muted);font-size:13px;">U2 rotates to cover a vacated base</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1l PLATE MEETING -->
+    <div style="position:relative;">
+      <div class="om-badge">1l</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Plate meeting · checklist</div>
+      <div class="scr" style="width:520px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 26px;border-bottom:2px solid var(--ink);">
+          <div style="max-width:340px;color:var(--muted);font-size:13.5px;line-height:1.5;">Run it from the plate — you are the only speaking voice of the crew.</div>
+          <div class="big" style="font-size:30px;color:var(--color-accent);">4/7</div>
+        </div>
+        <div style="padding:22px 26px 26px;">
+          <div class="eyebrow" style="margin-bottom:10px;">Ground rules</div>
+          <div style="border:1px solid var(--line);background:#fff;margin-bottom:22px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="#a13f38" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="none"/><polyline points="17 8.5 10.5 15.5 7 12"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#8a8583;">Lineup cards exchanged</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Confirm batting order and legal substitutes; keep a copy.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border-top:1px solid var(--line);"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="#a13f38" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="none"/><polyline points="17 8.5 10.5 15.5 7 12"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#8a8583;">Out-of-play lines</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Dugout edges, fences, gates, and any overhang.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border-top:1px solid var(--line);"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#bdb8b8" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#201e1d;">Time of game / curfew</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Note the local drop-dead time and reversion inning.</div></div></div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:10px;">Crew signals</div>
+          <div style="border:1px solid var(--line);background:#fff;margin-bottom:22px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="#a13f38" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="none"/><polyline points="17 8.5 10.5 15.5 7 12"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#8a8583;">Infield-fly reminder</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Point and confirm before each half with runners on.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border-top:1px solid var(--line);"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="#a13f38" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="none"/><polyline points="17 8.5 10.5 15.5 7 12"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#8a8583;">Rotation & fair/foul</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Who goes out, who has the line, who covers third.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border-top:1px solid var(--line);"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#bdb8b8" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#201e1d;">Check-swing appeals</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Which base umpire to go to from each side.</div></div></div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:10px;">Before first pitch</div>
+          <div style="border:1px solid var(--line);background:#fff;">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:13px 16px;"><span style="margin-top:1px;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#bdb8b8" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span><div style="flex:1;"><div style="font-weight:800;font-size:14.5px;color:#201e1d;">Coaches responsible for conduct</div><div style="color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px;">Sportsmanship reminder; play ball.</div></div></div>
+          </div>
+          <div style="color:#8a8583;font-size:12.5px;text-align:center;margin-top:16px;">Checks clear when you leave — every game starts fresh.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1m RULE MYTHS -->
+    <div style="position:relative;">
+      <div class="om-badge">1m</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Rule myths</div>
+      <div class="scr" style="width:520px;">
+        <div style="padding:20px 26px;border-bottom:2px solid var(--ink);"><h4 style="margin:0;font-size:20px;">Rule myths</h4><div style="color:var(--muted);font-size:13px;margin-top:4px;line-height:1.5;">You'll hear every one of these from a bench eventually. Know the real rule before they do.</div></div>
+        <div style="padding:22px 26px 26px;display:flex;flex-direction:column;gap:16px;">
+          <div style="border:1px solid var(--line);background:#fff;padding:18px;">
+    <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:6px;">MYTH</div>
+    <div style="font-size:19px;line-height:1.3;font-weight:800;margin-bottom:14px;">&ldquo;The hands are part of the bat.&rdquo;</div>
+    <div style="border-top:1px solid var(--line);padding-top:13px;">
+      <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.14em;color:#2f7d54;margin-bottom:5px;">THE CALL</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Dead ball — the batter is awarded first.</div>
+      <div style="color:var(--muted);font-size:13.5px;line-height:1.5;">The hands are part of the batter. A pitch that strikes the hands while swinging is a hit-by-pitch unless the batter swung, in which case it is a strike.</div>
+    </div>
+  </div>
+          <div style="border:1px solid var(--line);background:#fff;padding:18px;">
+    <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:6px;">MYTH</div>
+    <div style="font-size:19px;line-height:1.3;font-weight:800;margin-bottom:14px;">&ldquo;The batter-runner must turn right after overrunning first.&rdquo;</div>
+    <div style="border-top:1px solid var(--line);padding-top:13px;">
+      <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.14em;color:#2f7d54;margin-bottom:5px;">THE CALL</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:5px;">Direction alone does not put him in jeopardy.</div>
+      <div style="color:var(--muted);font-size:13.5px;line-height:1.5;">He may turn either way returning to first. He is only liable to be tagged out if he makes an attempt toward second.</div>
+    </div>
+  </div>
+          <div style="border:1px solid var(--line);background:#fff;padding:18px;">
+    <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--color-accent);margin-bottom:6px;">MYTH</div>
+    <div style="font-size:19px;line-height:1.3;font-weight:800;margin-bottom:14px;">&ldquo;A tie goes to the runner.&rdquo;</div>
+    <div style="border-top:1px solid var(--line);padding-top:13px;">
+      <div style="font-family:Archivo;font-weight:800;font-size:12px;letter-spacing:.14em;color:#2f7d54;margin-bottom:5px;">THE CALL</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:5px;">There is no tie — you judge safe or out.</div>
+      <div style="color:var(--muted);font-size:13.5px;line-height:1.5;">The rulebook contains no "tie" provision. Call what you see: did the throw beat the runner to the bag, or not.</div>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1n SIMULATOR HUB -->
+    <div style="position:relative;">
+      <div class="om-badge">1n</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Play simulator · hub</div>
+      <div class="scr" style="width:520px;">
+        <div style="padding:20px 26px;border-bottom:2px solid var(--ink);"><h4 style="margin:0;font-size:20px;">Play simulator</h4><div style="color:var(--muted);font-size:13px;margin-top:4px;line-height:1.5;">Watch the play develop, commit to your move or call, then see the whole crew's correct paths. 60-foot diamond.</div></div>
+        <div style="padding:22px 26px 26px;">
+          <div style="display:flex;border:2px solid var(--ink);margin-bottom:18px;">
+            <div style="flex:1;padding:14px 0;text-align:center;background:var(--color-accent-100);box-shadow:inset 0 -3px 0 var(--color-accent);">
+              <div class="big" style="font-size:22px;color:var(--color-accent-700);">2-MAN</div>
+              <div style="color:var(--muted);font-size:11.5px;margin-top:2px;">Regular season</div>
+            </div>
+            <div style="flex:1;padding:14px 0;text-align:center;border-left:2px solid var(--ink);">
+              <div class="big" style="font-size:22px;color:var(--muted);">4-MAN</div>
+              <div style="color:#8a8583;font-size:11.5px;margin-top:2px;">Districts & tournaments</div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" style="font-size:15px;padding:14px 18px;margin:0 0 24px;">
+            <span style="flex:1;text-align:left;">START RUN · 12 PLAYS</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <div class="eyebrow" style="margin-bottom:10px;">Fair / foul</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;padding:13px 15px;">
+    <div style="flex:1;"><div style="font-weight:800;font-size:14.5px;">Chopper down the third-base line</div><div style="color:var(--muted);font-size:12.5px;margin-top:1px;">You are U3 · make the call</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8"/></svg></div>
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;padding:13px 15px;">
+    <div style="flex:1;"><div style="font-weight:800;font-size:14.5px;">Slow roller in front of the plate</div><div style="color:var(--muted);font-size:12.5px;margin-top:1px;">You are PU · make the call</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8"/></svg></div>
+          </div>
+          <div class="eyebrow" style="margin-bottom:10px;">Catch / no-catch</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;padding:13px 15px;">
+    <div style="flex:1;"><div style="font-weight:800;font-size:14.5px;">Sinking liner to the right-field gap</div><div style="color:var(--muted);font-size:12.5px;margin-top:1px;">You are U1 · make the move</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M9 20l3-6 3 6M8 9l4 2 4-2"/></svg></div>
+            <div class="tirow" style="display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;padding:13px 15px;">
+    <div style="flex:1;"><div style="font-weight:800;font-size:14.5px;">Diving attempt in shallow left</div><div style="color:var(--muted);font-size:12.5px;margin-top:1px;">You are U3 · make the move</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b3afaf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M9 20l3-6 3 6M8 9l4 2 4-2"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1o SIM PLAY -->
+    <div style="position:relative;">
+      <div class="om-badge">1o</div>
+      <div class="om-cap" style="margin:2px 0 12px;color:#5a5654;">Play simulator · the play</div>
+      <div class="scr" style="width:600px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:2px solid var(--ink);">
+          <div class="tag tag-accent" style="font-size:11px;">4-Man · Make the move</div>
+          <span style="color:var(--muted);font-size:13px;font-weight:800;">3 of 12 · 2 right</span>
+        </div>
+        <div style="background:#eae9e9;border-bottom:1px solid var(--line);padding:18px 22px;">
+          <svg viewBox="0 0 556 300" width="100%" style="display:block;">
+            <rect width="556" height="300" fill="#eae9e9"/>
+            <line x1="278" y1="256" x2="516" y2="30" stroke="#c2bdbd" stroke-width="2"/>
+            <line x1="278" y1="256" x2="40" y2="30" stroke="#c2bdbd" stroke-width="2"/>
+            <polygon points="278,246 398,150 278,54 158,150" fill="none" stroke="#201e1d" stroke-width="2"/>
+            <rect x="271" y="239" width="14" height="14" fill="#201e1d" transform="rotate(45 278 246)"/>
+            <rect x="391" y="143" width="14" height="14" fill="#201e1d"/>
+            <rect x="271" y="47" width="14" height="14" fill="#201e1d"/>
+            <rect x="151" y="143" width="14" height="14" fill="#201e1d"/>
+            <path d="M470 70 Q400 120 360 155" fill="none" stroke="#a13f38" stroke-width="2" stroke-dasharray="3 5"/>
+            <circle cx="470" cy="70" r="4" fill="#201e1d"/><text x="470" y="58" font-family="Archivo" font-weight="800" font-size="13" fill="#201e1d" text-anchor="middle">ball</text>
+            <g font-family="Archivo" font-weight="800" font-size="12" text-anchor="middle">
+              <circle cx="278" cy="276" r="13" fill="#201e1d"/><text x="278" y="280" fill="#fff">PU</text>
+              <circle cx="430" cy="178" r="13" fill="#a13f38"/><text x="430" y="182" fill="#fff">U1</text>
+              <circle cx="300" cy="150" r="13" fill="#201e1d"/><text x="300" y="154" fill="#fff">U2</text>
+              <circle cx="150" cy="182" r="13" fill="#201e1d"/><text x="150" y="186" fill="#fff">U3</text>
+            </g>
+          </svg>
+        </div>
+        <div style="padding:12px 22px;background:#eae9e9;border-bottom:2px solid var(--ink);">
+          <span style="font-family:Archivo;font-weight:800;font-size:14px;letter-spacing:.04em;color:var(--color-accent-700);">⏸ FROZEN — the ball is in the air toward the right-field gap</span>
+        </div>
+        <div style="padding:22px;">
+          <div style="font-size:16px;line-height:1.45;margin-bottom:18px;"><span style="color:var(--color-accent-700);font-weight:800;">You are U1.</span> &nbsp;The ball is slicing toward the line in the right-center gap. What is your move?</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="display:flex;gap:12px;border:1.5px solid var(--line);background:#fff;padding:13px 15px;opacity:.55;"><span style="font-weight:800;color:var(--muted);width:16px;">A</span><span style="font-size:14.5px;">Hold at first and take the runner touching the bag.</span></div>
+            <div style="display:flex;gap:12px;border:1.5px solid #2f7d54;background:#e6f0e9;padding:13px 15px;"><span style="width:22px;display:flex;align-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2f7d54" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span style="font-size:14.5px;color:#1f5136;font-weight:600;">Go out toward the gap and give the catch/no-catch.</span></div>
+            <div style="display:flex;gap:12px;border:1.5px solid var(--line);background:#fff;padding:13px 15px;opacity:.55;"><span style="font-weight:800;color:var(--muted);width:16px;">C</span><span style="font-size:14.5px;">Stay in the infield and let U2 rule on the ball.</span></div>
+          </div>
+          <div style="border-left:3px solid #2f7d54;background:#eef4f0;padding:16px 18px;margin-top:18px;">
+            <div style="font-family:Archivo;font-weight:800;font-size:14px;letter-spacing:.06em;color:#1f5136;margin-bottom:8px;">RIGHT MOVE</div>
+            <div style="font-size:14.5px;line-height:1.5;">Any ball to your line is yours to chase. Going out sells the catch and frees U2 to rotate for a play at third. Dotted lines show each umpire's path — yours in claret.</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:14px 0 4px;color:var(--color-accent-700);font-weight:800;font-size:14px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a13f38" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Replay the whole play
+          </div>
+          <button class="btn btn-primary btn-block" style="font-size:15px;padding:13px 18px;margin-top:4px;">
+            <span style="flex:1;text-align:left;">NEXT PLAY</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    // 16-week contribution heatmap, columns = weeks, rows = Sun..Sat.
+    const levels = [
+      'var(--line)',
+      'rgba(161,63,56,.35)',
+      'rgba(161,63,56,.6)',
+      'rgba(161,63,56,.85)',
+      '#a13f38',
+    ];
+    let seed = 7;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const weeks = [];
+    for (let w = 0; w < 16; w++) {
+      const col = [];
+      for (let d = 0; d < 7; d++) {
+        const r = rnd();
+        let lvl = 0;
+        if (r > 0.45) lvl = 1;
+        if (r > 0.62) lvl = 2;
+        if (r > 0.78) lvl = 3;
+        if (r > 0.9) lvl = 4;
+        // taper the very last (future) days of the current week
+        if (w === 15 && d > 4) lvl = 0;
+        col.push({ bg: levels[lvl] });
+      }
+      weeks.push(col);
+    }
+    return { weeks };
+  }
+}
+</script>
+</body>
+</html>

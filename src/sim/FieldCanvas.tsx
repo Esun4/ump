@@ -36,24 +36,17 @@ interface Palette {
   base: string;
 }
 
+// Flat and ink-drawn to match the rest of the app: no green grass or
+// brown dirt, just tonal greys with ink lines and white bases.
 function palette(theme: Theme): Palette {
-  return theme.dark
-    ? {
-        grass: '#0F1724',
-        dirt: '#232634',
-        chalk: 'rgba(237, 237, 229, 0.55)',
-        faintLine: 'rgba(237, 237, 229, 0.14)',
-        fence: '#2B3650',
-        base: '#D8D8CF',
-      }
-    : {
-        grass: '#E4EADB',
-        dirt: '#E7DEC9',
-        chalk: '#FFFFFF',
-        faintLine: 'rgba(30, 42, 68, 0.14)',
-        fence: '#C9C6B8',
-        base: '#FFFFFF',
-      };
+  return {
+    grass: '#f3f2f2',
+    dirt: '#e2dfde',
+    chalk: theme.rule,
+    faintLine: 'rgba(32, 30, 29, 0.22)',
+    fence: theme.rule,
+    base: '#ffffff',
+  };
 }
 
 function FieldSurface({ theme }: { theme: Theme }) {
@@ -194,8 +187,8 @@ function Marker({
           {
             width: size,
             height: size,
-            backgroundColor: theme.dark ? '#F2EFE4' : '#FFFFFF',
-            borderColor: theme.wrong,
+            backgroundColor: '#ffffff',
+            borderColor: theme.accent,
           },
         ]}
       />
@@ -208,8 +201,8 @@ function Marker({
           {
             width: size,
             height: size,
-            backgroundColor: actor.quizzed ? theme.accent : theme.cardRaised,
-            borderColor: actor.quizzed ? theme.accent : theme.subtleText,
+            backgroundColor: actor.quizzed ? theme.accent : theme.card,
+            borderColor: actor.quizzed ? theme.accent : theme.rule,
           },
         ]}
       >
@@ -231,16 +224,11 @@ function Marker({
           {
             width: size,
             height: size,
-            backgroundColor: theme.dark ? '#EDEDE5' : '#1E2A44',
+            backgroundColor: theme.text,
           },
         ]}
       >
-        <Text
-          style={[
-            styles.runnerLabel,
-            { color: theme.dark ? '#0B101A' : '#F4F3EE' },
-          ]}
-        >
+        <Text style={[styles.runnerLabel, { color: theme.card }]}>
           {actor.label}
         </Text>
       </View>
@@ -308,10 +296,10 @@ export default function FieldCanvas({
                     .map((w) => `${toSvgX(w.x)},${toSvgY(w.y)}`)
                     .join(' ')}
                   fill="none"
-                  stroke={a.quizzed ? theme.accent : theme.subtleText}
+                  stroke={a.quizzed ? theme.accent : theme.text}
                   strokeWidth={a.quizzed ? 1.6 : 1.1}
                   strokeDasharray="3 3"
-                  opacity={a.quizzed ? 0.95 : 0.45}
+                  opacity={a.quizzed ? 0.95 : 0.4}
                 />
               ))}
           </Svg>
@@ -336,13 +324,12 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   umpire: {
-    borderRadius: 6,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   umpireLabel: {
-    fontFamily: fonts.displaySemi,
+    fontFamily: fonts.bodyBold,
     fontSize: 9,
     letterSpacing: 0.2,
   },
@@ -352,7 +339,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   runnerLabel: {
-    fontFamily: fonts.displaySemi,
+    fontFamily: fonts.bodyBold,
     fontSize: 8,
   },
   fielder: {
@@ -362,7 +349,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   fielderLabel: {
+    fontFamily: fonts.bodyMedium,
     fontSize: 7,
-    fontWeight: '600',
   },
 });

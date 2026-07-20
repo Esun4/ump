@@ -10,7 +10,7 @@ import { RULESETS } from '../types';
 import { getBank } from '../data';
 import { loadBookmarks, loadProgress } from '../srs/storage';
 import { sessionCounts, todayKey, troubleSpots, SessionCounts } from '../srs/engine';
-import { Chip, DiamondMotif, NavRow, PrimaryButton, SectionLabel } from '../ui';
+import { Card, NavRow, PrimaryButton, SectionLabel } from '../ui';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -55,24 +55,20 @@ export default function HomeScreen({ navigation }: Props) {
         Scenario drills for umpires
       </Text>
 
-      <View
-        style={[
-          styles.hero,
-          { backgroundColor: theme.card, borderColor: theme.border },
-        ]}
-      >
-        <DiamondMotif theme={theme} />
-        <Chip theme={theme}>{`Today · ${RULESETS[ruleset].shortLabel}`}</Chip>
+      <View style={[styles.hero, { borderColor: theme.rule }]}>
+        <Text style={[styles.heroEyebrow, { color: theme.accentDeep }]}>
+          {`TODAY · ${RULESETS[ruleset].shortLabel}`.toUpperCase()}
+        </Text>
 
         {counts === null ? (
           <Text style={[styles.heroQuiet, { color: theme.faintText }]}>Checking your schedule…</Text>
         ) : caughtUp ? (
-          <>
+          <View style={styles.heroBody}>
             <Text style={[styles.heroHeadline, { color: theme.text }]}>All caught up</Text>
             <Text style={[styles.heroSub, { color: theme.subtleText }]}>
               Nothing due today. Keep the eye sharp with a practice run.
             </Text>
-          </>
+          </View>
         ) : (
           <View style={styles.countRow}>
             <View style={styles.countBlock}>
@@ -96,7 +92,6 @@ export default function HomeScreen({ navigation }: Props) {
           onPress={() =>
             navigation.navigate('Quiz', { mode: caughtUp ? 'practice' : 'session' })
           }
-          style={styles.heroButton}
         />
         {caughtUp && (
           <Text style={[styles.practiceNote, { color: theme.faintText }]}>
@@ -106,125 +101,150 @@ export default function HomeScreen({ navigation }: Props) {
       </View>
 
       <SectionLabel theme={theme}>Train</SectionLabel>
-      <NavRow
-        theme={theme}
-        icon="library-outline"
-        title="Question library"
-        subtitle={RULESETS[ruleset].label}
-        onPress={() => navigation.navigate('Library')}
-      />
-      <NavRow
-        theme={theme}
-        icon="play-outline"
-        title="Play simulator"
-        subtitle="Watch the play unfold — make the move, then the call"
-        onPress={() => navigation.navigate('Simulator')}
-      />
-      <NavRow
-        theme={theme}
-        icon="locate-outline"
-        title="Practice a topic"
-        subtitle="Drill one area — never touches your schedule"
-        onPress={() => navigation.navigate('Topics')}
-      />
-      <NavRow
-        theme={theme}
-        icon="flame-outline"
-        title="Trouble spots"
-        subtitle={
-          troubleCount === 0
-            ? 'Nothing you’ve missed needs work'
-            : `${troubleCount} missed ${troubleCount === 1 ? 'question' : 'questions'} to shore up`
-        }
-        onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'trouble' })}
-      />
-      <NavRow
-        theme={theme}
-        icon="bookmark-outline"
-        title="Bookmarks"
-        subtitle={
-          bookmarkCount === 0
-            ? 'Save questions from any quiz to revisit'
-            : `${bookmarkCount} saved ${bookmarkCount === 1 ? 'question' : 'questions'}`
-        }
-        onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'bookmarks' })}
-      />
+      <Card theme={theme} style={styles.group}>
+        <NavRow
+          theme={theme}
+          first
+          icon="library-outline"
+          title="Question library"
+          subtitle={RULESETS[ruleset].label}
+          onPress={() => navigation.navigate('Library')}
+        />
+        <NavRow
+          theme={theme}
+          icon="play-outline"
+          title="Play simulator"
+          subtitle="Watch the play unfold — make the move, then the call"
+          onPress={() => navigation.navigate('Simulator')}
+        />
+        <NavRow
+          theme={theme}
+          icon="locate-outline"
+          title="Practice a topic"
+          subtitle="Drill one area — never touches your schedule"
+          onPress={() => navigation.navigate('Topics')}
+        />
+        <NavRow
+          theme={theme}
+          icon="flame-outline"
+          title="Trouble spots"
+          subtitle={
+            troubleCount === 0
+              ? 'Nothing you’ve missed needs work'
+              : `${troubleCount} missed ${troubleCount === 1 ? 'question' : 'questions'} to shore up`
+          }
+          tag={troubleCount > 0 ? String(troubleCount) : undefined}
+          onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'trouble' })}
+        />
+        <NavRow
+          theme={theme}
+          icon="bookmark-outline"
+          title="Bookmarks"
+          subtitle={
+            bookmarkCount === 0
+              ? 'Save questions from any quiz to revisit'
+              : `${bookmarkCount} saved ${bookmarkCount === 1 ? 'question' : 'questions'}`
+          }
+          tag={bookmarkCount > 0 ? String(bookmarkCount) : undefined}
+          onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'bookmarks' })}
+        />
+      </Card>
 
-      <View style={styles.sectionGap} />
       <SectionLabel theme={theme}>Game day</SectionLabel>
-      <NavRow
-        theme={theme}
-        icon="navigate-outline"
-        title="Fly ball coverage"
-        subtitle="4-umpire rotations — routine and trouble balls"
-        onPress={() => navigation.navigate('Coverage')}
-      />
-      <NavRow
-        theme={theme}
-        icon="clipboard-outline"
-        title="Plate meeting"
-        subtitle="Tick through the pre-game conference"
-        onPress={() => navigation.navigate('PlateMeeting')}
-      />
-      <NavRow
-        theme={theme}
-        icon="alert-circle-outline"
-        title="Rule myths"
-        subtitle="What the bench thinks the rulebook says"
-        onPress={() => navigation.navigate('Myths')}
-      />
+      <Card theme={theme}>
+        <NavRow
+          theme={theme}
+          first
+          icon="navigate-outline"
+          title="Fly ball coverage"
+          subtitle="4-umpire rotations — routine and trouble balls"
+          onPress={() => navigation.navigate('Coverage')}
+        />
+        <NavRow
+          theme={theme}
+          icon="clipboard-outline"
+          title="Plate meeting"
+          subtitle="Tick through the pre-game conference"
+          onPress={() => navigation.navigate('PlateMeeting')}
+        />
+        <NavRow
+          theme={theme}
+          icon="alert-circle-outline"
+          title="Rule myths"
+          subtitle="What the bench thinks the rulebook says"
+          onPress={() => navigation.navigate('Myths')}
+        />
+      </Card>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 24, paddingBottom: 48 },
+  container: { padding: 22, paddingBottom: 48 },
   header: { flexDirection: 'row', alignItems: 'flex-end' },
   wordmark: {
     fontFamily: fonts.display,
     fontSize: 44,
-    letterSpacing: 3,
+    letterSpacing: -0.9,
     lineHeight: 46,
   },
   wordmarkDot: {
     width: 9,
     height: 9,
-    borderRadius: 2,
-    marginLeft: 7,
+    marginLeft: 9,
     marginBottom: 9,
     transform: [{ rotate: '45deg' }],
   },
-  subtitle: { fontSize: 15, marginTop: 2, marginBottom: 28 },
+  subtitle: { fontFamily: fonts.body, fontSize: 13.5, marginTop: 3, marginBottom: 20 },
+  // The hero is a single ruled block: the button runs edge to edge inside
+  // the 2px frame, so the padding lives on the content above it.
   hero: {
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 22,
-    marginBottom: 32,
-    overflow: 'hidden',
+    borderWidth: 2,
+    marginBottom: 26,
   },
-  heroQuiet: { fontSize: 15, marginTop: 20, marginBottom: 24 },
+  heroEyebrow: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 1.5,
+    paddingHorizontal: 18,
+    paddingTop: 16,
+  },
+  heroQuiet: {
+    fontFamily: fonts.body,
+    fontSize: 14,
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    paddingBottom: 18,
+  },
+  heroBody: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 18 },
   heroHeadline: {
     fontFamily: fonts.display,
-    fontSize: 34,
-    marginTop: 16,
+    fontSize: 32,
+    letterSpacing: -0.6,
   },
-  heroSub: { fontSize: 14, lineHeight: 20, marginTop: 4, marginBottom: 22 },
+  heroSub: { fontFamily: fonts.body, fontSize: 13.5, lineHeight: 19, marginTop: 5 },
   countRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 18,
-    marginBottom: 22,
+    alignItems: 'flex-end',
+    paddingHorizontal: 18,
+    paddingTop: 8,
+    paddingBottom: 18,
   },
-  countBlock: { minWidth: 72 },
+  countBlock: { minWidth: 64 },
   countNumber: {
     fontFamily: fonts.display,
-    fontSize: 52,
-    lineHeight: 54,
+    fontSize: 56,
+    lineHeight: 56,
+    letterSpacing: -1.4,
     fontVariant: ['tabular-nums'],
   },
-  countLabel: { fontSize: 13, marginTop: 2 },
-  countDivider: { width: 1, height: 44, marginHorizontal: 24 },
-  heroButton: { marginTop: 2 },
-  practiceNote: { fontSize: 12.5, marginTop: 12, textAlign: 'center' },
-  sectionGap: { height: 18 },
+  countLabel: { fontFamily: fonts.body, fontSize: 12, marginTop: 4 },
+  countDivider: { width: 1, height: 48, marginHorizontal: 22, marginBottom: 8 },
+  practiceNote: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+  },
+  group: { marginBottom: 26 },
 });

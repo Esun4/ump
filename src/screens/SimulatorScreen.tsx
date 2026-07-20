@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
 import { fonts, useTheme } from '../theme';
-import { PrimaryButton, SectionLabel } from '../ui';
+import { PrimaryButton, Rule, SectionLabel } from '../ui';
 import { scenariosForCrew } from '../sim/scenarios60';
 import { SimCrew, SimScenario } from '../sim/types';
 
@@ -34,126 +34,132 @@ export default function SimulatorScreen({ navigation }: Props) {
   const count = groups.reduce((n, [, list]) => n + list.length, 0);
 
   return (
-    <ScrollView
-      style={{ backgroundColor: theme.background }}
-      contentContainerStyle={styles.container}
-    >
-      <Text style={[styles.lede, { color: theme.subtleText }]}>
-        Watch the play develop, commit to your move or your call, then see the
-        whole crew’s correct paths. 60-foot diamond.
-      </Text>
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
+      <Rule theme={theme} />
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={[styles.lede, { color: theme.subtleText }]}>
+          Watch the play develop, commit to your move or your call, then see the
+          whole crew’s correct paths. 60-foot diamond.
+        </Text>
 
-      <View style={[styles.toggle, { backgroundColor: theme.card, borderColor: theme.border }]}>
-        {CREWS.map((c) => {
-          const active = crew === c.key;
-          return (
-            <Pressable
-              key={c.key}
-              onPress={() => setCrew(c.key)}
-              style={[
-                styles.toggleHalf,
-                active && { backgroundColor: theme.accentSoft, borderColor: theme.accent },
-              ]}
-            >
-              <Text
+        <View style={[styles.toggle, { borderColor: theme.rule }]}>
+          {CREWS.map((c, i) => {
+            const active = crew === c.key;
+            return (
+              <Pressable
+                key={c.key}
+                onPress={() => setCrew(c.key)}
                 style={[
-                  styles.toggleLabel,
-                  { color: active ? theme.accent : theme.faintText },
+                  styles.toggleHalf,
+                  i > 0 && { borderLeftWidth: 2, borderLeftColor: theme.rule },
+                  active && { backgroundColor: theme.accentSoft },
                 ]}
               >
-                {c.label}
-              </Text>
-              <Text
-                style={[
-                  styles.toggleNote,
-                  { color: active ? theme.subtleText : theme.faintText },
-                ]}
-              >
-                {c.note}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
-
-      <PrimaryButton
-        theme={theme}
-        label={`START RUN · ${count} PLAYS`}
-        onPress={() => navigation.navigate('SimPlay', { crew })}
-        style={styles.startButton}
-      />
-
-      {groups.map(([group, list]) => (
-        <View key={group}>
-          <SectionLabel theme={theme}>{group}</SectionLabel>
-          {list.map((s) => (
-            <Pressable
-              key={s.id}
-              onPress={() => navigation.navigate('SimPlay', { crew, scenarioId: s.id })}
-              style={({ pressed }) => [
-                styles.row,
-                {
-                  backgroundColor: pressed ? theme.cardRaised : theme.card,
-                  borderColor: theme.border,
-                },
-              ]}
-            >
-              <View style={styles.rowText}>
-                <Text style={[styles.rowTitle, { color: theme.text }]}>{s.title}</Text>
-                <Text style={[styles.rowSub, { color: theme.subtleText }]}>
-                  {`You are ${s.seat} · ${s.kind === 'mechanics' ? 'make the move' : 'make the call'}`}
+                <Text
+                  style={[
+                    styles.toggleLabel,
+                    { color: active ? theme.accentDeep : theme.subtleText },
+                  ]}
+                >
+                  {c.label}
                 </Text>
-              </View>
-              <Ionicons
-                name={s.kind === 'mechanics' ? 'walk-outline' : 'hand-left-outline'}
-                size={17}
-                color={theme.faintText}
-              />
-            </Pressable>
-          ))}
-          <View style={styles.groupGap} />
+                <Text
+                  style={[
+                    styles.toggleNote,
+                    { color: active ? theme.subtleText : theme.faintText },
+                  ]}
+                >
+                  {c.note}
+                </Text>
+                {/* The active cell is underscored by a claret bar inset
+                    along its bottom edge. */}
+                {active && (
+                  <View style={[styles.toggleBar, { backgroundColor: theme.accent }]} />
+                )}
+              </Pressable>
+            );
+          })}
         </View>
-      ))}
-    </ScrollView>
+
+        <PrimaryButton
+          theme={theme}
+          label={`START RUN · ${count} PLAYS`}
+          onPress={() => navigation.navigate('SimPlay', { crew })}
+          style={styles.startButton}
+        />
+
+        {groups.map(([group, list]) => (
+          <View key={group}>
+            <SectionLabel theme={theme}>{group}</SectionLabel>
+            {list.map((s) => (
+              <Pressable
+                key={s.id}
+                onPress={() => navigation.navigate('SimPlay', { crew, scenarioId: s.id })}
+                style={({ pressed }) => [
+                  styles.row,
+                  {
+                    backgroundColor: pressed ? theme.accentSoft : theme.card,
+                    borderColor: theme.border,
+                  },
+                ]}
+              >
+                <View style={styles.rowText}>
+                  <Text style={[styles.rowTitle, { color: theme.text }]}>{s.title}</Text>
+                  <Text style={[styles.rowSub, { color: theme.subtleText }]}>
+                    {`You are ${s.seat} · ${s.kind === 'mechanics' ? 'make the move' : 'make the call'}`}
+                  </Text>
+                </View>
+                <Ionicons
+                  name={s.kind === 'mechanics' ? 'walk-outline' : 'hand-left-outline'}
+                  size={17}
+                  color={theme.faintText}
+                />
+              </Pressable>
+            ))}
+            <View style={styles.groupGap} />
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 48 },
-  lede: { fontSize: 14.5, lineHeight: 21, marginBottom: 18 },
+  lede: { fontFamily: fonts.body, fontSize: 14, lineHeight: 21, marginBottom: 18 },
   toggle: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderRadius: 16,
-    padding: 5,
-    gap: 5,
+    borderWidth: 2,
   },
   toggleHalf: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'transparent',
-    borderRadius: 12,
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 14,
   },
   toggleLabel: {
     fontFamily: fonts.display,
-    fontSize: 21,
-    letterSpacing: 1.2,
+    fontSize: 22,
+    letterSpacing: -0.4,
   },
-  toggleNote: { fontSize: 11.5, marginTop: 1 },
-  startButton: { marginTop: 14, marginBottom: 28 },
+  toggleNote: { fontFamily: fonts.body, fontSize: 11.5, marginTop: 2 },
+  toggleBar: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 3,
+  },
+  startButton: { marginTop: 18, marginBottom: 26 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: 14,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
+    paddingVertical: 13,
+    paddingHorizontal: 15,
     marginBottom: 8,
   },
   rowText: { flex: 1, marginRight: 10 },
-  rowTitle: { fontSize: 15, fontWeight: '600', marginBottom: 2 },
-  rowSub: { fontSize: 12.5 },
+  rowTitle: { fontFamily: fonts.bodyBold, fontSize: 14.5, marginBottom: 2 },
+  rowSub: { fontFamily: fonts.body, fontSize: 12.5 },
   groupGap: { height: 14 },
 });
