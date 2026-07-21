@@ -15,6 +15,8 @@ import { fonts, useTheme } from '../theme';
 import { Chip, FeedbackPanel, OptionRow, OptionState, PrimaryButton, Rule } from '../ui';
 import FieldCanvas from '../sim/FieldCanvas';
 import { SIM_SCENARIOS, scenariosForCrew } from '../sim/scenarios60';
+import { loadSimRecord, recordSimAnswer } from '../sim/storage';
+import { missedPlays } from '../sim/select';
 import { SimScenario } from '../sim/types';
 
 // The player: run one scenario (from the library) or a shuffled run of a
@@ -39,13 +41,17 @@ function shuffle<T>(items: T[]): T[] {
 
 export default function SimPlayScreen({ navigation, route }: Props) {
   const theme = useTheme();
-  const { crew, scenarioId } = route.params;
+  const { crew, scenarioId, missed } = route.params;
   const isRun = scenarioId === undefined;
 
+  // A missed run has to read the record before it knows its deck, so it
+  // starts empty and fills in below; every other mode is known up front.
   const [deck, setDeck] = useState<SimScenario[]>(() =>
-    isRun
-      ? shuffle(scenariosForCrew(crew))
-      : SIM_SCENARIOS.filter((s) => s.id === scenarioId),
+    missed
+      ? []
+      : isRun
+        ? shuffle(scenariosForCrew(crew))
+        : SIM_SCENARIOS.filter((s) => s.id === scenarioId),
   );
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('ready');
@@ -67,6 +73,17 @@ export default function SimPlayScreen({ navigation, route }: Props) {
   useEffect(() => {
     navigation.setOptions({ title: crew === 'two' ? '2-Man Crew' : '4-Man Crew' });
   }, [navigation, crew]);
+
+  useEffect(() => {
+    if (!missed) return;
+    let cancelled = false;
+    loadSimRecord().then((record) => {
+      if (!cancelled) setDeck(shuffle(missedPlays(record, scenariosForCrew(crew))));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [missed, crew]);
 
   // Drive the clock from `from` to `to` seconds, surfacing captions as
   // their moments pass, then hand off to `then`.
@@ -108,7 +125,9 @@ export default function SimPlayScreen({ navigation, route }: Props) {
   const onAnswer = (i: number) => {
     if (selected !== null) return;
     setSelected(i);
-    if (i === scenario.correctIndex) setRight((r) => r + 1);
+    const isCorrect = i === scenario.correctIndex;
+    if (isCorrect) setRight((r) => r + 1);
+    void recordSimAnswer(scenario.id, isCorrect);
     setPhase('reveal');
     if (scenario.kind === 'mechanics') {
       roll(scenario.freezeAt!, scenario.duration);
@@ -137,7 +156,7 @@ export default function SimPlayScreen({ navigation, route }: Props) {
   const restartRun = () => {
     clearTimers();
     clock.setValue(0);
-    setDeck(shuffle(scenariosForCrew(crew)));
+    setDeck((d) => shuffle(missed ? d : scenariosForCrew(crew)));
     setIndex(0);
     setRight(0);
     setSelected(null);
@@ -148,6 +167,11 @@ export default function SimPlayScreen({ navigation, route }: Props) {
   const kindLabel = scenario?.kind === 'mechanics' ? 'Make the move' : 'Make the call';
   const answered = selected !== null;
   const correct = answered && selected === scenario?.correctIndex;
+
+  // Only reachable while a missed run is still reading the record.
+  if (!scenario) {
+    return <View style={{ flex: 1, backgroundColor: theme.background }} />;
+  }
 
   if (phase === 'summary') {
     return (

@@ -7,6 +7,7 @@ import { RULESETS, RULESET_IDS, RulesetId } from '../types';
 import { useRuleset } from '../state/RulesetContext';
 import { BankInfo, getBankInfo } from '../data';
 import { resetProgress } from '../srs/storage';
+import { resetSimRecord } from '../sim/storage';
 import { Card, SectionLabel, rowDivider } from '../ui';
 
 const SOURCE_LABELS: Record<BankInfo['source'], string> = {
@@ -51,6 +52,21 @@ export default function SettingsScreen() {
           text: 'Reset',
           style: 'destructive',
           onPress: () => void resetProgress(target),
+        },
+      ],
+    );
+  };
+
+  const confirmResetSim = () => {
+    Alert.alert(
+      'Reset simulator record?',
+      'This clears your play results and field streak across both crews. Question progress and bookmarks are not affected.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Reset',
+          style: 'destructive',
+          onPress: () => void resetSimRecord(),
         },
       ],
     );
@@ -105,6 +121,24 @@ export default function SettingsScreen() {
             </Text>
           </Pressable>
         ))}
+        <Pressable
+          onPress={confirmResetSim}
+          style={({ pressed }) => [
+            styles.resetRow,
+            rowDivider(theme, RULESET_IDS.length),
+            { backgroundColor: pressed ? theme.accentSoft : theme.card },
+          ]}
+        >
+          <Ionicons
+            name="refresh-outline"
+            size={16}
+            color={theme.danger}
+            style={styles.resetIcon}
+          />
+          <Text style={[styles.resetLabel, { color: theme.danger }]}>
+            Reset simulator record
+          </Text>
+        </Pressable>
       </Card>
 
       <SectionLabel theme={theme}>About</SectionLabel>

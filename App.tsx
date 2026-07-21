@@ -38,6 +38,7 @@ const TAB_ICONS: Record<
   { active: keyof typeof Ionicons.glyphMap; inactive: keyof typeof Ionicons.glyphMap }
 > = {
   Home: { active: 'baseball', inactive: 'baseball-outline' },
+  Field: { active: 'play-circle', inactive: 'play-circle-outline' },
   Stats: { active: 'stats-chart', inactive: 'stats-chart-outline' },
   Settings: { active: 'settings', inactive: 'settings-outline' },
 };
@@ -107,6 +108,11 @@ function Tabs({ theme }: { theme: Theme }) {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen
+        name="Field"
+        component={SimulatorScreen}
+        options={{ title: 'Play Simulator', tabBarLabel: 'Sim' }}
+      />
       <Tab.Screen name="Stats" component={StatsScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
@@ -191,11 +197,6 @@ export default function App() {
             name="Myths"
             component={MythsScreen}
             options={{ title: 'Rule Myths' }}
-          />
-          <Stack.Screen
-            name="Simulator"
-            component={SimulatorScreen}
-            options={{ title: 'Play Simulator' }}
           />
           <Stack.Screen name="SimPlay" component={SimPlayScreen} />
         </Stack.Navigator>

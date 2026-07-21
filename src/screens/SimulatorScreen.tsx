@@ -1,17 +1,20 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation';
 import { fonts, useTheme } from '../theme';
 import { PrimaryButton, Rule, SectionLabel } from '../ui';
 import { scenariosForCrew } from '../sim/scenarios60';
+import { loadSimRecord, SimRecord } from '../sim/storage';
+import { missedPlays } from '../sim/select';
 import { SimCrew, SimScenario } from '../sim/types';
 
-// Simulator hub: pick a crew, start a shuffled run, or open one play
-// from the library for targeted review.
+// Simulator hub: pick a crew, start a shuffled run, replay the plays you
+// last got wrong, or open one play from the library for targeted review.
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Simulator'>;
+type Props = NativeStackScreenProps<RootStackParamList>;
 
 const CREWS: { key: SimCrew; label: string; note: string }[] = [
   { key: 'two', label: '2-MAN', note: 'Regular season' },
@@ -21,6 +24,24 @@ const CREWS: { key: SimCrew; label: string; note: string }[] = [
 export default function SimulatorScreen({ navigation }: Props) {
   const theme = useTheme();
   const [crew, setCrew] = useState<SimCrew>('two');
+  const [record, setRecord] = useState<SimRecord>({});
+
+  useFocusEffect(
+    useCallback(() => {
+      let cancelled = false;
+      loadSimRecord().then((r) => {
+        if (!cancelled) setRecord(r);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }, []),
+  );
+
+  const missed = useMemo(
+    () => missedPlays(record, scenariosForCrew(crew)),
+    [record, crew],
+  );
 
   const groups = useMemo(() => {
     const bank = scenariosForCrew(crew);
@@ -85,8 +106,24 @@ export default function SimulatorScreen({ navigation }: Props) {
           theme={theme}
           label={`START RUN · ${count} PLAYS`}
           onPress={() => navigation.navigate('SimPlay', { crew })}
-          style={styles.startButton}
+          style={[styles.startButton, missed.length === 0 && styles.startButtonAlone]}
         />
+
+        {missed.length > 0 && (
+          <Pressable
+            onPress={() => navigation.navigate('SimPlay', { crew, missed: true })}
+            style={({ pressed }) => [
+              styles.missedRow,
+              { borderColor: theme.rule, backgroundColor: pressed ? theme.accentSoft : 'transparent' },
+            ]}
+          >
+            <Ionicons name="flame-outline" size={18} color={theme.accent} />
+            <Text style={[styles.missedText, { color: theme.text }]}>
+              {`Replay ${missed.length} missed ${missed.length === 1 ? 'play' : 'plays'}`}
+            </Text>
+            <Ionicons name="chevron-forward" size={16} color={theme.faintText} />
+          </Pressable>
+        )}
 
         {groups.map(([group, list]) => (
           <View key={group}>
@@ -109,11 +146,21 @@ export default function SimulatorScreen({ navigation }: Props) {
                     {`You are ${s.seat} · ${s.kind === 'mechanics' ? 'make the move' : 'make the call'}`}
                   </Text>
                 </View>
-                <Ionicons
-                  name={s.kind === 'mechanics' ? 'walk-outline' : 'hand-left-outline'}
-                  size={17}
-                  color={theme.faintText}
-                />
+                {/* A play you've answered carries its last result; one
+                    you haven't shows only what it asks of you. */}
+                {record[s.id] ? (
+                  <Ionicons
+                    name={record[s.id].lastRight ? 'checkmark-circle' : 'close-circle'}
+                    size={17}
+                    color={record[s.id].lastRight ? theme.accent : theme.faintText}
+                  />
+                ) : (
+                  <Ionicons
+                    name={s.kind === 'mechanics' ? 'walk-outline' : 'hand-left-outline'}
+                    size={17}
+                    color={theme.faintText}
+                  />
+                )}
               </Pressable>
             ))}
             <View style={styles.groupGap} />
@@ -149,7 +196,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 3,
   },
-  startButton: { marginTop: 18, marginBottom: 26 },
+  startButton: { marginTop: 18, marginBottom: 12 },
+  startButtonAlone: { marginBottom: 26 },
+  missedRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    marginBottom: 26,
+  },
+  missedText: { flex: 1, fontFamily: fonts.bodyBold, fontSize: 14, marginLeft: 10 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',

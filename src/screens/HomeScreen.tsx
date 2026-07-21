@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -9,8 +9,11 @@ import { useRuleset } from '../state/RulesetContext';
 import { RULESETS } from '../types';
 import { getBank } from '../data';
 import { loadBookmarks, loadProgress } from '../srs/storage';
-import { sessionCounts, todayKey, troubleSpots, SessionCounts } from '../srs/engine';
+import { currentStreak, sessionCounts, todayKey, troubleSpots, SessionCounts } from '../srs/engine';
+import { loadSimActivity } from '../sim/storage';
+import { playOfTheDay } from '../sim/select';
 import { Card, NavRow, PrimaryButton, SectionLabel } from '../ui';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -21,19 +24,28 @@ export default function HomeScreen({ navigation }: Props) {
   const [counts, setCounts] = useState<SessionCounts | null>(null);
   const [troubleCount, setTroubleCount] = useState(0);
   const [bookmarkCount, setBookmarkCount] = useState(0);
+  const [simStreak, setSimStreak] = useState(0);
+
+  // The featured play is keyed to the date, so it holds all day and
+  // doesn't reshuffle when the screen refocuses.
+  const featured = useMemo(() => playOfTheDay(todayKey()), []);
 
   useFocusEffect(
     useCallback(() => {
       let cancelled = false;
       setCounts(null);
-      Promise.all([loadProgress(ruleset), getBank(ruleset), loadBookmarks(ruleset)]).then(
-        ([progress, bank, bookmarks]) => {
-          if (cancelled) return;
-          setCounts(sessionCounts(bank, progress, todayKey()));
-          setTroubleCount(troubleSpots(bank, progress).length);
-          setBookmarkCount(bank.filter((q) => bookmarks.has(q.id)).length);
-        },
-      );
+      Promise.all([
+        loadProgress(ruleset),
+        getBank(ruleset),
+        loadBookmarks(ruleset),
+        loadSimActivity(),
+      ]).then(([progress, bank, bookmarks, simActivity]) => {
+        if (cancelled) return;
+        setCounts(sessionCounts(bank, progress, todayKey()));
+        setTroubleCount(troubleSpots(bank, progress).length);
+        setBookmarkCount(bank.filter((q) => bookmarks.has(q.id)).length);
+        setSimStreak(currentStreak(simActivity, todayKey()));
+      });
       return () => {
         cancelled = true;
       };
@@ -100,6 +112,42 @@ export default function HomeScreen({ navigation }: Props) {
         )}
       </View>
 
+      {/* The simulator's standing presence on Home: one play, chosen by
+          the date, that drops you straight onto the field. */}
+      <Pressable
+        onPress={() =>
+          navigation.navigate('SimPlay', { crew: featured.crew, scenarioId: featured.id })
+        }
+        style={({ pressed }) => [
+          styles.featured,
+          { borderColor: theme.rule, backgroundColor: pressed ? theme.accentSoft : theme.card },
+        ]}
+      >
+        <View style={styles.featuredHead}>
+          <Text style={[styles.featuredEyebrow, { color: theme.accentDeep }]}>
+            PLAY OF THE DAY
+          </Text>
+          {simStreak > 0 && (
+            <Text style={[styles.featuredStreak, { color: theme.faintText }]}>
+              {`${simStreak}-DAY FIELD STREAK`}
+            </Text>
+          )}
+        </View>
+        <Text style={[styles.featuredTitle, { color: theme.text }]}>{featured.title}</Text>
+        <View style={styles.featuredFoot}>
+          <Ionicons
+            name={featured.kind === 'mechanics' ? 'walk-outline' : 'hand-left-outline'}
+            size={15}
+            color={theme.subtleText}
+          />
+          <Text style={[styles.featuredMeta, { color: theme.subtleText }]}>
+            {`${featured.crew === 'two' ? '2-man' : '4-man'} · you are ${featured.seat} · ${
+              featured.kind === 'mechanics' ? 'make the move' : 'make the call'
+            }`}
+          </Text>
+        </View>
+      </Pressable>
+
       <SectionLabel theme={theme}>Train</SectionLabel>
       <Card theme={theme} style={styles.group}>
         <NavRow
@@ -109,13 +157,6 @@ export default function HomeScreen({ navigation }: Props) {
           title="Question library"
           subtitle={RULESETS[ruleset].label}
           onPress={() => navigation.navigate('Library')}
-        />
-        <NavRow
-          theme={theme}
-          icon="play-outline"
-          title="Play simulator"
-          subtitle="Watch the play unfold — make the move, then the call"
-          onPress={() => navigation.navigate('Simulator')}
         />
         <NavRow
           theme={theme}
@@ -247,4 +288,16 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   group: { marginBottom: 26 },
+  featured: { borderWidth: 2, padding: 16, marginBottom: 26 },
+  featuredHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 7,
+  },
+  featuredEyebrow: { fontFamily: fonts.bodyBold, fontSize: 11, letterSpacing: 1.5 },
+  featuredStreak: { fontFamily: fonts.bodyBold, fontSize: 10, letterSpacing: 0.8 },
+  featuredTitle: { fontFamily: fonts.display, fontSize: 26, letterSpacing: -0.5 },
+  featuredFoot: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
+  featuredMeta: { fontFamily: fonts.body, fontSize: 12.5, marginLeft: 6 },
 });

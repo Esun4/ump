@@ -15,13 +15,14 @@ export type RootStackParamList = {
   Coverage: undefined;
   PlateMeeting: undefined;
   Myths: undefined;
-  Simulator: undefined;
-  // A run of shuffled plays for the crew, or one play from the library.
-  SimPlay: { crew: SimCrew; scenarioId?: string };
+  // A run of shuffled plays for the crew, one play from the library, or a
+  // run of just the plays the user last got wrong.
+  SimPlay: { crew: SimCrew; scenarioId?: string; missed?: boolean };
 };
 
 export type TabParamList = {
   Home: undefined;
+  Field: undefined;
   Stats: undefined;
   Settings: undefined;
 };
