@@ -14,12 +14,12 @@ interface RulesetContextValue {
 }
 
 const RulesetContext = createContext<RulesetContextValue>({
-  ruleset: 'obr',
+  ruleset: 'll',
   setRuleset: () => {},
 });
 
 export function RulesetProvider({ children }: { children: React.ReactNode }) {
-  const [ruleset, setRulesetState] = useState<RulesetId>('obr');
+  const [ruleset, setRulesetState] = useState<RulesetId>('ll');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {

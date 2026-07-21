@@ -181,7 +181,7 @@ export default function App() {
           <Stack.Screen
             name="Library"
             component={LibraryScreen}
-            options={{ title: 'Question Library' }}
+            options={{ title: 'Question Bank' }}
           />
           <Stack.Screen
             name="Coverage"

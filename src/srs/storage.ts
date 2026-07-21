@@ -69,9 +69,9 @@ export async function bumpActivity(dateKey: string): Promise<void> {
 export async function loadActiveRuleset(): Promise<RulesetId> {
   try {
     const raw = await AsyncStorage.getItem(activeRulesetKey);
-    return RULESET_IDS.includes(raw as RulesetId) ? (raw as RulesetId) : 'obr';
+    return RULESET_IDS.includes(raw as RulesetId) ? (raw as RulesetId) : 'll';
   } catch {
-    return 'obr';
+    return 'll';
   }
 }
 

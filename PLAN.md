@@ -87,3 +87,19 @@ Runs with `npx expo start`.
   the initial scaffold.
 - Progress reporting: after each major step, `✅ [done] — [files]`. Finish with run
   instructions + EAS note.
+
+## Future features
+
+Ideas not yet committed to the spec — scope, dependencies, and design still open.
+
+- **Assignr integration.** Our organization assigns games through Assignr, which
+  exposes an API. Connect the app to it so an umpire can:
+  - Sign in to their own Assignr account (OAuth) from inside the app.
+  - Pull their umpire schedule — upcoming assignments, dates, sites, positions,
+    partners.
+  - Accept / decline games directly in-app, writing back through the API.
+
+  Would introduce the app's first authenticated, networked feature (today it's
+  offline-first, no accounts), so it needs its own design pass: auth/token
+  storage, offline caching of the schedule, and how a "Schedule" surface fits
+  the current Home / tab layout.

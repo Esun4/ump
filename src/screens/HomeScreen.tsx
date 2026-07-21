@@ -53,6 +53,8 @@ export default function HomeScreen({ navigation }: Props) {
   );
 
   const caughtUp = counts !== null && counts.due === 0 && counts.newFill === 0;
+  // Fly ball coverage only applies to the 4-umpire mechanics banks.
+  const showCoverage = ruleset === 'mech60' || ruleset === 'mechBig';
 
   return (
     <ScrollView
@@ -153,13 +155,6 @@ export default function HomeScreen({ navigation }: Props) {
         <NavRow
           theme={theme}
           first
-          icon="library-outline"
-          title="Question library"
-          subtitle={RULESETS[ruleset].label}
-          onPress={() => navigation.navigate('Library')}
-        />
-        <NavRow
-          theme={theme}
           icon="locate-outline"
           title="Practice a topic"
           subtitle="Drill one area — never touches your schedule"
@@ -189,20 +184,32 @@ export default function HomeScreen({ navigation }: Props) {
           tag={bookmarkCount > 0 ? String(bookmarkCount) : undefined}
           onPress={() => navigation.navigate('Quiz', { mode: 'practice', filter: 'bookmarks' })}
         />
+        <NavRow
+          theme={theme}
+          icon="settings-outline"
+          title="Question Bank"
+          subtitle={RULESETS[ruleset].label}
+          onPress={() => navigation.navigate('Library')}
+        />
       </Card>
 
       <SectionLabel theme={theme}>Game day</SectionLabel>
       <Card theme={theme}>
+        {/* Fly ball coverage is 4-umpire only — hidden for the 2-man
+            setups we usually work so Game day stays quick to scan. */}
+        {showCoverage && (
+          <NavRow
+            theme={theme}
+            first
+            icon="navigate-outline"
+            title="Fly ball coverage"
+            subtitle="4-umpire rotations — routine and trouble balls"
+            onPress={() => navigation.navigate('Coverage')}
+          />
+        )}
         <NavRow
           theme={theme}
-          first
-          icon="navigate-outline"
-          title="Fly ball coverage"
-          subtitle="4-umpire rotations — routine and trouble balls"
-          onPress={() => navigation.navigate('Coverage')}
-        />
-        <NavRow
-          theme={theme}
+          first={!showCoverage}
           icon="clipboard-outline"
           title="Plate meeting"
           subtitle="Tick through the pre-game conference"
