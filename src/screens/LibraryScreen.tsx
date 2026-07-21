@@ -6,6 +6,8 @@ import { RootStackParamList } from '../navigation';
 import { fonts, useTheme } from '../theme';
 import { useRuleset } from '../state/RulesetContext';
 import { RulesetId } from '../types';
+import { useWalkthroughTarget } from '../walkthrough/useWalkthroughTarget';
+import { useWalkthrough } from '../walkthrough/WalkthroughContext';
 import { Card, Rule, SectionLabel, rowDivider } from '../ui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Library'>;
@@ -48,10 +50,15 @@ const GROUPS: {
 export default function LibraryScreen({ navigation }: Props) {
   const theme = useTheme();
   const { ruleset, setRuleset } = useRuleset();
+  const banksTarget = useWalkthroughTarget('library.banks');
+  const { step, next } = useWalkthrough();
 
   const choose = (id: RulesetId) => {
     setRuleset(id);
-    navigation.goBack();
+    // During the tour this screen is the interactive step, so any pick moves
+    // it along — including re-picking the bank that was already active.
+    if (step?.advanceOnRulesetChange) next();
+    else navigation.goBack();
   };
 
   return (
@@ -62,6 +69,9 @@ export default function LibraryScreen({ navigation }: Props) {
           Pick the bank you're training on. Each keeps its own schedule and stats.
         </Text>
 
+        {/* Wraps every group so the walkthrough can spotlight the whole
+            list of banks and leave them tappable. */}
+        <View {...banksTarget} collapsable={false}>
         {GROUPS.map((group) => (
           <View key={group.heading} style={styles.group}>
             <SectionLabel theme={theme}>{group.heading}</SectionLabel>
@@ -108,6 +118,7 @@ export default function LibraryScreen({ navigation }: Props) {
             </Card>
           </View>
         ))}
+        </View>
       </ScrollView>
     </View>
   );

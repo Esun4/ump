@@ -1,3 +1,4 @@
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { SimCrew } from './sim/types';
 
 export type QuizMode = 'session' | 'practice';
@@ -8,7 +9,9 @@ export type QuizMode = 'session' | 'practice';
 export type PracticeFilter = 'trouble' | 'bookmarks';
 
 export type RootStackParamList = {
-  Tabs: undefined;
+  // Nested params so the walkthrough can send the user to a specific tab,
+  // not just back to the tab stack.
+  Tabs: NavigatorScreenParams<TabParamList> | undefined;
   Quiz: { mode: QuizMode; topic?: string; filter?: PracticeFilter };
   Topics: undefined;
   Library: undefined;

@@ -11,6 +11,9 @@ const activeRulesetKey = `${prefix}:activeRuleset`;
 // Activity is one log across all rulesets — a day you trained is a day you
 // trained, whichever bank it was in.
 const activityKey = `${prefix}:activity`;
+// Set once the first-run walkthrough is finished or skipped. Replaying it
+// from Settings deliberately ignores this.
+const walkthroughSeenKey = `${prefix}:walkthroughSeen`;
 
 // Local date key (YYYY-MM-DD) → first-attempt answers given that day.
 export type ActivityLog = Record<string, number>;
@@ -77,4 +80,18 @@ export async function loadActiveRuleset(): Promise<RulesetId> {
 
 export async function saveActiveRuleset(ruleset: RulesetId): Promise<void> {
   await AsyncStorage.setItem(activeRulesetKey, ruleset);
+}
+
+export async function loadWalkthroughSeen(): Promise<boolean> {
+  try {
+    return (await AsyncStorage.getItem(walkthroughSeenKey)) === '1';
+  } catch {
+    // Treat a storage failure as "already seen" — better to skip the tour
+    // than to replay it on every launch.
+    return true;
+  }
+}
+
+export async function setWalkthroughSeen(): Promise<void> {
+  await AsyncStorage.setItem(walkthroughSeenKey, '1');
 }

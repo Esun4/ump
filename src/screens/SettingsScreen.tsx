@@ -8,6 +8,7 @@ import { useRuleset } from '../state/RulesetContext';
 import { BankInfo, getBankInfo } from '../data';
 import { resetProgress } from '../srs/storage';
 import { resetSimRecord } from '../sim/storage';
+import { useWalkthrough } from '../walkthrough/WalkthroughContext';
 import { Card, SectionLabel, rowDivider } from '../ui';
 
 const SOURCE_LABELS: Record<BankInfo['source'], string> = {
@@ -26,6 +27,7 @@ function syncLabel(info: BankInfo): string {
 export default function SettingsScreen() {
   const theme = useTheme();
   const { ruleset } = useRuleset();
+  const { start } = useWalkthrough();
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
 
   useFocusEffect(
@@ -137,6 +139,27 @@ export default function SettingsScreen() {
           />
           <Text style={[styles.resetLabel, { color: theme.danger }]}>
             Reset simulator record
+          </Text>
+        </Pressable>
+      </Card>
+
+      <SectionLabel theme={theme}>Guide</SectionLabel>
+      <Card theme={theme} style={styles.resetCard}>
+        <Pressable
+          onPress={start}
+          style={({ pressed }) => [
+            styles.resetRow,
+            { backgroundColor: pressed ? theme.accentSoft : theme.card },
+          ]}
+        >
+          <Ionicons
+            name="compass-outline"
+            size={16}
+            color={theme.accent}
+            style={styles.resetIcon}
+          />
+          <Text style={[styles.resetLabel, { color: theme.accent }]}>
+            Replay walkthrough
           </Text>
         </Pressable>
       </Card>

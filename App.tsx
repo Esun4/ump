@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import { AppState, Pressable, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
+  BottomTabBar,
   BottomTabBarButtonProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   useFonts,
   Archivo_400Regular,
@@ -17,6 +23,9 @@ import {
 import { RootStackParamList, TabParamList } from './src/navigation';
 import { refreshBanks } from './src/data';
 import { RulesetProvider } from './src/state/RulesetContext';
+import { WalkthroughProvider } from './src/walkthrough/WalkthroughContext';
+import { useWalkthroughTarget } from './src/walkthrough/useWalkthroughTarget';
+import WalkthroughOverlay from './src/walkthrough/WalkthroughOverlay';
 import { fonts, lightTheme, Theme } from './src/theme';
 import HomeScreen from './src/screens/HomeScreen';
 import QuizScreen from './src/screens/QuizScreen';
@@ -32,6 +41,9 @@ import SimPlayScreen from './src/screens/SimPlayScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
+
+// Held outside the component so the walkthrough can drive navigation.
+const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
 const TAB_ICONS: Record<
   keyof TabParamList,
@@ -73,8 +85,15 @@ function TabButton({ theme, ...props }: BottomTabBarButtonProps & { theme: Theme
 }
 
 function Tabs({ theme }: { theme: Theme }) {
+  // The tab bar is wrapped so the walkthrough can measure and spotlight it.
+  const tabTarget = useWalkthroughTarget('app.tabs');
   return (
     <Tab.Navigator
+      tabBar={(props) => (
+        <View {...tabTarget} collapsable={false}>
+          <BottomTabBar {...props} />
+        </View>
+      )}
       screenOptions={({ route }) => ({
         headerShown: route.name !== 'Home',
         headerShadowVisible: false,
@@ -166,9 +185,14 @@ export default function App() {
   } as const;
 
   return (
-    <RulesetProvider>
-      <NavigationContainer theme={navTheme}>
-        <Stack.Navigator screenOptions={stackHeader}>
+    <SafeAreaProvider>
+      <RulesetProvider>
+        <WalkthroughProvider navigationRef={navigationRef}>
+          {/* The overlay is a sibling of the navigator, not inside it, so it
+              floats over both tabs and pushed stack screens. */}
+          <View style={{ flex: 1 }}>
+            <NavigationContainer ref={navigationRef} theme={navTheme}>
+              <Stack.Navigator screenOptions={stackHeader}>
           <Stack.Screen name="Tabs" options={{ headerShown: false }}>
             {() => <Tabs theme={app} />}
           </Stack.Screen>
@@ -198,10 +222,14 @@ export default function App() {
             component={MythsScreen}
             options={{ title: 'Rule Myths' }}
           />
-          <Stack.Screen name="SimPlay" component={SimPlayScreen} />
-        </Stack.Navigator>
-        <StatusBar style="dark" />
-      </NavigationContainer>
-    </RulesetProvider>
+                <Stack.Screen name="SimPlay" component={SimPlayScreen} />
+              </Stack.Navigator>
+              <StatusBar style="dark" />
+            </NavigationContainer>
+            <WalkthroughOverlay />
+          </View>
+        </WalkthroughProvider>
+      </RulesetProvider>
+    </SafeAreaProvider>
   );
 }

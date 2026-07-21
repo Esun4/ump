@@ -12,6 +12,8 @@ import { loadBookmarks, loadProgress } from '../srs/storage';
 import { currentStreak, sessionCounts, todayKey, troubleSpots, SessionCounts } from '../srs/engine';
 import { loadSimActivity } from '../sim/storage';
 import { playOfTheDay } from '../sim/select';
+import { useWalkthroughTarget } from '../walkthrough/useWalkthroughTarget';
+import { useWalkthrough } from '../walkthrough/WalkthroughContext';
 import { Card, NavRow, PrimaryButton, SectionLabel } from '../ui';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -56,8 +58,18 @@ export default function HomeScreen({ navigation }: Props) {
   // Fly ball coverage only applies to the 4-umpire mechanics banks.
   const showCoverage = ruleset === 'mech60' || ruleset === 'mechBig';
 
+  // Walkthrough spotlight targets on this screen.
+  const heroTarget = useWalkthroughTarget('home.hero');
+  const trainTarget = useWalkthroughTarget('home.train');
+  const featuredTarget = useWalkthroughTarget('home.featured');
+  const gamedayTarget = useWalkthroughTarget('home.gameday');
+  const { registerScroller, noteScrollOffset } = useWalkthrough();
+
   return (
     <ScrollView
+      ref={registerScroller}
+      scrollEventThrottle={16}
+      onScroll={(e) => noteScrollOffset(e.nativeEvent.contentOffset.y)}
       style={{ backgroundColor: theme.background }}
       contentContainerStyle={[styles.container, { paddingTop: insets.top + 24 }]}
     >
@@ -69,7 +81,7 @@ export default function HomeScreen({ navigation }: Props) {
         Scenario drills for umpires
       </Text>
 
-      <View style={[styles.hero, { borderColor: theme.rule }]}>
+      <View {...heroTarget} collapsable={false} style={[styles.hero, { borderColor: theme.rule }]}>
         <Text style={[styles.heroEyebrow, { color: theme.accentDeep }]}>
           {`TODAY · ${RULESETS[ruleset].shortLabel}`.toUpperCase()}
         </Text>
@@ -117,6 +129,8 @@ export default function HomeScreen({ navigation }: Props) {
       {/* The simulator's standing presence on Home: one play, chosen by
           the date, that drops you straight onto the field. */}
       <Pressable
+        {...featuredTarget}
+        collapsable={false}
         onPress={() =>
           navigation.navigate('SimPlay', { crew: featured.crew, scenarioId: featured.id })
         }
@@ -151,7 +165,9 @@ export default function HomeScreen({ navigation }: Props) {
       </Pressable>
 
       <SectionLabel theme={theme}>Train</SectionLabel>
-      <Card theme={theme} style={styles.group}>
+      {/* Wrapped because Card doesn't forward a ref for the walkthrough. */}
+      <View {...trainTarget} collapsable={false} style={styles.group}>
+      <Card theme={theme}>
         <NavRow
           theme={theme}
           first
@@ -192,8 +208,10 @@ export default function HomeScreen({ navigation }: Props) {
           onPress={() => navigation.navigate('Library')}
         />
       </Card>
+      </View>
 
       <SectionLabel theme={theme}>Game day</SectionLabel>
+      <View {...gamedayTarget} collapsable={false}>
       <Card theme={theme}>
         {/* Fly ball coverage is 4-umpire only — hidden for the 2-man
             setups we usually work so Game day stays quick to scan. */}
@@ -223,6 +241,7 @@ export default function HomeScreen({ navigation }: Props) {
           onPress={() => navigation.navigate('Myths')}
         />
       </Card>
+      </View>
     </ScrollView>
   );
 }
