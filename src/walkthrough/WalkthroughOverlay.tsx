@@ -105,30 +105,47 @@ export default function WalkthroughOverlay() {
 
   const scrim = 'rgba(17, 34, 80, 0.74)'; // navy, matching theme.rule
 
+  // Explore steps hand the whole screen to the user — nothing is dimmed or
+  // cut out, so they can scroll the real list and tap what they want.
+  const explore = step.explore === true;
+  // No target (welcome / done, or a target that never measured): dim it all
+  // and centre the card.
+  const centered = !explore && rect === null;
+
   // A bottom-anchored target (the tab bar) would sit under the pinned button,
   // so the button lifts to just above the spotlight instead.
   const holeTop = rect ? rect.y - PAD : 0;
   const holeBottom = rect ? rect.y + rect.height + PAD : 0;
-  const barLifted = rect !== null && holeBottom > screenH - insets.bottom - BAR_HEIGHT;
-  const barOffset = barLifted ? screenH - holeTop + 12 : insets.bottom + 16;
+  const restingOffset = insets.bottom + 16;
+  const liftedOffset = screenH - holeTop + 12;
+  const barLifted =
+    !explore && rect !== null && holeBottom > screenH - insets.bottom - BAR_HEIGHT;
 
-  // Put the tooltip on whichever side of the spotlight has more room, so it
-  // can never be pushed off the top or under the button.
-  const spaceBelow = rect ? screenH - holeBottom - barOffset - 12 : 0;
-  const spaceAbove = rect ? holeTop - insets.top - 52 : 0;
-  const cardBelow = rect !== null && spaceBelow >= Math.min(CARD_ALLOWANCE, spaceAbove);
+  // Room on each side of the spotlight, measured against wherever the button
+  // is actually sitting.
+  const spaceBelow =
+    explore || !rect ? 0 : screenH - holeBottom - (barLifted ? liftedOffset : restingOffset) - 12;
+  const spaceAbove = explore || !rect ? 0 : holeTop - insets.top - 52;
+  // A tall target (the bank list) leaves room on neither side — dock the card
+  // above the button rather than letting it slide off-screen.
+  const docked = explore || (rect !== null && Math.max(spaceAbove, spaceBelow) < CARD_ALLOWANCE);
+  const cardBelow = !docked && rect !== null && spaceBelow >= spaceAbove;
+
+  const barOffset = !docked && barLifted ? liftedOffset : restingOffset;
 
   // Above the hole, the card must also clear the button whenever that has
   // been lifted to sit above the hole too — otherwise they overlap.
-  const cardStyle = !rect
+  const cardStyle = centered
     ? { top: Math.max(insets.top + 80, screenH / 2 - 130) }
-    : cardBelow
-      ? { top: holeBottom + 14 }
-      : { bottom: (barLifted ? barOffset + BUTTON_HEIGHT : screenH - holeTop) + 14 };
+    : docked
+      ? { bottom: restingOffset + BUTTON_HEIGHT + 14 }
+      : cardBelow
+        ? { top: holeBottom + 14 }
+        : { bottom: (barLifted ? liftedOffset + BUTTON_HEIGHT : screenH - holeTop) + 14 };
 
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-      {rect === null ? (
+      {explore ? null : rect === null ? (
         // No target (or it never measured): dim everything.
         <View style={[StyleSheet.absoluteFill, { backgroundColor: scrim }]} />
       ) : (
@@ -193,12 +210,32 @@ export default function WalkthroughOverlay() {
         hitSlop={12}
         accessibilityRole="button"
         accessibilityLabel="Skip walkthrough"
-        style={[styles.close, { top: insets.top + 10 }]}
+        style={[
+          styles.close,
+          { top: insets.top + 10 },
+          // Nothing is dimmed on an explore step, so the ✕ needs its own
+          // chip to stay legible over the real screen.
+          explore && {
+            backgroundColor: theme.card,
+            borderWidth: 1,
+            borderColor: theme.border,
+            borderRadius: 17,
+          },
+        ]}
       >
-        <Ionicons name="close" size={26} color="#ffffff" />
+        <Ionicons name="close" size={26} color={explore ? theme.text : '#ffffff'} />
       </Pressable>
 
-      <View style={[styles.card, cardStyle, { backgroundColor: theme.card, borderColor: theme.rule }]}>
+      <View
+        style={[
+          styles.card,
+          cardStyle,
+          { backgroundColor: theme.cardRaised, borderColor: theme.accentDeep },
+        ]}
+      >
+        {/* Accent spine down the side — the clearest signal that this box is
+            the tour talking, not another of the app's white cards. */}
+        <View style={[styles.cardSpine, { backgroundColor: theme.accent }]} />
         <Text style={[styles.counter, { color: theme.accentDeep }]}>
           {`STEP ${stepIndex + 1} OF ${stepCount}`}
         </Text>
@@ -231,8 +268,17 @@ const styles = StyleSheet.create({
     right: 20,
     borderWidth: 2,
     padding: 18,
+    paddingLeft: 24,
     zIndex: 2,
+    overflow: 'hidden',
+    // Lifted off the page so it reads as chrome floating over the app.
+    shadowColor: '#000000',
+    shadowOpacity: 0.34,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 10,
   },
+  cardSpine: { position: 'absolute', left: 0, top: 0, bottom: 0, width: 6 },
   counter: {
     fontFamily: fonts.bodyBold,
     fontSize: 11,

@@ -6,7 +6,6 @@ import { RootStackParamList } from '../navigation';
 import { fonts, useTheme } from '../theme';
 import { useRuleset } from '../state/RulesetContext';
 import { RulesetId } from '../types';
-import { useWalkthroughTarget } from '../walkthrough/useWalkthroughTarget';
 import { useWalkthrough } from '../walkthrough/WalkthroughContext';
 import { Card, Rule, SectionLabel, rowDivider } from '../ui';
 
@@ -50,8 +49,10 @@ const GROUPS: {
 export default function LibraryScreen({ navigation }: Props) {
   const theme = useTheme();
   const { ruleset, setRuleset } = useRuleset();
-  const banksTarget = useWalkthroughTarget('library.banks');
   const { step, next } = useWalkthrough();
+  // The tour docks its card over the bottom of this screen, so give the list
+  // room to scroll clear of it.
+  const tourPadding = step?.explore ? 250 : 0;
 
   const choose = (id: RulesetId) => {
     setRuleset(id);
@@ -64,14 +65,11 @@ export default function LibraryScreen({ navigation }: Props) {
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>
       <Rule theme={theme} />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 48 + tourPadding }]}>
         <Text style={[styles.lede, { color: theme.subtleText }]}>
           Pick the bank you're training on. Each keeps its own schedule and stats.
         </Text>
 
-        {/* Wraps every group so the walkthrough can spotlight the whole
-            list of banks and leave them tappable. */}
-        <View {...banksTarget} collapsable={false}>
         {GROUPS.map((group) => (
           <View key={group.heading} style={styles.group}>
             <SectionLabel theme={theme}>{group.heading}</SectionLabel>
@@ -118,14 +116,13 @@ export default function LibraryScreen({ navigation }: Props) {
             </Card>
           </View>
         ))}
-        </View>
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20, paddingBottom: 48 },
+  container: { padding: 20 },
   lede: { fontFamily: fonts.body, fontSize: 13.5, lineHeight: 20, marginBottom: 24 },
   group: { marginBottom: 24 },
   row: {

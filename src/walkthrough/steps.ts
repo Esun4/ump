@@ -6,7 +6,6 @@
 // registers falls back to a centred card, so adding a step here can't wedge
 // the tour.
 export type TargetKey =
-  | 'library.banks'
   | 'home.hero'
   | 'home.train'
   | 'home.featured'
@@ -23,6 +22,11 @@ export interface WalkthroughStep {
   body: string;
   target?: TargetKey;
   goTo?: StepDestination;
+  // Hands the whole screen to the user: nothing is dimmed or cut out, so they
+  // can scroll the real list and tap anything. Used where a spotlight would
+  // have to cover the entire screen anyway (the bank list). The step card
+  // docks above the button instead of chasing a target.
+  explore?: boolean;
   // Step 2 only: picking a bank advances the tour on its own, so Continue
   // reads as "keep the default" rather than "skip".
   advanceOnRulesetChange?: boolean;
@@ -40,9 +44,9 @@ export const STEPS: WalkthroughStep[] = [
   {
     id: 'bank',
     title: 'Pick your bank',
-    body: 'Everything you drill comes from one bank. Tap one to switch, or keep Little League.',
+    body: 'Everything you drill comes from one bank. Scroll the list and tap one to switch, or keep Little League.',
     goTo: 'Library',
-    target: 'library.banks',
+    explore: true,
     advanceOnRulesetChange: true,
     continueLabel: 'KEEP LITTLE LEAGUE',
   },
